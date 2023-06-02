@@ -20,7 +20,7 @@ class Bluetooth:
         
         for i in range(len(service_matches)):
             print("name: " + service_matches[i]["name"])
-            print("port: " + service_matches[i]["port"])
+            print("port: %d" % service_matches[i]["port"])
             print("protocol: " + service_matches[i]["protocol"])
         
         if(len(service_matches) == 1):

@@ -1,9 +1,16 @@
 import bluetooth
 
 class Bluetooth:
-    def scan(self, mac_address):
+    
+    
+    def scan(self):
         nearby_devices = bluetooth.discover_devices(lookup_names=True) 
         print("found %d devices" % len(nearby_devices)) 
         
         for addr, name in nearby_devices: 
-            print(" %s - %s" % (addr, name)) 
+            print(" %s - %s" % (addr, name))
+            
+    def connect(mac_addresss):
+        service_matches = find_service(mac_addresss)
+        for i in range(len(service_matches)):
+            print(service_matches[i])

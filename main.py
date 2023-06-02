@@ -8,4 +8,6 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi(':)')
     bluetooth = Bluetooth()
-    bluetooth.scan("some mac address")
+    bluetooth.scan()
+    controller_mac_address = "78:21:84:7C:A4:F6"
+    bluetooth.connect(controller_mac_address)

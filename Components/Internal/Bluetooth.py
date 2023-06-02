@@ -1,4 +1,4 @@
-import bluetooth
+from bluetooth import *
 
 class Bluetooth:
     

@@ -19,10 +19,16 @@ class Bluetooth:
             return
         
         for i in range(len(service_matches)):
-            print(service_matches[i])
-            print(service_matches[i]["port"])
-            
+            print("name: %d" % service_matches[i]["name"])
+            print("port: %d" % service_matches[i]["port"])
+            print("protocol: %d" % service_matches[i]["protocol"])
         
+        if(len(service_matches) == 1):
+            print("connecting")
+            socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+            socket.connect((mac_addresss, service_matches[0]["port"]))          
+            print("connected")
+            socket.send("hi")
             
             
         

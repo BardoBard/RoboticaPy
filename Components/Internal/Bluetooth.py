@@ -31,7 +31,7 @@ class Bluetooth:
             socket.send("hi")
             
             while True:
-                data = socket.recy(self.buffer_size)
+                data = socket.recv(self.buffer_size)
                 if data:
                     print(data)
             

@@ -1,7 +1,7 @@
 import bluetooth
 
 class Bluetooth:
-    
+    buffer_size = 1024
     
     def scan(self):
         nearby_devices = bluetooth.discover_devices(lookup_names=True) 
@@ -29,6 +29,12 @@ class Bluetooth:
             socket.connect((mac_addresss, service_matches[0]["port"]))          
             print("connected")
             socket.send("hi")
+            
+            while True:
+                data = socket.recy(self.buffer_size)
+                if data:
+                    print(data)
+            
             
             
         

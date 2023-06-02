@@ -26,6 +26,7 @@ class OpenCv:
                         if a > hierarchy_size:
                             hierarchy_size = a
                             main_box = i
+
                             break
         if main_box == -1:
             return

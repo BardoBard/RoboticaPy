@@ -1,4 +1,4 @@
-from bluetooth import *
+import bluetooth
 
 class Bluetooth:
     
@@ -11,7 +11,7 @@ class Bluetooth:
             print(" %s - %s" % (addr, name))
             
     def connect(self, mac_addresss):
-        service_matches = find_service(mac_addresss)
+        service_matches = bluetooth.find_service(mac_addresss)
         print("found %d services" % len(service_matches))
         for i in range(len(service_matches)):
             print(service_matches[i])

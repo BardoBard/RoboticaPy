@@ -7,7 +7,7 @@ from Information.ControllerData import ControllerData
 
 def get_controller_data(socket):
     while True:
-        time.sleep(0.1)
+        time.sleep(0.5)
         data = socket.recv(Bluetooth.buffer_size)
         ControllerData.fill_data(data)
 
@@ -27,11 +27,8 @@ if __name__ == '__main__':
 
     socket2.send("hello world")
     Bluetooth.disconnect(socket2)
-    socket2 = Bluetooth.connect(app_mac_address, "APP")
-    socket2.send("hello world2")
-    Bluetooth.disconnect(socket2)
 
-    threading.Thread.daemon(get_controller_data(socket))
+    threading.Thread.daemon(get_controller_data(socket)) #TODO: fix daemon thread
 
-    while True:
-        print("hello")
+    # while True:
+    #     print("hello")

@@ -29,9 +29,10 @@ class Bluetooth:
 
         print("found %d devices" % len(service_matches))
 
-        for addr, name in service_matches:
-            print("addr: %d" % addr)
-            print("name: %d" % name)
+        for i in range(len(service_matches)):
+            print("name: " + service_matches[i]["name"])
+            print("port: %d" % service_matches[i]["port"])
+            print("protocol: " + service_matches[i]["protocol"])
 
         # if we're unable to find the device return
         if len(service_matches) == 0:

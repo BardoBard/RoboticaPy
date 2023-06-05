@@ -5,7 +5,7 @@ from Components.Internal.Bluetooth import Bluetooth
 from Information.ControllerData import ControllerData
 
 
-def get_controller_data():
+def get_controller_data(socket):
     while True:
         time.sleep(0.1)
         data = socket.recv(Bluetooth.buffer_size)

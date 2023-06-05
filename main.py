@@ -21,7 +21,7 @@ if __name__ == '__main__':
     controller_mac_address = "00:E1:8C:A5:60:44"
     # Bluetooth.scan()
 
-    socket = Bluetooth.connect(controller_mac_address)
+    socket = Bluetooth.connect(controller_mac_address, "APP")
     if socket is None:
         print('Could not connect')
     socket.send("hello")

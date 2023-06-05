@@ -17,9 +17,10 @@ class Bluetooth:
             print(" %s - %s" % (addr, name))
 
     @staticmethod
-    def connect(mac_address):
+    def connect(mac_address, name=None):
         """
         connects to a given bluetooth device, using given mac address, returns socket object
+        :param name:
         :param mac_address: mac address to connect
         :return: socket
         """
@@ -41,7 +42,7 @@ class Bluetooth:
             return None
 
         # if there is only one device with the mac address connect using socket
-        if len(service_matches) == 1:
+        if name is not None and name in service_matches:
             socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             socket.connect((mac_address, service_matches[0]["port"]))
             return socket

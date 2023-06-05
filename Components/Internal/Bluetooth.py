@@ -27,7 +27,7 @@ class Bluetooth:
         # find the device using mac address
         service_matches = bluetooth.find_service(address=mac_address)
 
-        print("found %d devices" % len())
+        print("found %d devices" % len(service_matches))
 
         # if we're unable to find the device return
         if len(service_matches) == 0:

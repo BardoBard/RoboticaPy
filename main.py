@@ -27,5 +27,6 @@ if __name__ == '__main__':
 
     t1 = threading.Thread(get_controller_data(socket))
     t1.start()
-    print("hello")
+    while True:
+        print("hello")
     t1.join()

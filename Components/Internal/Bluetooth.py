@@ -17,7 +17,7 @@ class Bluetooth:
             print(" %s - %s" % (addr, name))
 
     @staticmethod
-    def connect(mac_address, name=None):
+    def connect(mac_address, name):
         """
         connects to a given bluetooth device, using given mac address, returns socket object
         :param name:

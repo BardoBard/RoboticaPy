@@ -42,7 +42,7 @@ class Bluetooth:
             return None
 
         # if there is only one device with the mac address connect using socket
-        if not any(d['name'] == name for d in service_matches:
+        if not any(d['name'] == name for d in service_matches):
             socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             socket.connect((mac_address, service_matches[0]["port"]))
             return socket

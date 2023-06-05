@@ -22,6 +22,8 @@ if __name__ == '__main__':
     # Bluetooth.scan()
 
     socket = Bluetooth.connect(controller_mac_address)
+    if socket is None:
+        print('Could not connect')
     socket.send("hello")
     # t1 = threading.Thread(get_controller_data())
     # t1.start()

@@ -30,13 +30,15 @@ class Bluetooth:
         # if we're unable to find the device return
         if len(service_matches) == 0:
             print("no services found")
-            return
+            return None
 
         # if there is only one device with the mac address connect using socket
         if len(service_matches) == 1:
             socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             socket.connect((mac_address, service_matches[0]["port"]))
             return socket
+
+        return None
 
     @staticmethod
     def disconnect(socket):

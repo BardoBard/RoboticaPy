@@ -17,7 +17,7 @@ class Controller:
     def detect_object(self):  # maybe needs to be removed
         return  # void
 
-    def main(self):
+    if __name__ == '__main__':
         # main loop or what/however is done because i don't know how constructer/ destructors work at the moment in
         # python im doing camera stuff in this loop as well
         opencv_ = OpenCv()
@@ -25,12 +25,10 @@ class Controller:
         while 1:
             ret, img = cap.read()
             if ret:
-                opencv_.detect_object(img)
+                cv2.imshow('picture', opencv_.detect_object(img))#todo remove for pi
 
                 if cv2.waitKey(5) >= 0:
                     break
 
             else:  # empty image
                 break
-
-        return

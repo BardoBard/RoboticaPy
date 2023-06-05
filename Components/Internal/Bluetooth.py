@@ -5,6 +5,13 @@ class Bluetooth:
     buffer_size = 1024
 
     @staticmethod
+    def __find_index(service_matches, name):
+        for i in range(len(service_matches)):
+            if service_matches[i]["name"] == name:
+                return i
+        raise Exception('couldn\'t find service')
+
+    @staticmethod
     def scan():
         """
         scans the bluetooth devices and prints them
@@ -37,18 +44,12 @@ class Bluetooth:
             print("protocol: " + service_matches[i]["protocol"])
 
         # if we're unable to find the device return
-        if len(service_matches) == 0:
-            print("no services found")
-            return None
+        index = Bluetooth.__find_index(service_matches, name)
 
         # if there is only one device with the mac address connect using socket
-        if any(d['name'] == name for d in service_matches):
-            socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-            socket.connect((mac_address, service_matches[0]["port"]))
-            return socket
-
-        print("could not find device")
-        return None
+        socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+        socket.connect((mac_address, service_matches[index]["port"]))
+        return socket
 
     @staticmethod
     def disconnect(socket):

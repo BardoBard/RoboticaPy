@@ -1,3 +1,4 @@
+import struct
 import bluetooth
 
 class Bluetooth:
@@ -33,7 +34,27 @@ class Bluetooth:
             while True:
                 data = socket.recv(self.buffer_size)
                 if data:
-                    print(data)
+                    byte_arr = bytes(data)
+                    joystick1 = struct.unpack('H' * 2, byte_arr[0:4])
+                    joystick1_click = bool(byte_arr[4])
+                    joystick2 = struct.unpack("H" * 2, byte_arr[5:9])
+                    joystick2_click = bool(byte_arr[9])
+                    LA = bool(byte_arr[10])
+                    LB = bool(byte_arr[11])
+                    RA = bool(byte_arr[12])
+                    RB = bool(byte_arr[13])
+
+                    print("joystick x: ", joystick1[0])
+                    print("joystick y: ", joystick1[1])
+                    print("joystick1 bool: ", joystick1_click)
+                    print("joystick2 x: ", joystick2[0])
+                    print("joystick2 y: ", joystick2[1])
+                    print("joystick2 click: ", joystick2_click)
+                    print("LA: ", LA)
+                    print("LB: ", LB)
+                    print("RA: ", RA)
+                    print("RB: ", RB)
+
             
             
             

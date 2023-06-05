@@ -27,6 +27,8 @@ class Bluetooth:
         # find the device using mac address
         service_matches = bluetooth.find_service(address=mac_address)
 
+        print("found %d devices" % len())
+
         # if we're unable to find the device return
         if len(service_matches) == 0:
             print("no services found")
@@ -38,6 +40,7 @@ class Bluetooth:
             socket.connect((mac_address, service_matches[0]["port"]))
             return socket
 
+        print("could not find device")
         return None
 
     @staticmethod

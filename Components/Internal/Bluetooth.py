@@ -61,4 +61,3 @@ class Bluetooth:
         :return: void
         """
         socket.close()
-        socket.shutdown()

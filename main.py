@@ -1,13 +1,29 @@
+import threading
+import time
+
 from Components.Internal.Bluetooth import Bluetooth
+from Information.ControllerData import ControllerData
+
+
+def get_controller_data():
+    while True:
+        time.sleep(0.1)
+        data = socket.recv(Bluetooth.buffer_size)
+        ControllerData.fill_data(data)
+
 
 def print_hi(name):
     print(f'Hi, {name}')
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print_hi(':)')
-    bluetooth = Bluetooth()
-    #bluetooth.scan()
+    # controller_mac_address = "78:21:84:7C:A4:F6"
     controller_mac_address = "78:21:84:7C:A4:F6"
-    bluetooth.connect(controller_mac_address)
+    Bluetooth.scan()
+    # socket = Bluetooth.connect(controller_mac_address)
+    # socket.send("hello")
+    # t1 = threading.Thread(get_controller_data())
+    # t1.start()
+    # print("hello")
+    # t1.join()

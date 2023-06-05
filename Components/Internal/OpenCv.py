@@ -13,24 +13,46 @@ class OpenCv:
         grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         ret, thr = cv2.threshold(self.blur_difference(grey, 7, 7, 17, 13), 1, 255, cv2.THRESH_BINARY)
         contours, hierarchy = cv2.findContours(thr, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        
+        
         for i in range(len(contours)):
             cnt = contours[i]
             contour_area = cv2.contourArea(cnt)
-            if contour_area > 1500:
-                area_percentage = self.area_rotated_percentage(cnt, contour_area)
-                if hierarchy[0][i][3] == -1 and area_percentage > 30:
-                    a = 0
-                    for y in range(i + 1, len(hierarchy[0])):
-                        cnr = contours[y]
-                        contour_area_child = cv2.contourArea(cnr)
-                        if contour_area_child > 50:
-                            area_percentage_child = self.area_rotated_percentage(cnr, contour_area)
-                            if hierarchy[0][y][3] == i and area_percentage_child > 30:
-                                a = a + 1
-                                if a > hierarchy_size:
-                                    hierarchy_size = a
-                                    main_box = i
-                                    break
+            if contour_area < 1500: 
+                continue
+            
+            area_percentage = self.area_rotated_percentage(cnt, contour_area)
+            
+            if hierarchy[0][i][3] != -1:
+                continue
+            
+            if area_percentage < 30:
+                continue
+            
+            a = 0
+            for y in range(i + 1, len(hierarchy[0])):
+                cnr = contours[y]
+                contour_area_child = cv2.contourArea(cnr)
+                
+                if contour_area_child < 50:
+                    continue
+                
+                area_percentage_child = self.area_rotated_percentage(cnr, contour_area)
+                
+                if hierarchy[0][y][3] != i:
+                    continue
+                
+                if area_percentage_child < 30:
+                    continue
+                
+                a = a + 1
+                
+                if a < hierarchy_size:
+                    continue
+                 
+                hierarchy_size = a
+                main_box = i
+                break
 
         if main_box == -1:
             return img

@@ -9,7 +9,7 @@ class Bluetooth:
         for i in range(len(service_matches)):
             if service_matches[i]["name"] == name:
                 return i
-        raise Exception('couldn\'t find service')
+        return 0
 
     @staticmethod
     def scan():
@@ -24,7 +24,7 @@ class Bluetooth:
             print(" %s - %s" % (addr, name))
 
     @staticmethod
-    def connect(mac_address, name):
+    def connect(mac_address, name=None):
         """
         connects to a given bluetooth device, using given mac address, returns socket object
         :param name:
@@ -37,19 +37,21 @@ class Bluetooth:
 
         print("found %d devices" % len(service_matches))
 
-        for i in range(len(service_matches)):
-            if service_matches[i]["name"] is not None:
-                print("name: " + service_matches[i]["name"])
-            print("port: %d" % service_matches[i]["port"])
-            print("protocol: " + service_matches[i]["protocol"])
-
         # if we're unable to find the device return
         index = Bluetooth.__find_index(service_matches, name)
 
-        # if there is only one device with the mac address connect using socket
-        socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-        socket.connect((mac_address, service_matches[index]["port"]))
-        return socket
+        # connect to mac address using socket
+        try:
+            socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+            socket.connect((mac_address, service_matches[index]["port"]))
+            return socket
+        finally:
+            if service_matches[index]["name"] is not None:
+                print("name: " + service_matches[index]["name"])
+            print("port: %d" % service_matches[index]["port"])
+            print("protocol: " + service_matches[index]["protocol"])
+
+        raise Exception('couldn\'t find service')
 
     @staticmethod
     def disconnect(socket):

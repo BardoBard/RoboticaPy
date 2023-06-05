@@ -1,7 +1,6 @@
-import threading
 import time
-
 from Components.Internal.Bluetooth import Bluetooth
+import bluetooth
 from Information.ControllerData import ControllerData
 
 

@@ -25,6 +25,7 @@ if __name__ == '__main__':
     if socket is None:
         print('Could not connect')
     socket.send("hello")
+    Bluetooth.disconnect(socket)
     # t1 = threading.Thread(get_controller_data())
     # t1.start()
     # print("hello")

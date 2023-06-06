@@ -7,4 +7,5 @@ class TrackMotor:
     def activate_motor():
         ser = serial.Serial(port='/dev/ttyGS0', baudrate=115200)
         ser.write("hi")
+        ser.close()
         return  # void

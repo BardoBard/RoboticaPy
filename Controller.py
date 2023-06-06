@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 
 from Components.Internal.OpenCv import OpenCv
+from Components.Internal.DataMatrix import scan_data_matrix
 
 
 class Controller:
@@ -25,7 +26,10 @@ class Controller:
         while 1:
             ret, img = cap.read()
             if ret:
-                cv2.imshow('picture', opencv_.detect_object(img).image) #todo remove for pi
+                img2 = opencv_.detect_object(img).image
+                cv2.imshow('picture', img2) #todo remove for pi
+                # scan data matrix
+                scan_data_matrix(img2)
 
                 if cv2.waitKey(5) >= 0:
                     break

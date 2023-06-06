@@ -26,10 +26,11 @@ class Controller:
         while 1:
             ret, img = cap.read()
             if ret:
-                img2 = opencv_.detect_object(img).image
-                cv2.imshow('picture', img2) #todo remove for pi
-                # scan data matrix
-                scan_data_matrix(img2)
+                img2 = opencv_.detect_object(img)
+                cv2.imshow('picture', img2.image) #todo remove for pi
+                # if the image found a box (imageData.found == true) then scan the data matrix
+                if img2.found:
+                    scan_data_matrix(img2.image)
 
                 if cv2.waitKey(5) >= 0:
                     break

@@ -51,7 +51,7 @@ class ControllerData:
 
     @staticmethod
     def normalize():
-        ControllerData.joystick1[0] = Math.normalize_neg_one(ControllerData.joystick1[0], 0, 2750)
-        ControllerData.joystick1[1] = Math.normalize_neg_one(ControllerData.joystick1[1], 725, 2900)
+        ControllerData.joystick1 = (Math.normalize_neg_one(ControllerData.joystick1[0], 0, 2750),
+                                    Math.normalize_neg_one(ControllerData.joystick1[1], 725, 2900))
         print("joystick1 x: ", ControllerData.joystick1[0])
         print("joystick1 y: ", ControllerData.joystick1[1])

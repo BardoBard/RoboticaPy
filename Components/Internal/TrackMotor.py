@@ -1,3 +1,5 @@
+from datetime import time
+
 import pigpio
 import serial as serial
 
@@ -7,7 +9,7 @@ from Information.ControllerData import ControllerData
 class TrackMotor:
     @staticmethod
     def activate_motor():
-        ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200)  # TODO: change usb to config file
+        ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=1)  # TODO: change usb to config file
         # ControllerData.normalize()
         byte_arr = bytearray([])
 
@@ -19,5 +21,7 @@ class TrackMotor:
         print(len(byte_arr))
 
         ser.write(byte_arr)
+        time.sleep(10)
+        print(int(ser.read(4)))
         # ser.close()
         return  # void

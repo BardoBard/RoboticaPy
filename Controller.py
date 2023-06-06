@@ -24,12 +24,16 @@ class Controller:
         opencv_ = OpenCv()
         cap = cv2.VideoCapture(0)
         while 1:
+            # get the image
             ret, img = cap.read()
+            # if the image is not empty
             if ret:
+                # detect the object
                 img2 = opencv_.detect_object(img)
                 cv2.imshow('picture', img2.image) #todo remove for pi
                 # if the image found a box (imageData.found == true) then scan the data matrix
                 if img2.found:
+                    # scan the data matrix code
                     scan_data_matrix(img2.image)
 
                 if cv2.waitKey(5) >= 0:

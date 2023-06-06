@@ -1,5 +1,3 @@
-from datetime import time
-
 import pigpio
 import serial as serial
 
@@ -21,7 +19,7 @@ class TrackMotor:
         print(len(byte_arr))
 
         ser.write(byte_arr)
-        time.sleep(10)
+        # time.sleep(10)
         print(int(ser.read(4)))
         # ser.close()
         return  # void

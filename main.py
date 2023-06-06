@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     TrackMotor.activate_motor()
 
-    socket = Bluetooth.connect(controller_mac_address)
+    # socket = Bluetooth.connect(controller_mac_address)
     # socket2 = Bluetooth.connect(app_mac_address, "APP") #TODO: make sure application doesn't crash
 
     # socket2.send("hello world")

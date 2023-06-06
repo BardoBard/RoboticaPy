@@ -15,6 +15,7 @@ class TrackMotor:
         byte_arr.append(bool(ControllerData.joystick1[0] > 0))
         byte_arr.append(int(abs(ControllerData.joystick1[1]) * 255))
         byte_arr.append(bool(ControllerData.joystick1[1] > 0))
+        print(byte_arr)
         print(len(byte_arr))
 
         ser.write(byte_arr)

@@ -5,9 +5,10 @@ from Information.ControllerData import ControllerData
 
 
 class TrackMotor:
+    ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=1)  # TODO: change usb to config file
+
     @staticmethod
     def activate_motor():
-        ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=1)  # TODO: change usb to config file
         # ControllerData.normalize()
         byte_arr = bytearray([])
 
@@ -18,9 +19,9 @@ class TrackMotor:
         print(byte_arr)
         print(len(byte_arr))
 
-        # ser.write(byte_arr)
+        TrackMotor.ser.write(byte_arr)
         # time.sleep(10)
-        print(ser.read(4))
-        ser.flush()
+        # print(ser.read(5))
+        # ser.flush()
         # ser.close()
         return  # void

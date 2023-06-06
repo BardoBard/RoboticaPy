@@ -22,6 +22,10 @@ class Controller:
 
         opencv_ = OpenCv()
         cap = cv2.VideoCapture(0)
+        
+        if cap.isOpened() == False:
+            print("failed to open video capture")
+            
         while 1:
             ret, img = cap.read()
             if ret:
@@ -32,4 +36,5 @@ class Controller:
                     break
 
             else:  # empty image
+                print("empty image :(")
                 continue

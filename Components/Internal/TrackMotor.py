@@ -16,5 +16,5 @@ class TrackMotor:
         print(len(byte_arr))
 
         ser.write(byte_arr)
-        ser.close()
+        # ser.close()
         return  # void

@@ -32,7 +32,7 @@ if __name__ == '__main__':
     # socket2.send("hello world")
     # Bluetooth.disconnect(socket2)
 
-    threading.Thread.daemon(get_controller_data(socket))  # TODO: fix daemon thread
+    # threading.Thread.daemon(get_controller_data(socket))  # TODO: fix daemon thread
 
     # while True:
     #     print("hello")

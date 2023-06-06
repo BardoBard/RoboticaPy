@@ -12,6 +12,7 @@ def get_controller_data(socket):
         time.sleep(0.5)
         data = socket.recv(Bluetooth.buffer_size)
         ControllerData.fill_data(data)
+        TrackMotor.activate_motor()
 
 
 def print_hi(name):
@@ -24,15 +25,13 @@ if __name__ == '__main__':
     app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
     # Bluetooth.scan()
 
-    TrackMotor.activate_motor()
-
-    # socket = Bluetooth.connect(controller_mac_address)
+    socket = Bluetooth.connect(controller_mac_address)
     # socket2 = Bluetooth.connect(app_mac_address, "APP") #TODO: make sure application doesn't crash
 
     # socket2.send("hello world")
     # Bluetooth.disconnect(socket2)
 
-    # threading.Thread.daemon(get_controller_data(socket))  # TODO: fix daemon thread
+    threading.Thread.daemon(get_controller_data(socket))  # TODO: fix daemon thread
 
     # while True:
     #     print("hello")

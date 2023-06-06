@@ -7,7 +7,7 @@ from Information.ControllerData import ControllerData
 class TrackMotor:
     @staticmethod
     def activate_motor():
-        ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200)  # TODO: change usb to config file
+        ser = serial.Serial(port='/dev/ttyAMA0', baudrate=115200)  # TODO: change usb to config file
         # ControllerData.normalize()
         byte_arr = bytearray(
             [(int(abs(ControllerData.joystick1[0]) * 255)).to_bytes(1, 'little'), ControllerData.joystick1[0] > 0,

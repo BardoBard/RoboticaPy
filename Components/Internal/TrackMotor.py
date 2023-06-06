@@ -21,5 +21,6 @@ class TrackMotor:
         # ser.write(byte_arr)
         # time.sleep(10)
         print(ser.read(4))
+        ser.flush()
         # ser.close()
         return  # void

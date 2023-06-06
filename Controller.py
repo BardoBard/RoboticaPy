@@ -25,10 +25,11 @@ class Controller:
         while 1:
             ret, img = cap.read()
             if ret:
-                cv2.imshow('picture', opencv_.detect_object(img).image) #todo remove for pi
-
+                #cv2.imshow('picture', opencv_.detect_object(img).image) #todo remove for pi
+                data = opencv_.detect_object(img)
+                data.command_line()
                 if cv2.waitKey(5) >= 0:
                     break
 
             else:  # empty image
-                break
+                continue

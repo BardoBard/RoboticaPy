@@ -1,5 +1,7 @@
 import struct
 
+import numpy
+
 
 class ControllerData:
     """
@@ -42,3 +44,11 @@ class ControllerData:
             print("LB: ", ControllerData.LB)
             print("RA: ", ControllerData.RA)
             print("RB: ", ControllerData.RB)
+            ControllerData.normalize()
+            print("\\n")
+
+    @staticmethod
+    def normalize():
+        row_sums = ControllerData.joystick1.sum(axis=1)
+        new_matrix = ControllerData.joystick1 / row_sums[:, numpy.newaxis]
+        print(new_matrix)

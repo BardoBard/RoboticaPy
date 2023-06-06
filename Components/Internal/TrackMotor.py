@@ -11,9 +11,9 @@ class TrackMotor:
         # ControllerData.normalize()
         byte_arr = bytearray([])
 
-        byte_arr.append((int(abs(ControllerData.joystick1[0]) * 255)).to_bytes(1, 'little'))
+        byte_arr.append(int(abs(ControllerData.joystick1[0]) * 255))
         byte_arr.append(bool(ControllerData.joystick1[0] > 0))
-        byte_arr.append((int(abs(ControllerData.joystick1[1]) * 255)).to_bytes(1, 'little'))
+        byte_arr.append(abs(ControllerData.joystick1[1]) * 255)
         byte_arr.append(bool(ControllerData.joystick1[1] > 0))
         print(len(byte_arr))
 

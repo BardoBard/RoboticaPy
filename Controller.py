@@ -3,6 +3,7 @@ import numpy as np
 
 from Components.Internal.OpenCv import OpenCv
 from Components.Internal.DataMatrix import scan_data_matrix
+from Components.Internal.Audio import Audio
 
 
 class Controller:
@@ -35,6 +36,8 @@ class Controller:
                 if img2.found:
                     # scan the data matrix code
                     scan_data_matrix(img2.image)
+                    # play a sound to indicate that the data matrix code has been scanned
+                    Audio.play_sound("beep.wav")
 
                 if cv2.waitKey(5) >= 0:
                     break

@@ -18,14 +18,14 @@ class Controller:
         return  # void
 
     if __name__ == '__main__':
-        # main loop or what/however is done because i don't know how constructer/ destructors work at the moment in
-        # python im doing camera stuff in this loop as well
+        # main loop
+
         opencv_ = OpenCv()
         cap = cv2.VideoCapture(0)
         while 1:
             ret, img = cap.read()
             if ret:
-                cv2.imshow('picture', opencv_.detect_object(img))#todo remove for pi
+                cv2.imshow('picture', opencv_.detect_object(img).image) #todo remove for pi
 
                 if cv2.waitKey(5) >= 0:
                     break

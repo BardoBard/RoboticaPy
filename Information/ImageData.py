@@ -7,12 +7,14 @@ class ImageData:
     kids = 0
     movex = 0
     movey = 0  # int
+    image = None
+    found = False
 
     # default constructor
     def __int__(self):
         return
 
-    def __init__(self, center, angle, contour_area, contour_percentage, rotated_area, kids, movex, movey):
+    def __init__(self, center, angle, contour_area, contour_percentage, rotated_area, kids, movex, movey,img, found):
         self.center = center
         self.angle = angle
         self.contour_area = contour_area
@@ -21,6 +23,8 @@ class ImageData:
         self.kids = kids
         self.movex = movex
         self.movey = movey
+        self.image = img
+        self.found = found
 
     def command_line(self):
         print(self.center)

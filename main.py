@@ -23,12 +23,12 @@ if __name__ == '__main__':
     # Bluetooth.scan()
 
     socket = Bluetooth.connect(controller_mac_address)
-    socket2 = Bluetooth.connect(app_mac_address, "APP")
+    # socket2 = Bluetooth.connect(app_mac_address, "APP") #TODO: make sure application doesn't crash
 
-    socket2.send("hello world")
-    Bluetooth.disconnect(socket2)
+    # socket2.send("hello world")
+    # Bluetooth.disconnect(socket2)
 
-    threading.Thread.daemon(get_controller_data(socket)) #TODO: fix daemon thread
+    threading.Thread.daemon(get_controller_data(socket))  # TODO: fix daemon thread
 
     # while True:
     #     print("hello")

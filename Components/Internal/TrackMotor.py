@@ -20,6 +20,6 @@ class TrackMotor:
 
         ser.write(byte_arr)
         # time.sleep(10)
-        print(int(ser.read(4)))
+        print(ser.read(4))
         # ser.close()
         return  # void

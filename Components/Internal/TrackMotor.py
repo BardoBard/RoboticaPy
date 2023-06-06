@@ -18,7 +18,7 @@ class TrackMotor:
         print(byte_arr)
         print(len(byte_arr))
 
-        ser.write(byte_arr)
+        # ser.write(byte_arr)
         # time.sleep(10)
         print(ser.read(4))
         # ser.close()

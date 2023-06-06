@@ -49,6 +49,6 @@ class ControllerData:
 
     @staticmethod
     def normalize():
-        row_sums = ControllerData.joystick1.sum(axis=1)
-        new_matrix = ControllerData.joystick1 / row_sums[:, numpy.newaxis]
+        sum_joystick = ControllerData.joystick1[0] + ControllerData.joystick[1] - (700 + 700)
+        new_matrix = ControllerData.joystick1 / sum_joystick[:, numpy.newaxis]
         print(new_matrix)

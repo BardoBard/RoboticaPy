@@ -1,3 +1,10 @@
+import pigpio
+import serial as serial
+
+
 class TrackMotor:
-    def activate_motor(self):
+    @staticmethod
+    def activate_motor():
+        ser = serial.Serial(port='/dev/ttyGS0', baudrate=115200)
+        ser.write("hi")
         return  # void

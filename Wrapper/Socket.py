@@ -9,10 +9,10 @@ class Socket:
     __address = None
     __name = None
 
-    # def __getattribute__(self, name):
-    #     if name == '_socket':
-    #         print('socket')
-    #         self.check_connection()  # Check the connection before accessing _socket
+    def __getattribute__(self, name):
+        if name == 'socket':
+            print('socket')
+            self.check_connection()
 
     def check_connection(self):
         while self.socket is None:

@@ -6,14 +6,14 @@ from Information.ImageData import ImageData
 
 class OpenCv:
 
-    def detect_object(self, img):
+    def detect_object(self, img, size):
         """
         :param img: gives the picture of video
         :return: returns imagedata
         """
-        img_size = (1000, 1000)
-        area_main = 1500
-        area_child = 500
+        img_size = (size, size)
+        area_main = 3 * size
+        area_child = size
 
         hierarchy_size = 0
         main_box = -1  # if no contour fits requirements set -1 so no contour is gotten
@@ -70,7 +70,7 @@ class OpenCv:
                                cv2.contourArea(contours[main_box]) * (100.0 / rotated_area), rotated_area,
                                hierarchy_size, 250 - x, y - 250, crop_img, True)
         #imagedata_.command_line()
-
+        print(imagedata_.found)
         return imagedata_
 
     def blur_difference(self, img, h1, s1, h2, s2):

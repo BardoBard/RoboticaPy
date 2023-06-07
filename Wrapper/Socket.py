@@ -24,7 +24,8 @@ class Socket:
     def __getattribute__(self, name):
         if name == 'socket':
             print('socket')
-            while self.socket is None:
+            socket_value = object.__getattribute__(self, '__dict__').get('socket')
+            while socket_value is None:
                 print("connection lost, reconnecting in 1 second")
                 time.sleep(1)
                 self.socket = Bluetooth.connect(self.address, self.name)

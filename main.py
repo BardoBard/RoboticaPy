@@ -15,6 +15,11 @@ async def get_controller_data(bluetooth_socket):
         TrackMotor.activate_motor()
 
 
+async def a():
+    while True:
+        print("hi")
+
+
 def print_hi(name):
     print(f'Hi, {name}')
 
@@ -37,6 +42,4 @@ if __name__ == '__main__':
     # Bluetooth.disconnect(socket2)
 
     asyncio.run(get_controller_data(socket))  # TODO: fix daemon thread
-
-    # while True:
-    #     print("hello")
+    asyncio.run(a())

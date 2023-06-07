@@ -4,9 +4,9 @@ from Components.Internal.Bluetooth import Bluetooth
 
 
 class Socket:
-    _socket = None
-    _address = None
-    _name = None
+    __socket = None
+    __address = None
+    __name = None
 
     def __getattribute__(self, name):
         if name == '_socket':
@@ -14,27 +14,27 @@ class Socket:
             self.check_connection()  # Check the connection before accessing _socket
 
     def check_connection(self):
-        while self._socket is None:
+        while self.__socket is None:
             print("connection lost, reconnecting in 1 second")
             time.sleep(1)
-            self._socket = Bluetooth.connect(self._address, self._name)
+            self.__socket = Bluetooth.connect(self._address, self._name)
 
     def __init__(self, address: str, name: str = None):
         self._address = address
         self._name = name
-        self._socket = Bluetooth.connect(address, name)
-        print(self._socket is None)
+        self.__socket = Bluetooth.connect(address, name)
+        print(self.__socket is None)
 
     # def __del__(self):
     #     self._socket.close()
 
     def send(self, message):
         print("printing socket...")
-        print(self._socket)
+        print(self.__socket)
         # self._socket.send(message)
 
     def receive(self, size):
-        self._socket.recv(size)
+        self.__socket.recv(size)
 
     def close(self, size):
-        self._socket.close()
+        self.__socket.close()

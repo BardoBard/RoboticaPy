@@ -6,8 +6,8 @@ from Components.Internal.Bluetooth import Bluetooth
 
 class Socket:
     socket = None
-    __address = None
-    __name = None
+    address = None
+    name = None
 
     def __getattribute__(self, name):
         if name == 'socket':
@@ -21,6 +21,8 @@ class Socket:
             self.socket = Bluetooth.connect(self._address, self._name)
 
     def __init__(self, address, name=None):
+        self.address = address
+        self.name = name
         self.socket = Bluetooth.connect(address, name)
         print(self.socket is None)
 

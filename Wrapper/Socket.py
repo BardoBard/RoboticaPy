@@ -1,4 +1,5 @@
 import time
+import bluetooth
 
 from Components.Internal.Bluetooth import Bluetooth
 
@@ -8,10 +9,10 @@ class Socket:
     __address = None
     __name = None
 
-    def __getattribute__(self, name):
-        if name == '_socket':
-            print('socket')
-            self.check_connection()  # Check the connection before accessing _socket
+    # def __getattribute__(self, name):
+    #     if name == '_socket':
+    #         print('socket')
+    #         self.check_connection()  # Check the connection before accessing _socket
 
     def check_connection(self):
         while self.socket is None:
@@ -19,7 +20,7 @@ class Socket:
             time.sleep(1)
             self.socket = Bluetooth.connect(self._address, self._name)
 
-    def __init__(self, address, name = None):
+    def __init__(self, address, name=None):
         self.socket = Bluetooth.connect(address, name)
         print(self.socket is None)
 

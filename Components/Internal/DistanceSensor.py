@@ -1,6 +1,4 @@
-import RPi.GPIO as GPIO  # does not work on windows must be installed on pi
-from gpiozero import DistanceSensor as DS
-import time
+from gpiozero import DistanceSensor as DS #library built on top of rpi.gpio and pigpio
 
 
 class DistanceSensor:

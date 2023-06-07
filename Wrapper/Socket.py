@@ -19,11 +19,10 @@ class Socket:
             time.sleep(1)
             self._socket = Bluetooth.connect(self._address, self._name)
 
-    def __init__(self, address, name=None):
+    def __init__(self, address: str, name: str = None):
         self._address = address
         self._name = name
         self._socket = Bluetooth.connect(address, name)
-        return self
 
     # def __del__(self):
     #     self._socket.close()

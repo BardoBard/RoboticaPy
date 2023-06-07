@@ -24,10 +24,10 @@ if __name__ == '__main__':
     app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
     # Bluetooth.scan()
 
-    socket = Socket(controller_mac_address)
-    print(socket)
+    socket_ = Socket(controller_mac_address)
+    print(socket_)
     while True:
-        socket.send("hi")
+        socket_.send("hi")
     socket.close()
     # socket2 = Bluetooth.connect(app_mac_address, "APP") #TODO: make sure application doesn't crash
 

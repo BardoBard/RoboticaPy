@@ -8,7 +8,6 @@ from Information.ControllerData import ControllerData
 
 def get_controller_data(socket):
     while True:
-        time.sleep(0.5)
         data = socket.recv(Bluetooth.buffer_size)
         ControllerData.fill_data(data)
         TrackMotor.activate_motor()

@@ -41,5 +41,7 @@ if __name__ == '__main__':
     # socket2.send("hello world")
     # Bluetooth.disconnect(socket2)
 
-    asyncio.run(get_controller_data(socket))  # TODO: fix daemon thread
-    asyncio.run(a())
+    controller = asyncio.create_task(get_controller_data(socket))  # TODO: fix daemon thread
+    a = asyncio.create_task(a())
+
+    asyncio.gather(controller, a)

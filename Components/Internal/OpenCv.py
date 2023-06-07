@@ -6,14 +6,13 @@ from Information.ImageData import ImageData
 
 class OpenCv:
 
-    def detect_object(self, img):
+    def detect_object(self, img, size):
         """
         :param img: gives the picture of video
         :return: returns imagedata
         """
-        img_size = (1000, 1000)
-        area_main = 1500
-        area_child = 500
+        img_size = (size, size)
+
 
         hierarchy_size = 0
         main_box = -1  # if no contour fits requirements set -1 so no contour is gotten
@@ -31,14 +30,14 @@ class OpenCv:
 
             # -1 means contour has no parent
             # 1500 is the area that needs to be checked
-            if not self.loop_checks(cnt, i, hierarchy, -1, area_main):
+            if not self.loop_checks(cnt, i, hierarchy, -1, 3 * size):
                 continue
 
             a = 0
             for y in range(i + 1, len(hierarchy[0])):
                 cnr = contours[y]
 
-                if not self.loop_checks(cnr, y, hierarchy, i, area_child):
+                if not self.loop_checks(cnr, y, hierarchy, i, size):
                     continue
 
                 if ++a < hierarchy_size:  # contour with the most amount of children

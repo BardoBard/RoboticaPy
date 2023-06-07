@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 
+from Components.Internal.DistanceSensor import DistanceSensor
 from Components.Internal.OpenCv import OpenCv
 from Components.Internal.DataMatrix import scan_data_matrix
 
@@ -20,8 +21,9 @@ class Controller:
 
     if __name__ == '__main__':
         # main loop
-
+        mindistance = 100 #mindistance
         opencv_ = OpenCv()
+        sensor_ = DistanceSensor()
         cap = cv2.VideoCapture(0)
         while 1:
             # get the image
@@ -29,10 +31,10 @@ class Controller:
             # if the image is not empty
             if ret:
                 # detect the object
-                img2 = opencv_.detect_object(img)
-                cv2.imshow('picture', img2.image) #todo remove for pi
-                # if the image found a box (imageData.found == true) then scan the data matrix
-                if img2.found:
+                img2 = opencv_.detect_object(img,500)
+                cv2.imshow('picture', img2.image) # todo remove for pi
+                # if the image found a box (imageData.found == true) and its within the mindistance then scan the data matrix
+                if img2.found and sensor_.find_distance() <= mindistance :
                     # scan the data matrix code
                     scan_data_matrix(img2.image)
 

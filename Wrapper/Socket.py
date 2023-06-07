@@ -24,11 +24,14 @@ class Socket:
         self._name = name
         self._socket = Bluetooth.connect(address, name)
 
-    def __del__(self):
-        self._socket.close()
+    # def __del__(self):
+    #     self._socket.close()
 
     def send(self, message):
         self._socket.send(message)
 
     def receive(self, size):
         self._socket.recv(size)
+
+    def close(self, size):
+        self._socket.close()

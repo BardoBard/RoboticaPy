@@ -13,7 +13,7 @@ class Socket:
         while self.socket is None:
             print("connection lost, reconnecting in 1 second")
             time.sleep(1)
-            self.socket = Bluetooth.connect(self._address, self._name)
+            self.socket = Bluetooth.connect(self.address, self.name)
 
     def __getattribute__(self, name):
         if name == 'socket':

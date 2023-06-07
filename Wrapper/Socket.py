@@ -29,6 +29,7 @@ class Socket:
                 print("connection lost, reconnecting in 1 second")
                 time.sleep(1)
                 self.socket = Bluetooth.connect(self.address, self.name)
+        return super().__getattribute__(name)  # Fall back to default behavior
 
     # def __del__(self):
     #     self._socket.close()

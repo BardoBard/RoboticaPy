@@ -9,16 +9,16 @@ class Socket:
     address = None
     name = None
 
-    def __getattribute__(self, name):
-        if name == 'socket':
-            print('socket')
-            self.check_connection()
-
     def check_connection(self):
         while self.socket is None:
             print("connection lost, reconnecting in 1 second")
             time.sleep(1)
             self.socket = Bluetooth.connect(self._address, self._name)
+
+    def __getattribute__(self, name):
+        if name == 'socket':
+            print('socket')
+            self.check_connection()
 
     def __init__(self, address, name=None):
         self.address = address

@@ -1,3 +1,4 @@
+import asyncio
 import threading
 from Components.Internal.Bluetooth import Bluetooth
 import bluetooth
@@ -35,8 +36,7 @@ if __name__ == '__main__':
     # socket2.send("hello world")
     # Bluetooth.disconnect(socket2)
 
-    a = get_controller_data(Socket)  # TODO: fix daemon thread
+    asyncio.run(get_controller_data(Socket))  # TODO: fix daemon thread
 
-    await a
     # while True:
     #     print("hello")

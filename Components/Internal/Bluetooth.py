@@ -44,6 +44,7 @@ class Bluetooth:
         try:
             socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             socket.connect((mac_address, service_matches[index]["port"]))
+            print("connected")
             return socket
         finally:
             if service_matches[index]["name"] is not None:

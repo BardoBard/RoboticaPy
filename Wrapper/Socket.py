@@ -4,7 +4,7 @@ from Components.Internal.Bluetooth import Bluetooth
 
 
 class Socket:
-    socket = False
+    socket = None
     __address = None
     __name = None
 
@@ -19,9 +19,7 @@ class Socket:
             time.sleep(1)
             self.socket = Bluetooth.connect(self._address, self._name)
 
-    def __init__(self, address: str, name: str = None):
-        self.__address = address
-        self.__name = name
+    def __init__(self, address, name = None):
         self.socket = Bluetooth.connect(address, name)
         print(self.socket is None)
 

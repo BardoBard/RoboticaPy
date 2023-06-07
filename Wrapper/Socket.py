@@ -23,6 +23,7 @@ class Socket:
         self._address = address
         self._name = name
         self._socket = Bluetooth.connect(address, name)
+        print(self._socket is None)
 
     # def __del__(self):
     #     self._socket.close()

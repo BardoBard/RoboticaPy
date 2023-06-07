@@ -13,7 +13,6 @@ class Socket:
         self.address = address
         self.name = name
         self.socket = Bluetooth.connect(address, name)
-        print(self.socket is None)
 
     def check_connection(self):
         while self.socket is None:

@@ -1,15 +1,14 @@
+import pigpio
 import serial as serial
 
 from Information.ControllerData import ControllerData
 
 
 class TrackMotor:
-    ser = serial.Serial()
+    ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=1)  # TODO: change usb to config file
 
-    def __init__(self, usb):
-        self.ser = serial.Serial(port='/dev/tty' + usb, baudrate=115200, timeout=1)  # TODO: change usb to config file
-
-    def activate_motor(self):
+    @staticmethod
+    def activate_motor():
         # ControllerData.normalize()
         byte_arr = bytearray([])
 
@@ -21,8 +20,9 @@ class TrackMotor:
             print(int(i))
         print(len(byte_arr))
 
-        self.ser.write(byte_arr)
+        TrackMotor.ser.write(byte_arr)
+        # time.sleep(10)
+        # print(ser.read(5))
+        # ser.flush()
+        # ser.close()
         return  # void
-
-    def __def__(self):
-        self.ser.close()

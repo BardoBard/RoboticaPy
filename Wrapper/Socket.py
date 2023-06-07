@@ -23,7 +23,8 @@ class Socket:
     def __getattribute__(self, name):
         if name == 'socket':
             print('socket')
-            self.check_connection(self)
+            self.check_connection()
+        return object.__getattribute__(self, name)
 
     # def __del__(self):
     #     self._socket.close()

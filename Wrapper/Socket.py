@@ -25,7 +25,7 @@ class Socket:
     def __getattribute__(self, name):
         if name == 'socket':
             print('socket')
-            self.check_connection()
+            # self.check_connection()
         return super().__getattribute__(name)  # Fall back to default behavior
 
     # def __del__(self):

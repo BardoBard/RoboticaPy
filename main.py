@@ -24,13 +24,24 @@ def print_hi(name):
     print(f'Hi, {name}')
 
 
-if __name__ == '__main__':
+async def main():
     print_hi(':)')
     controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
     app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
     # Bluetooth.scan()
 
     socket = Socket(controller_mac_address)
+    await asyncio.gather(get_controller_data(socket),
+                         a())
+
+
+if __name__ == '__main__':
+    # print_hi(':)')
+    # controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
+    # app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
+    # Bluetooth.scan()
+
+    # socket = Socket(controller_mac_address)
     # print(socket.address)
     # print(socket.socket)
     # while True:
@@ -41,7 +52,6 @@ if __name__ == '__main__':
     # socket2.send("hello world")
     # Bluetooth.disconnect(socket2)
 
-    controller = asyncio.create_task(get_controller_data(socket))  # TODO: fix daemon thread
-    a = asyncio.create_task(a())
+    # controller = asyncio.create_task()  # TODO: fix daemon thread
 
-    await asyncio.gather(controller, a)
+    asyncio.run(main())

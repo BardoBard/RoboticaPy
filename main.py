@@ -10,7 +10,7 @@ def get_controller_data(socket):
     while True:
         data = socket.recv(Bluetooth.buffer_size)
         ControllerData.fill_data(data)
-        TrackMotor.activate_motor()
+        # TrackMotor.activate_motor()
 
 
 def print_hi(name):

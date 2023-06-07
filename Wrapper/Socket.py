@@ -28,6 +28,7 @@ class Socket:
     #     self._socket.close()
 
     def send(self, message):
+        print("printing socket...")
         print(self._socket)
         self._socket.send(message)
 

@@ -8,7 +8,7 @@ from Information.ControllerData import ControllerData
 from Wrapper.Socket import Socket
 
 
-def get_controller_data(bluetooth_socket):
+async def get_controller_data(bluetooth_socket):
     while True:
         data = bluetooth_socket.receive(14)
         ControllerData.fill_data(data)
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     # socket2.send("hello world")
     # Bluetooth.disconnect(socket2)
 
-    get_controller_data(Socket)  # TODO: fix daemon thread
+    asyncio.run(get_controller_data(socket))  # TODO: fix daemon thread
 
     # while True:
     #     print("hello")

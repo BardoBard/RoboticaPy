@@ -18,4 +18,4 @@ class Math:
         """
         normalizes a number between -1 and 1
         """
-        return numpy.clip(2 * ((value - min_value) / (max_value - min_value)) - 1, min=-1, max=1)
+        return 2 * ((value - min_value) / (max_value - min_value)) - 1

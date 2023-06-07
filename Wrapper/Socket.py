@@ -4,7 +4,7 @@ from Components.Internal.Bluetooth import Bluetooth
 
 
 class Socket:
-    __socket = None
+    __socket = False
     __address = None
     __name = None
 

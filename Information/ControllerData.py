@@ -42,7 +42,5 @@ class ControllerData:
     def normalize_joysticks():
         ControllerData.joystick1 = (Math.normalize_neg(ControllerData.joystick1[0], 725, 2900),
                                     -Math.normalize_neg(ControllerData.joystick1[1], 0, 2760))  # TODO: make magic numbers generic
-        ControllerData.joystick2 = (Math.normalize_neg(ControllerData.joystick2[0], 725, 2900),
-                                    -Math.normalize_neg(ControllerData.joystick2[1], 0,
-                                                        2760))  # TODO: make magic numbers generic
+
 

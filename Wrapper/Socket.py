@@ -16,7 +16,7 @@ class Socket:
 
     def check_connection(self):
         socket_value = object.__getattribute__(self, '__dict__').get('socket')
-        while socket_value is None:
+        while socket_value.connected:
             print("connection lost, reconnecting in 1 second")
             time.sleep(1)
             self.socket = Bluetooth.connect(self.address, self.name)
@@ -31,12 +31,10 @@ class Socket:
     #     self._socket.close()
 
     def send(self, message):
-        print("printing socket...")
-        print(self.socket)
-        # self._socket.send(message)
+        self._socket.send(message)
 
     def receive(self, size):
-        self.socket.recv(size)
+        return self.socket.recv(size)
 
     def close(self, size):
         self.socket.close()

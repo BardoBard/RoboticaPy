@@ -28,7 +28,7 @@ if __name__ == '__main__':
     print(socket.address)
     print(socket.socket)
     while True:
-        socket.send("hi")
+        print(socket.receive(14))
     socket.close()
     # socket2 = Bluetooth.connect(app_mac_address, "APP") #TODO: make sure application doesn't crash
 

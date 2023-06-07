@@ -30,7 +30,7 @@ class Socket:
     def send(self, message):
         print("printing socket...")
         print(self._socket)
-        self._socket.send(message)
+        # self._socket.send(message)
 
     def receive(self, size):
         self._socket.recv(size)

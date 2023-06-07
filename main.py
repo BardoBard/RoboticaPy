@@ -44,4 +44,5 @@ if __name__ == '__main__':
     controller = asyncio.create_task(get_controller_data(socket))  # TODO: fix daemon thread
     a = asyncio.create_task(a())
 
-    asyncio.gather(controller, a)
+    gather = asyncio.gather(controller, a)
+    await gather

@@ -23,6 +23,7 @@ class Bluetooth:
         for addr, name in nearby_devices:
             print(" %s - %s" % (addr, name))
 
+    @staticmethod
     def connect(mac_address, name=None):
         """
         connects to a given bluetooth device, using given mac address, returns socket object

@@ -14,21 +14,17 @@ class Socket:
         self.name = name
         self.socket = Bluetooth.connect(address, name)
 
-    # def check_connection(self):
-    #     while self.socket is None:
-    #         print("connection lost, reconnecting in 1 second")
-    #         time.sleep(1)
-    #         self.socket = Bluetooth.connect(self.address, self.name)
+    def check_connection(self):
+        socket_value = object.__getattribute__(self, '__dict__').get('socket')
+        while socket_value is None:
+            print("connection lost, reconnecting in 1 second")
+            time.sleep(1)
+            self.socket = Bluetooth.connect(self.address, self.name)
 
     # here is the error
     def __getattribute__(self, name):
         if name == 'socket':
             print('socket')
-            socket_value = object.__getattribute__(self, '__dict__').get('socket')
-            while socket_value is None:
-                print("connection lost, reconnecting in 1 second")
-                time.sleep(1)
-                self.socket = Bluetooth.connect(self.address, self.name)
         return super().__getattribute__(name)  # Fall back to default behavior
 
     # def __del__(self):

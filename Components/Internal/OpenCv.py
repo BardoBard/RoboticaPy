@@ -21,35 +21,40 @@ class OpenCv:
         grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         # use blur_difference to get the difference between 2 blurs
-
+        # first 7 is kernel size of first blur, second 7 is standard deviation of first blur image
+        # 17 is kernel size of second blur, 13 is standard deviation of second blur image
+        # 1 is the threshhold
+        # 255 is the maxvalue
         ret, thr = cv2.threshold(self.blur_difference(grey, 7, 7, 17, 13), 1, 255, cv2.THRESH_BINARY)
         contours, hierarchy = cv2.findContours(thr, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-        # loop for getting right contour
+        # loop for getting right contour with i being index
         for i in range(len(contours)):
-            cnt = contours[i]
+            contour = contours[i]
 
             # -1 means contour has no parent
-            # 1500 is the area that needs to be checked
-            if not self.loop_checks(cnt, i, hierarchy, -1, area_main):
+            if not self.loop_checks(contour, hierarchy[0][i][3] , -1, area_main):
                 continue
 
-            a = 0
+
+            max_child = 0
+            # y index of the child contour
             for y in range(i + 1, len(hierarchy[0])):
-                cnr = contours[y]
+                contour_child = contours[y]
 
-                if not self.loop_checks(cnr, y, hierarchy, i, area_child):
+                if not self.loop_checks(contour_child,hierarchy[0][y][3] , i, area_child):
                     continue
 
-                if ++a < hierarchy_size:  # contour with the most amount of children
+                # contour with the most amount of children will be taken with
+                if ++max_child < hierarchy_size:
                     continue
 
-                hierarchy_size = a
+                hierarchy_size = max_child
                 main_box = i
                 break
 
         if main_box == -1:
-            return ImageData((0, 0), 0, 0, 0, 0, 0, 0, 0, img, False)
+            return ImageData((0, 0), 0, 0, 0, 0, 0, 0, 0, img, False) # empty imagedata
 
         rotated_rect = cv2.minAreaRect(contours[main_box])
         (x, y), (width, height), angle = rotated_rect
@@ -89,35 +94,33 @@ class OpenCv:
 
     def area_rotated_percentage(self, contour, area):
         """
-        :param contour: contour to calculate
+        :param contour: contour to calculate with
         :param area: area of contour
-        :return: how much does area of contour is equal to area of bounding box in percentage
+        :return: percentage of equal area between contour and and rotated area
         """
         rotated_rect = cv2.minAreaRect(contour)
         (width, height) = rotated_rect[1]
         rotated_area = width * height
-        ar = area * (100.0 / rotated_area)
-        return ar
+        percentage = area * (100.0 / rotated_area)
+        return percentage
 
-    def loop_checks(self, cnt, i, hierarchy, hierarchy_ind, area):
+    def loop_checks(self, contour, hierarchy_parent, hierarchy_index_check, area):
         """
-        :param cnt: contour that is being checked
-        :param i: the index of contour
-        :param hierarchy: 3 matrix of the hierarchy
-        :param hierarchy_ind: index that the 4th element of the 3rd array of the hierarchy needs to be checked with
+        :param contour: contour that is being checked
+        :param hierarchy_parent: id of parent or -1 if no parent
+        :param hierarchy_index_check: the one that the hierarchy parent needs to be checked against
         :param area: the area that the contour will be checked with
         :return: false if it fails its checks, true if it doesn't
         """
-        contour_area = cv2.contourArea(cnt)
-        if contour_area < area:  # min area must be 500 pixels
+        contour_area = cv2.contourArea(contour)
+        if contour_area < area:
             return False
 
-        # in the 3rd array needs to check 3 element for parents
-        if hierarchy[0][i][3] != hierarchy_ind:
+        if hierarchy_parent != hierarchy_index_check:
             return False
 
-        area_percentage = self.area_rotated_percentage(cnt, contour_area)
+        area_percentage = self.area_rotated_percentage(contour, contour_area)
 
-        if area_percentage < 30:  # percentage must be higher than 30
+        if area_percentage < 30:
             return False
         return True

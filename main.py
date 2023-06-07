@@ -4,11 +4,12 @@ import bluetooth
 
 from Components.Internal.TrackMotor import TrackMotor
 from Information.ControllerData import ControllerData
+from Wrapper.Socket import Socket
 
 
-def get_controller_data(socket):
+def get_controller_data(bluetooth_socket):
     while True:
-        data = socket.recv(Bluetooth.buffer_size)
+        data = bluetooth_socket.receive(14)
         ControllerData.fill_data(data)
         # TrackMotor.activate_motor()
 
@@ -23,13 +24,13 @@ if __name__ == '__main__':
     app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
     # Bluetooth.scan()
 
-    socket = Bluetooth.connect(controller_mac_address)
+    socket = Socket(controller_mac_address)
     # socket2 = Bluetooth.connect(app_mac_address, "APP") #TODO: make sure application doesn't crash
 
     # socket2.send("hello world")
     # Bluetooth.disconnect(socket2)
 
-    threading.Thread.daemon(get_controller_data(socket))  # TODO: fix daemon thread
+    threading.Thread.daemon(get_controller_data(Socket))  # TODO: fix daemon thread
 
     # while True:
     #     print("hello")

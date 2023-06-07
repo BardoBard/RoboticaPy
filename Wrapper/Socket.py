@@ -14,7 +14,7 @@ class Socket:
             self.check_connection()  # Check the connection before accessing _socket
 
     def check_connection(self):
-        while not self._socket:
+        while self._socket is None:
             print("connection lost, reconnecting in 1 second")
             time.sleep(1)
             self._socket = Bluetooth.connect(self._address, self._name)
@@ -28,6 +28,7 @@ class Socket:
     #     self._socket.close()
 
     def send(self, message):
+        print(self._socket)
         self._socket.send(message)
 
     def receive(self, size):

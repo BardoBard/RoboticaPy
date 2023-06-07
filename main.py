@@ -25,7 +25,7 @@ if __name__ == '__main__':
     # Bluetooth.scan()
 
     socket = Socket(controller_mac_address)
-    # print(socket)
+    print(socket)
     while True:
         socket.send("hi")
     socket.close()

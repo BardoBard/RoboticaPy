@@ -9,6 +9,12 @@ class Socket:
     address = None
     name = None
 
+    def __init__(self, address, name=None):
+        self.address = address
+        self.name = name
+        self.socket = Bluetooth.connect(address, name)
+        print(self.socket is None)
+
     def check_connection(self):
         while self.socket is None:
             print("connection lost, reconnecting in 1 second")
@@ -19,12 +25,6 @@ class Socket:
         if name == 'socket':
             print('socket')
             self.check_connection()
-
-    def __init__(self, address, name=None):
-        self.address = address
-        self.name = name
-        self.socket = Bluetooth.connect(address, name)
-        print(self.socket is None)
 
     # def __del__(self):
     #     self._socket.close()

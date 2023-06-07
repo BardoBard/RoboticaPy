@@ -1,7 +1,5 @@
 import struct
 
-import numpy
-
 from Components.Math import Math
 
 
@@ -47,13 +45,13 @@ class ControllerData:
             print("LB: ", ControllerData.LB)
             print("RA: ", ControllerData.RA)
             print("RB: ", ControllerData.RB)
-            ControllerData.normalize()
+            ControllerData.normalize_joysticks()
             print("\\n")
 
     @staticmethod
-    def normalize():
-        ControllerData.joystick1 = (Math.normalize_neg_one(ControllerData.joystick1[0], 725, 2900),
-                                    -Math.normalize_neg_one(ControllerData.joystick1[1], 0,
-                                                            2760))  # TODO: make magic numbers generic
+    def normalize_joysticks():
+        ControllerData.joystick1 = (Math.normalize_neg(ControllerData.joystick1[0], 725, 2900),
+                                    -Math.normalize_neg(ControllerData.joystick1[1], 0,
+                                                        2760))  # TODO: make magic numbers generic
         print("joystick1 x: ", ControllerData.joystick1[0])
         print("joystick1 y: ", ControllerData.joystick1[1])

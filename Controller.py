@@ -41,8 +41,8 @@ class Controller:
                     scan_data_matrix(image_data)
                     image_data.print_to_command_line()
 
-                if cv2.waitKey(5) >= 0:
-                    break
+                #if cv2.waitKey(5) >= 0:
+                    #break
 
             else:  # empty image
                 break

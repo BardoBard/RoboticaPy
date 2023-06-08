@@ -39,7 +39,7 @@ class Controller:
                 if image_data.found:
                     # scan the data matrix code
                     image_data = scan_data_matrix(image_data)
-                    print(image_data.matrix_code)
+                    image_data.print_to_command_line()
 
                 #if cv2.waitKey(5) >= 0:
                     #break

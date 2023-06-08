@@ -29,7 +29,7 @@ class Controller:
         
         while True:
             print("loop1")
-            time.sleep(500)
+            time.sleep(1)
             print(queue.qsize())
             if not queue.empty():
                 obj = queue.get()

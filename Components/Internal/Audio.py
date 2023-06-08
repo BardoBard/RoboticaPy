@@ -18,6 +18,7 @@ class Audio:
         :param sound: sound to play
         :return: void
         """
+        pygame.mixer.init()
         pygame.mixer.music.load(sound)
         pygame.mixer.music.play()
 

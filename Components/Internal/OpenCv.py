@@ -20,7 +20,7 @@ class OpenCv:
         if not ret:
             raise Exception("No image found")
         
-        return self.__detect_object(self, img, self.__image_size)
+        return self.__detect_object(img, self.__image_size)
     
     
     def __detect_object(self, img, size):

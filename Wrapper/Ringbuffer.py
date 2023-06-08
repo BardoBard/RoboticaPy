@@ -1,12 +1,12 @@
 import numpy
 
 import threading
-#If a read and a write to the class happen from different threads at the same time
-#half written data may be read and other things may go wrong
-#to prevent this and to make this class thread safe we need to use Threading.Lock.aquire()
-#And Threading.Lock.Release()
-#Read more about thread safety you may reference:
-#https://www.pythontutorial.net/python-concurrency/python-threading-lock/
+# If a read and a write to the class happen from different threads at the same time
+# half written data may be read and other things may go wrong.
+# to prevent this and to make this class thread safe we need to use Threading.Lock.aquire()
+# And Threading.Lock.Release()
+# Read more about thread safety you may reference:
+# https://www.pythontutorial.net/python-concurrency/python-threading-lock/
 
 class RingBuffer:
     """a basic threadsafe implementation of a ringbuffer.
@@ -100,9 +100,9 @@ class RingBuffer:
 
         for i in range(count):
             entries[i] = self.__buffer[read_index]
-            # we count down the read index because we start reading from the buffer 
+            # We count down the read index because we start reading from the buffer 
             # at the most recent entry
-            # and then go back through the buffer to get more entries 
+            # and then go back through the buffer to get more entries.
             read_index -= 1
             if read_index < 0:
                 read_index = self.__size - 1

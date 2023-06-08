@@ -54,3 +54,5 @@ class Audio:
 if __name__ == '__main__':
     audio = Audio()
     audio.play_sound("freebird.mp3")
+    # wait for the sound to finish(15 seconds)
+    pygame.time.wait(15000)

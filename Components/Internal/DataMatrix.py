@@ -1,6 +1,6 @@
 import cv2
 import pylibdmtx.pylibdmtx as dmtx
-import easygui
+from Components.Internal.Audio import Audio
 
 def scan_data_matrix(frame):
     """
@@ -18,5 +18,5 @@ def scan_data_matrix(frame):
             # decode the code
             data = code.data.decode('utf-8')
             print("Data Matrix Code:", data)
-            # show the code in a popup
-            easygui.textbox("Scanned Data Matrix Code", "Scanned Code", data)
+            # play the sound
+            Audio.play_sound(Audio, "beep.wav")

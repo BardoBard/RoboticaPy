@@ -44,9 +44,10 @@ class OpenCv:
 
                 if not self.loop_checks(contour_child,hierarchy[0][y][3] , i, area_child):
                     continue
-
-                # contour with the most amount of children will be taken with
-                if ++max_child < hierarchy_size:
+                
+                max_child += 1
+                # contour with the most amount of children will be taken with\
+                if max_child < hierarchy_size:
                     continue
 
                 hierarchy_size = max_child
@@ -74,8 +75,6 @@ class OpenCv:
         imagedata_ = ImageData(center, angle, cv2.contourArea(contours[main_box]),
                                cv2.contourArea(contours[main_box]) * (100.0 / rotated_area), rotated_area,
                                hierarchy_size, 250 - x, y - 250, crop_img, True, None)
-        #imagedata_.command_line()
-        #print(imagedata_.found)
         return imagedata_
 
     def blur_difference(self, img, h1, s1, h2, s2):
@@ -94,9 +93,9 @@ class OpenCv:
 
     def area_rotated_percentage(self, contour, area):
         """
-        :param contour: contour to calculate with
-        :param area: area of contour
-        :return: percentage of equal area between contour and and rotated area
+        :param contour: Contour to peform the calculation on
+        :param area: Area of contour
+        :return: Percentage of overlapping area between contour and and rotated area
         """
         rotated_rect = cv2.minAreaRect(contour)
         (width, height) = rotated_rect[1]

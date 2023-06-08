@@ -8,6 +8,7 @@ class OpenCv:
 
     def detect_object(self, img, size):
         """
+        :param size: size of the image
         :param img: gives the picture of video
         :return: returns imagedata
         """

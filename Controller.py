@@ -35,11 +35,11 @@ class Controller:
             if ret:
                 # detect the object
                 image_data = opencv_.detect_object(img, 1000)
-                cv2.imshow('picture', image_data.image) #todo remove for pi
                 # if the image found a box (imageData.found == true) then scan the data matrix
                 if image_data.found:
                     # scan the data matrix code
                     scan_data_matrix(image_data)
+                    image_data.print_to_command_line()
 
                 if cv2.waitKey(5) >= 0:
                     break

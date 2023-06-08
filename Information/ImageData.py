@@ -37,7 +37,7 @@ class ImageData:
         print(self.kids)
         print(self.movex)
         print(self.movey)
-
+        print(self.matrix_code)
 
 
         return  # void

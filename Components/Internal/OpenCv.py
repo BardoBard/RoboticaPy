@@ -1,12 +1,29 @@
 import cv2
-import numpy as np
-
 from Information.ImageData import ImageData
-
+from multiprocessing import Process, Queue
 
 class OpenCv:
-
-    def detect_object(self, img, size):
+    
+    def __init__(self):
+        self.__cap = cv2.VideoCapture(0)
+        self.__image_size = 1000
+    
+    def get_image_size(self):
+        return self.__image_size
+    
+    def set_image_size(self, size):
+        self.__image_size = size
+    
+    def get_image_date_from_feed(self) -> ImageData:
+        ret, img = self.__cap.read()
+        
+        if not ret:
+            raise Exception("No image found")
+        
+        return self.__detect_object(self, img, self.__image_size)
+    
+    
+    def __detect_object(self, img, size):
         """
         :param size: size of the image
         :param img: gives the picture of video
@@ -26,7 +43,7 @@ class OpenCv:
         # 17 is kernel size of second blur, 13 is standard deviation of second blur image
         # 1 is the threshhold
         # 255 is the maxvalue
-        ret, thr = cv2.threshold(self.blur_difference(grey, 7, 7, 17, 13), 1, 255, cv2.THRESH_BINARY)
+        ret, thr = cv2.threshold(self.__blur_difference(grey, 7, 7, 17, 13), 1, 255, cv2.THRESH_BINARY)
         contours, hierarchy = cv2.findContours(thr, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         # loop for getting right contour with i being index
@@ -34,7 +51,7 @@ class OpenCv:
             contour = contours[i]
 
             # -1 means contour has no parent
-            if not self.loop_checks(contour, hierarchy[0][i][3] , -1, area_main):
+            if not self.__loop_checks(contour, hierarchy[0][i][3] , -1, area_main):
                 continue
 
 
@@ -43,7 +60,7 @@ class OpenCv:
             for y in range(i + 1, len(hierarchy[0])):
                 contour_child = contours[y]
 
-                if not self.loop_checks(contour_child,hierarchy[0][y][3] , i, area_child):
+                if not self.__loop_checks(contour_child,hierarchy[0][y][3] , i, area_child):
                     continue
                 
                 max_child += 1
@@ -78,7 +95,7 @@ class OpenCv:
                                hierarchy_size, 250 - x, y - 250, crop_img, True, None)
         return imagedata_
 
-    def blur_difference(self, img, h1, s1, h2, s2):
+    def __blur_difference(self, img, h1, s1, h2, s2):
         """
         :param img: img that gets blurred
         :param h1: kernel size of blur 1
@@ -92,7 +109,7 @@ class OpenCv:
         dif = cv2.subtract(b1, b2)
         return dif
 
-    def area_rotated_percentage(self, contour, area):
+    def __area_rotated_percentage(self, contour, area):
         """
         :param contour: Contour to peform the calculation on
         :param area: Area of contour
@@ -104,7 +121,7 @@ class OpenCv:
         percentage = area * (100.0 / rotated_area)
         return percentage
 
-    def loop_checks(self, contour, hierarchy_parent, hierarchy_index_check, area):
+    def __loop_checks(self, contour, hierarchy_parent, hierarchy_index_check, area):
         """
         :param contour: contour that is being checked
         :param hierarchy_parent: id of parent or -1 if no parent
@@ -119,7 +136,7 @@ class OpenCv:
         if hierarchy_parent != hierarchy_index_check:
             return False
 
-        area_percentage = self.area_rotated_percentage(contour, contour_area)
+        area_percentage = self.__area_rotated_percentage(contour, contour_area)
 
         if area_percentage < 30:
             return False

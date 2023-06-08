@@ -36,8 +36,5 @@ class Controller:
                     # scan the data matrix code
                     scan_data_matrix(img2.image)
 
-                if cv2.waitKey(5) >= 0:
-                    break
-
             else:  # empty image
                 break

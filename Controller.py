@@ -1,6 +1,7 @@
 from Components.Internal.OpenCv import OpenCv
 from Components.Internal.DataMatrix import scan_data_matrix
 from multiprocessing import Process, Queue
+import time
 
 def detection_process(queue):
     opencv_ = OpenCv()
@@ -28,6 +29,7 @@ class Controller:
         
         while True:
             print("loop1")
+            time.sleep(500)
             if not queue.empty():
                 obj = queue.get()
                 print(obj)

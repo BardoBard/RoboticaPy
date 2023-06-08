@@ -33,7 +33,7 @@ class Controller:
                 # detect the object
                 img2 = opencv_.detect_object(img,500)
                 cv2.imshow('picture', img2.image) # todo remove for pi
-                # if the image found a box (imageData.found == true) and its within the mindistance then scan the data matrix
+                # if the image found a box (imageData.found == true) and its within the min distance then scan the data matrix
                 if img2.found and sensor_.find_distance() <= mindistance :
                     # scan the data matrix code
                     scan_data_matrix(img2.image)

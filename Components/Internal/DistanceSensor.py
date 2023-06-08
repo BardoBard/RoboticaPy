@@ -1,10 +1,15 @@
-from gpiozero import DistanceSensor as DS #library built on top of rpi.gpio and pigpio
-
+import pigpio
 
 class DistanceSensor:
+    pi1 = pigpio.pi()
 
-    sensor = DS(23,24) #random pins need to be changed later
+    pin_trigger = 23
+    pin_echo = 24
 
     def find_distance(self):
-        a = DS.sensor.distance
+
+        self.pi1.set_mode(self.pin_trigger, pigpio.OUTPUT)
+        self.pi1.write(self.pin_trigger, 0)
+        self.pi1.set_mode(self.pin_echo, pigpio.INPUT)
+        #add more stuff to read distance.
         return

@@ -4,7 +4,7 @@ class Audio:
     # Constructor
     def __init__(self):
         pygame.mixer.init()
-        pygame.mixer.music.load("sound.mp3")
+        pygame.mixer.music.load("beep.wav")
 
     # Play sound
     def play_sound(self):

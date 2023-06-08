@@ -39,7 +39,8 @@ class Controller:
                 # if the image found a box (imageData.found == true) then scan the data matrix
                 if image_data.found:
                     # scan the data matrix code
-                    scan_data_matrix(image_data)
+                    image_data = scan_data_matrix(image_data)
+                    print(image_data.matrix_code)
 
                 if cv2.waitKey(5) >= 0:
                     break

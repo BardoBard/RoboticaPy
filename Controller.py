@@ -1,6 +1,7 @@
 from Components.Internal.OpenCv import OpenCv
 from Components.Internal.DataMatrix import scan_data_matrix
 from multiprocessing import Process, Queue
+from Information.ImageData import ImageData
 import time
 
 def detection_process(queue):
@@ -30,10 +31,6 @@ class Controller:
         while True:
             print("loop1")
             time.sleep(1)
-            print(queue.qsize())
-            if not queue.empty():
-                obj = queue.get()
-                print(obj)
-            else:
-                print(queue.empty())
-        
+            while queue.qsize() > 1:
+                imgdata = ImageData(queue.get())
+                imgdata.print_to_command_line()

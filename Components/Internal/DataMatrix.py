@@ -19,4 +19,5 @@ def scan_data_matrix(frame):
             data = code.data.decode('utf-8')
             print("Data Matrix Code:", data)
             # play the sound
-            Audio.play_sound(Audio, "beep.wav")
+            audio = Audio()
+            audio.play_sound("freebird.mp3")

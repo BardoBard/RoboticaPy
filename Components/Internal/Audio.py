@@ -18,9 +18,8 @@ class Audio:
         :param sound: sound to play
         :return: void
         """
-        pygame.mixer.init()
-        pygame.mixer.music.load(sound)
-        pygame.mixer.music.play()
+        sound_obj = pygame.mixer.Sound(sound)
+        sound_obj.play()
 
     # Stop sound
     def stop_sound(self):
@@ -51,3 +50,7 @@ class Audio:
         :return: void
         """
         pygame.mixer.music.load(sound)
+
+if __name__ == '__main__':
+    audio = Audio()
+    audio.play_sound("freebird.mp3")

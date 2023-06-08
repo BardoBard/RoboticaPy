@@ -15,7 +15,7 @@ def scan_data_matrix(image_data):
 
     # if codes is not empty then print the data matrix code
     if len(codes) <= 0:
-        return
+        return image_data
 
     decoded_codes = []
 

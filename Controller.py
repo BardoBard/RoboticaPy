@@ -3,15 +3,15 @@ from Components.Internal.DataMatrix import scan_data_matrix
 from multiprocessing import Process, Queue
 
 def detection_process(queue):
-        opencv_ = OpenCv()
-        
-        while True:
-            print("loop 2")
-            image_data = opencv_.get_image_date_from_feed()
-            if image_data.found:
-                print("detected something!")
-                image_data = scan_data_matrix(image_data)
-                queue.put(image_data)
+    opencv_ = OpenCv()
+    
+    while True:
+        print("loop 2")
+        image_data = opencv_.get_image_date_from_feed()
+        if image_data.found:
+            print("detected something!")
+            image_data = scan_data_matrix(image_data)
+            queue.put(image_data)
                 
                 
 class Controller:

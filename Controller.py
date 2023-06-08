@@ -34,5 +34,5 @@ class Controller:
             while queue.qsize() > 1:
                 obj = queue.get()
                 print(type(obj))
-                #imgdata = ImageData(queue.get())
-                #imgdata.print_to_command_line()
+                imgdata = ImageData(obj)
+                imgdata.print_to_command_line()

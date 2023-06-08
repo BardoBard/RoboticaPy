@@ -55,7 +55,7 @@ class RingBuffer:
         return copy
 
     def get_last_entry(self):
-        """get the most recent entry into the ringbuffer
+        """get the most recent entry into the ringbuffer or None if there are none
 
         Returns:
             object: the most recent entry in the ringbuffer

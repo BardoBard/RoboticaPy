@@ -30,12 +30,12 @@ class Controller:
             # if the image is not empty
             if ret:
                 # detect the object
-                img2 = opencv_.detect_object(img, 1000)
-                cv2.imshow('picture', img2.image) #todo remove for pi
+                image_data = opencv_.detect_object(img, 1000)
+                cv2.imshow('picture', image_data.image) #todo remove for pi
                 # if the image found a box (imageData.found == true) then scan the data matrix
-                if img2.found:
+                if image_data.found:
                     # scan the data matrix code
-                    asyncio.run(scan_data_matrix(img2.image))
+                    scan_data_matrix(image_data)
 
                 if cv2.waitKey(5) >= 0:
                     break

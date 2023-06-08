@@ -54,7 +54,7 @@ class OpenCv:
                 break
 
         if main_box == -1:
-            return ImageData((0, 0), 0, 0, 0, 0, 0, 0, 0, img, False) # empty imagedata
+            return ImageData((0, 0), 0, 0, 0, 0, 0, 0, 0, img, False, None) # empty imagedata
 
         rotated_rect = cv2.minAreaRect(contours[main_box])
         (x, y), (width, height), angle = rotated_rect
@@ -73,7 +73,7 @@ class OpenCv:
 
         imagedata_ = ImageData(center, angle, cv2.contourArea(contours[main_box]),
                                cv2.contourArea(contours[main_box]) * (100.0 / rotated_area), rotated_area,
-                               hierarchy_size, 250 - x, y - 250, crop_img, True)
+                               hierarchy_size, 250 - x, y - 250, crop_img, True, None)
         #imagedata_.command_line()
         print(imagedata_.found)
         return imagedata_

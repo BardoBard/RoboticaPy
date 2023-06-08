@@ -9,12 +9,13 @@ class ImageData:
     movey = 0  # int
     image = None
     found = False
+    matrix_code = None
 
     # default constructor
     def __int__(self):
         return
 
-    def __init__(self, center, angle, contour_area, contour_percentage, rotated_area, kids, movex, movey,image, found):
+    def __init__(self, center, angle, contour_area, contour_percentage, rotated_area, kids, movex, movey,image, found, matrix_code):
         self.center = center
         self.angle = angle
         self.contour_area = contour_area
@@ -25,6 +26,7 @@ class ImageData:
         self.movey = movey
         self.image = image
         self.found = found
+        self.matrix_code = matrix_code
 
     def print_to_command_line(self):
         print(self.center)

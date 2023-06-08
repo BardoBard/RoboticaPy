@@ -2,7 +2,7 @@ import cv2
 import pylibdmtx.pylibdmtx as dmtx
 
 
-async def scan_data_matrix(image_data):
+def scan_data_matrix(image_data):
     """
     :param image_data: ImageData
     :return: ImageData
@@ -26,8 +26,6 @@ async def scan_data_matrix(image_data):
         # add the code to the list
         decoded_codes.append(data)
 
-    # print the codes
-    print(decoded_codes)
     # add the codes to the image data
     image_data.matrix_code = decoded_codes
     return image_data

@@ -28,10 +28,15 @@ class Controller:
         process = Process(target=detection_process, args=(queue, ))
         process.start()
         
-        while True:
+        #while True:
             #print("loop1")
-            time.sleep(1)
-            while queue.qsize() > 1:
-                obj = queue.get()
-                print(type(obj))
-                obj.print_to_command_line()
+        time.sleep(15)
+        while queue.qsize() > 1:
+            obj = queue.get()
+            print(type(obj))
+            obj.print_to_command_line()
+            
+        process.kill()   
+            
+        
+        

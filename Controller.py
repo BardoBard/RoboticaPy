@@ -8,10 +8,10 @@ def detection_process(queue):
     opencv_ = OpenCv()
     
     while True:
-        print("loop 2")
+        #print("loop 2")
         image_data = opencv_.get_image_date_from_feed()
         if image_data.found:
-            print("detected something!")
+            #print("detected something!")
             image_data = scan_data_matrix(image_data)
             queue.put(image_data)
                 
@@ -29,8 +29,10 @@ class Controller:
         process.start()
         
         while True:
-            print("loop1")
+            #print("loop1")
             time.sleep(1)
             while queue.qsize() > 1:
-                imgdata = ImageData(queue.get())
-                imgdata.print_to_command_line()
+                obj = queue.get()
+                print(type(obj))
+                #imgdata = ImageData(queue.get())
+                #imgdata.print_to_command_line()

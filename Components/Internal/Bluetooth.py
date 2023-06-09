@@ -6,10 +6,14 @@ class Bluetooth:
 
     @staticmethod
     def __find_index(service_matches, name):
+        if len(service_matches) == 1 and name is None:
+            return 0
+
+        # find the index of connection by name
         for i in range(len(service_matches)):
             if service_matches[i]["name"] == name:
                 return i
-        return 0
+        print("could not find connection")
 
     @staticmethod
     def scan():
@@ -47,8 +51,6 @@ class Bluetooth:
             print("connected")
             return socket
         finally:
-            if service_matches[index]["name"] is not None:
-                print("name: " + service_matches[index]["name"])
             print("port: %d" % service_matches[index]["port"])
             print("protocol: " + service_matches[index]["protocol"])
 

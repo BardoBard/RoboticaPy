@@ -10,7 +10,7 @@ class TrackMotor:
     ser = None
 
     def __getattribute__(self, name):
-        if name is "ser":
+        if name == "ser":
             try:
                 time.sleep(1)
                 serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=1)  # TODO: change usb to config file

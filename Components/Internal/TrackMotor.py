@@ -18,7 +18,8 @@ class TrackMotor:
                                          timeout=1)  # TODO: change usb to config file
             except Exception:
                 print("could not find port")
-        return object.__getattribute__(self)
+
+        return super().__getattribute__(name)
 
     def activate_motor(self):
         if self.ser is None:

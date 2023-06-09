@@ -24,6 +24,7 @@ class TrackMotor:
     def activate_motor():
         if TrackMotor.ser is None:
             return
+        print("port is open")
         # ControllerData.normalize()
         byte_arr = bytearray([])
 

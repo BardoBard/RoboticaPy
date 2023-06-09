@@ -1,9 +1,4 @@
-import asyncio
-import threading
-from Components.Internal.Bluetooth import Bluetooth
-import bluetooth
-
-from Components.Internal.TrackMotor import TrackMotor
+from Components.Internal.Motors.TrackMotor import TrackMotor
 from Information.ControllerData import ControllerData
 from Wrapper.Socket import Socket
 

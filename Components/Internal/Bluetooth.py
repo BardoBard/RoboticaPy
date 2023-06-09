@@ -5,17 +5,24 @@ class Bluetooth:
     buffer_size = 1024
 
     @staticmethod
-    def __find_index(service_matches, name):
-        if len(service_matches) == 1 and name is None:
+    def __find_index(services, name):
+        """
+        finds index of service, using name
+        if name is None it will return the first found index
+        :param services: all services
+        :param name: name of service
+        :return: -1 if name is not found, index if found
+        """
+        if len(services) == 1 and name is None:
             return 0
 
         # find the index of connection by name
-        for i in range(len(service_matches)):
-            if service_matches[i]["name"] == name:
+        for i in range(len(services)):
+            if services[i]["name"] == name:
                 return i
 
         print("could not find connection")
-        return None
+        return -1
 
     @staticmethod
     def scan():
@@ -46,20 +53,21 @@ class Bluetooth:
         # if we're unable to find the device return
         index = Bluetooth.__find_index(service_matches, name)
 
+        if index == -1:
+            return None
+
         # connect to mac address using socket
         try:
             socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             socket.connect((mac_address, service_matches[index]["port"]))
             print("connected")
             return socket
-        finally:
-            if index is not None:
-                if service_matches[index]["name"] is not None:
-                    print("name: " + service_matches[index]["name"])
-                print("port: %d" % service_matches[index]["port"])
-                print("protocol: " + service_matches[index]["protocol"])
-
-        return None
+        except Exception as e:
+            if service_matches[index]["name"] is not None:
+                print("name: " + service_matches[index]["name"])
+            print("port: %d" % service_matches[index]["port"])
+            print("protocol: " + service_matches[index]["protocol"])
+            print(e)
 
     @staticmethod
     def disconnect(socket):

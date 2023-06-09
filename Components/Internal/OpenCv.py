@@ -3,18 +3,21 @@ from Information.ImageData import ImageData
 from multiprocessing import Process, Queue
 
 class OpenCv:
-    
+    """Contains our open CV box detection algorithms  
+    """
     def __init__(self):
-        self.__cap = cv2.VideoCapture(0)
-        self.__image_size = 1000
-    
-    def get_image_size(self):
-        return self.__image_size
-    
-    def set_image_size(self, size):
-        self.__image_size = size
+        self.__cap = cv2.VideoCapture(0) #Get a new video feed
+        self.__image_size = 1000 #Images get resized to this size
     
     def get_image_date_from_feed(self) -> ImageData:
+        """Tries to get an image from the video feed and detect if there's something there
+
+        Raises:
+            Exception: The image couldn't be captured
+
+        Returns:
+            ImageData: Class containing the best estimation of where the box is in the image
+        """
         ret, img = self.__cap.read()
         
         if not ret:

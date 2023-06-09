@@ -33,5 +33,5 @@ class TrackMotor:
         byte_arr.append(int(abs(ControllerData.joystick1[1]) * 255))
         byte_arr.append(bool(ControllerData.joystick1[1] > 0))
 
-        TrackMotor.ser.write(byte_arr)
+        self.ser.write(byte_arr)
         return  # void

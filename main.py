@@ -8,31 +8,15 @@ from Information.ControllerData import ControllerData
 from Wrapper.Socket import Socket
 
 
-async def get_controller_data(bluetooth_socket):
+def get_controller_data(bluetooth_socket):
     while True:
         data = bluetooth_socket.receive(14)
         ControllerData.fill_data(data)
         TrackMotor.activate_motor()
 
 
-async def a():
-    while True:
-        print("hi")
-
-
 def print_hi(name):
     print(f'Hi, {name}')
-
-
-async def main():
-    print_hi(':)')
-    controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
-    app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
-    # Bluetooth.scan()
-
-    socket = Socket(controller_mac_address)
-    await asyncio.gather(get_controller_data(socket),
-                         a())
 
 
 if __name__ == '__main__':
@@ -54,4 +38,9 @@ if __name__ == '__main__':
 
     # controller = asyncio.create_task()  # TODO: fix daemon thread
 
-    asyncio.run(main())
+    print_hi(':)')
+    controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
+    app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
+
+    socket = Socket(controller_mac_address)
+    get_controller_data(socket)

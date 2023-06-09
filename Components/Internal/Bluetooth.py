@@ -46,7 +46,7 @@ class Bluetooth:
         """
 
         # find the device using mac address
-        service_matches = bluetooth.find_service(address=mac_address)
+        service_matches = bluetooth.find_service(address=mac_address, name=name)
 
         print("found %d devices" % len(service_matches))
 
@@ -73,12 +73,16 @@ class Bluetooth:
 
     @staticmethod
     def check_connection(socket):
+        """
+        check connection between socket and server
+        :param socket: socket object
+        :return: true if connection is still alive
+        """
         try:
-            socket.recv(0)  # TODO: this is a bit slow, maybe check interval instead of pinging
-            print("true")
+            socket.recv(0)
             return True
         except Exception:
-            print("error occurred while checking connection")
+            print("bluetooth connection disconnected")
             return False
 
     @staticmethod

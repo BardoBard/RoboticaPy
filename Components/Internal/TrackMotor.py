@@ -24,7 +24,6 @@ class TrackMotor:
     def activate_motor(self):
         if self.ser is None:
             return
-        print("port is open")
         # ControllerData.normalize()
         byte_arr = bytearray([])
 
@@ -33,5 +32,8 @@ class TrackMotor:
         byte_arr.append(int(abs(ControllerData.joystick1[1]) * 255))
         byte_arr.append(bool(ControllerData.joystick1[1] > 0))
 
-        self.ser.write(byte_arr)
+        try:
+            self.ser.write(byte_arr)
+        except Exception:
+            print("error writing to serial port")
         return  # void

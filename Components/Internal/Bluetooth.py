@@ -62,6 +62,7 @@ class Bluetooth:
             socket.connect((mac_address, service_matches[index]["port"]))
             print("connected")
             return socket
+
         except Exception as e:
             if service_matches[index]["name"] is not None:
                 print("name: " + service_matches[index]["name"])
@@ -72,12 +73,10 @@ class Bluetooth:
     @staticmethod
     def check_connection(socket):
         try:
-            response = socket.send("ping")
-            if response:
-                print("Connection is still alive.")
-                return True
+            socket.getpeername()
+            return True
         except Exception:
-            print("Error occurred while checking connection.")
+            print("error occurred while checking connection")
             return False
 
     @staticmethod

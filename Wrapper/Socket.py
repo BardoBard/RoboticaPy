@@ -25,9 +25,8 @@ class Socket:
     # here is the error
     def __getattribute__(self, name):
         if name == 'socket':
-            print('socket')
             self.socket = self.check_connection()
-        return super().__getattribute__(name)  # Fall back to default behavior
+        return super().__getattribute__(name)
 
     # def __del__(self):
     #     self._socket.close()
@@ -36,13 +35,13 @@ class Socket:
         try:
             self._socket.send(message)
         except Exception:
-            print('Error')
+            print('error while sending')
 
     def receive(self, size):
         try:
             return self.socket.recv(size)
         except Exception:
-            print('Error')
+            print('error while receiving')
 
     def close(self):
         self.socket.close()

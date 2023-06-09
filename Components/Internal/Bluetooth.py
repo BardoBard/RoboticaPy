@@ -13,7 +13,9 @@ class Bluetooth:
         for i in range(len(service_matches)):
             if service_matches[i]["name"] == name:
                 return i
+
         print("could not find connection")
+        return None
 
     @staticmethod
     def scan():
@@ -51,10 +53,13 @@ class Bluetooth:
             print("connected")
             return socket
         finally:
-            print("port: %d" % service_matches[index]["port"])
-            print("protocol: " + service_matches[index]["protocol"])
+            if index is not None:
+                if service_matches[index]["name"] is not None:
+                    print("name: " + service_matches[index]["name"])
+                print("port: %d" % service_matches[index]["port"])
+                print("protocol: " + service_matches[index]["protocol"])
 
-        raise Exception('couldn\'t find service')
+        return None
 
     @staticmethod
     def disconnect(socket):

@@ -1,3 +1,4 @@
+from Components.Internal.Motors.ArmMotor import ArmMotor
 from Components.Internal.Motors.TrackMotor import TrackMotor
 from Information.ControllerData import ControllerData
 from Wrapper.Socket import Socket
@@ -22,6 +23,8 @@ if __name__ == '__main__':
     controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
     app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
 
-    socket = Socket(controller_mac_address)
+    ArmMotor.initialize()
+
+    # socket = Socket(controller_mac_address)
     # socket_app = Socket(app_mac_address)
-    get_controller_data(socket)
+    # get_controller_data(socket)

@@ -17,4 +17,5 @@ class ArmMotor:
 
             serial_connection.goto(dynamixel_id, 45, speed=200, degrees=True)
 
+        print("closing")
         serial_connection.close()

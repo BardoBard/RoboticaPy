@@ -3,7 +3,8 @@
 - Pybluez v0.30 (only for raspberry)
 - Opencv-contrib-python v4.7.0.72 (headless for raspberry)
 - Pylibdmtx v0.1.10
-- PigPio 1.78
+- PigPio v1.78
+- pyax12 v0.5.dev3
 - *pins library*
 - *audio library*
 

@@ -70,6 +70,17 @@ class Bluetooth:
             print(e)
 
     @staticmethod
+    def check_connection(socket):
+        try:
+            response = socket.recv(1024)
+            if response:
+                print("Connection is still alive.")
+            else:
+                print("No response received. Connection might be lost.")
+        except bluetooth.BluetoothError:
+            print("Error occurred while checking connection.")
+
+    @staticmethod
     def disconnect(socket):
         """
         disconnects from a given bluetooth device

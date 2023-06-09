@@ -1,3 +1,5 @@
+import time
+
 import pigpio
 import serial as serial
 
@@ -5,7 +7,16 @@ from Information.ControllerData import ControllerData
 
 
 class TrackMotor:
-    ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=1)  # TODO: change usb to config file
+    ser = None
+
+    def __getattribute__(self, name):
+        if name is "ser":
+            try:
+                time.sleep(1)
+                serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=1)  # TODO: change usb to config file
+            finally:
+                print("could not find port")
+        return object.__getattribute__(self)
 
     @staticmethod
     def activate_motor():

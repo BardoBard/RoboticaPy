@@ -7,13 +7,15 @@ from Components.Internal.TrackMotor import TrackMotor
 from Information.ControllerData import ControllerData
 from Wrapper.Socket import Socket
 
+tm = TrackMotor()
+
 
 def get_controller_data(bluetooth_socket):
     while True:
         print("printing")
         data = bluetooth_socket.receive(14)
         ControllerData.fill_data(data)
-        TrackMotor.activate_motor()
+        tm.activate_motor()
 
 
 def print_hi(name):

@@ -20,9 +20,8 @@ class TrackMotor:
                 print("could not find port")
         return object.__getattribute__(self)
 
-    @staticmethod
-    def activate_motor():
-        if TrackMotor.ser is None:
+    def activate_motor(self):
+        if self.ser is None:
             return
         print("port is open")
         # ControllerData.normalize()

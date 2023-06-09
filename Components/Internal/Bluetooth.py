@@ -61,6 +61,7 @@ class Bluetooth:
             socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             socket.connect((mac_address, service_matches[index]["port"]))
             print("connected")
+            socket.settimeout(0.5)
             return socket
 
         except Exception as e:
@@ -73,7 +74,6 @@ class Bluetooth:
     @staticmethod
     def check_connection(socket):
         try:
-            socket.settimeout(1)
             socket.getpeername()  # TODO: this is a bit slow, maybe check interval instead of pinging
             return True
         except Exception:

@@ -74,7 +74,7 @@ class Bluetooth:
     @staticmethod
     def check_connection(socket):
         try:
-            socket.getpeername()  # TODO: this is a bit slow, maybe check interval instead of pinging
+            socket.send("ping")  # TODO: this is a bit slow, maybe check interval instead of pinging
             print("true")
             return True
         except Exception:

@@ -25,6 +25,7 @@ class Socket:
     # here is the error
     def __getattribute__(self, name):
         if name == 'socket':
+            print("socket")
             self.socket = self.check_connection()
         return super().__getattribute__(name)
 

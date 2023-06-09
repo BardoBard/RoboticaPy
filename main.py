@@ -26,5 +26,5 @@ if __name__ == '__main__':
     app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
 
     socket = Socket(controller_mac_address)
-    socket_app = Socket(app_mac_address)
+    # socket_app = Socket(app_mac_address)
     get_controller_data(socket)

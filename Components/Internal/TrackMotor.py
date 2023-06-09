@@ -9,11 +9,13 @@ from Information.ControllerData import ControllerData
 class TrackMotor:
     ser = None
 
+    # def __init__(self):
     def __getattribute__(self, name):
         if name == "ser":
             try:
-                time.sleep(1)
-                serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=1)  # TODO: change usb to config file
+                time.sleep(0.5)
+                self.ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200,
+                                         timeout=1)  # TODO: change usb to config file
             finally:
                 print("could not find port")
         return object.__getattribute__(self)
@@ -31,8 +33,4 @@ class TrackMotor:
         byte_arr.append(bool(ControllerData.joystick1[1] > 0))
 
         TrackMotor.ser.write(byte_arr)
-        # time.sleep(10)
-        # print(ser.read(5))
-        # ser.flush()
-        # ser.close()
         return  # void

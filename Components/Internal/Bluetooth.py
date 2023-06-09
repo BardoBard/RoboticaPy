@@ -37,7 +37,7 @@ class Bluetooth:
             print(" %s - %s" % (addr, name))
 
     @staticmethod
-    def connect(mac_address, name=None):
+    def connect(mac_address, name=None):  # TODO: bluetooth.find_service can have a name
         """
         connects to a given bluetooth device, using given mac address, returns socket object
         :param name:
@@ -73,7 +73,8 @@ class Bluetooth:
     @staticmethod
     def check_connection(socket):
         try:
-            socket.getpeername()
+            socket.settimeout(1)
+            socket.getpeername()  # TODO: this is a bit slow, maybe check interval instead of pinging
             return True
         except Exception:
             print("error occurred while checking connection")

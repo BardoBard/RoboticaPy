@@ -35,14 +35,14 @@ class Socket:
     def send(self, message):
         try:
             self._socket.send(message)
-        except Exception as e:
-            print('Error, ' + e)
+        except Exception:
+            print('Error')
 
     def receive(self, size):
         try:
             return self.socket.recv(size)
-        except Exception as e:
-            print('Error, ' + e)
+        except Exception:
+            print('Error')
 
     def close(self):
         self.socket.close()

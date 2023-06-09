@@ -33,10 +33,16 @@ class Socket:
     #     self._socket.close()
 
     def send(self, message):
-        self._socket.send(message)
+        try:
+            self._socket.send(message)
+        except Exception as e:
+            print('Error, ' + e)
 
     def receive(self, size):
-        return self.socket.recv(size)
+        try:
+            return self.socket.recv(size)
+        except Exception as e:
+            print('Error, ' + e)
 
-    def close(self, size):
+    def close(self):
         self.socket.close()

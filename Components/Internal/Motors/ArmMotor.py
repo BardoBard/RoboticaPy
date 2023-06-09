@@ -9,7 +9,7 @@ class ArmMotor:
     def initialize():
         ArmMotor.pi.set_mode(18, pigpio.OUTPUT)
         ArmMotor.pi.write(18, pigpio.HIGH)
-        serial_connection = connection.Connection(port="/dev/ttyS0", baudrate=1000000)
+        serial_connection = connection.Connection(port="/dev/ttyUSB0", baudrate=1000000)
         ids_available = serial_connection.scan()
 
         for dynamixel_id in ids_available:

@@ -75,10 +75,10 @@ class Bluetooth:
             response = socket.recv(1024)
             if response:
                 print("Connection is still alive.")
-            else:
-                print("No response received. Connection might be lost.")
-        except bluetooth.BluetoothError:
+                return True
+        except Exception:
             print("Error occurred while checking connection.")
+            return False
 
     @staticmethod
     def disconnect(socket):

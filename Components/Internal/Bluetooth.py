@@ -72,7 +72,7 @@ class Bluetooth:
     @staticmethod
     def check_connection(socket):
         try:
-            response = socket.recv(1024)
+            response = socket.send("ping")
             if response:
                 print("Connection is still alive.")
                 return True

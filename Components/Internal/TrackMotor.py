@@ -20,7 +20,7 @@ class TrackMotor:
 
     @staticmethod
     def activate_motor():
-        if not TrackMotor.ser.is_open:
+        if TrackMotor.ser is None:
             return
         # ControllerData.normalize()
         byte_arr = bytearray([])

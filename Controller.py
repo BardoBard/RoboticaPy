@@ -18,7 +18,6 @@ class Controller:
 
     @staticmethod
     def get_controller_data(bluetooth_socket):
-        ArmMotor.initialize()
         arm_motor = ArmMotor(254, 10)  # 254 are all servos
         while True:
             data = bluetooth_socket.receive(14)

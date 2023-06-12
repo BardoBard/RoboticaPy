@@ -29,15 +29,14 @@ class ImageData:
         self.matrix_code = matrix_code
 
     def print_to_command_line(self):
-        print(self.center)
-        print(self.angle)
-        print(self.contour_area)
-        print(self.contour_percentage)
-        print(self.rotated_area)
-        print(self.kids)
-        print(self.movex)
-        print(self.movey)
-
-
-
-        return  # void
+        print("===========================")
+        print("center: {}".format(self.center))
+        print("angle: {}".format(self.angle))
+        print("countour area: ".format(self.contour_area))
+        print("countour percentage: {}".format(self.contour_percentage))
+        print("rotated area: {}".format(self.rotated_area))
+        print("children: {}".format(self.kids))
+        print("move X: {}".format(self.movex))
+        print("move Y: {}".format(self.movey))
+        print("matrix_code: {}".format(self.matrix_code))
+        print("===========================")

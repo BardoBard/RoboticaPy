@@ -15,7 +15,7 @@ class Audio:
     
     def play_sound(self, sound):
         """
-        :param sound: sound to play
+        :string sound: location of sound file
         :return: void
         """
         sound_obj = pygame.mixer.Sound(sound)

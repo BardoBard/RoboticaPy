@@ -33,6 +33,8 @@ class Controller:
             time.sleep(1)
         # TODO: close all connections + GPIO pins
 
+    socket = Socket(controller_mac_address)
+    get_controller_data(socket)
     # controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
     # app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
     # app_service_name = "APP"
@@ -47,8 +49,6 @@ class Controller:
             queue.send_message(QueueAgent.OPENCV, QueueAgent.CONTROLL, image_data)
 
     if __name__ == '__main__':
-        socket = Socket(Controller.controller_mac_address)
-        Controller.get_controller_data(socket)
         print("hi B^)")
         queue = MessageQueue()
         process = Process(target=detection_process, args=(queue,))

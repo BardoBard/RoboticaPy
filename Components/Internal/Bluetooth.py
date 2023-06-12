@@ -2,28 +2,6 @@ import bluetooth
 
 
 class Bluetooth:
-    buffer_size = 1024
-
-    @staticmethod
-    def __find_index(services, name):
-        """
-        finds index of service, using name
-        if name is None it will return the first found index
-        :param services: all services
-        :param name: name of service
-        :return: -1 if name is not found, index if found
-        """
-        if len(services) == 1 and name is None:
-            return 0
-
-        # find the index of connection by name
-        for i in range(len(services)):
-            if services[i]["name"] == name:
-                return i
-
-        print("could not find connection")
-        return -1
-
     @staticmethod
     def scan():
         """
@@ -46,12 +24,15 @@ class Bluetooth:
         """
 
         # find the device using mac address
-        service = bluetooth.find_service(
-            address=mac_address, name=name)  # TODO: this is slow, due to a timeout that cannot be changed
+        services = bluetooth.find_service(address=mac_address,
+                                                 name=name)  # TODO: this is slow, due to a timeout that cannot be changed
 
-        if len(service) != 1:
-            print("bluetooth services is more or less than one")
+        # If we're unable to find the device, return None
+        if not services and len(services) != 1:
+            print(f"{len(services)} services found, expecting : 1")
             return None
+
+        service = services[0]
 
         # connect to mac address using socket
         try:

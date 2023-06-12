@@ -30,12 +30,13 @@ class Controller:
         print("started process at {}".format(process.pid))
         time.sleep(5) # capture images for 5 seconds
         print("done sleeping")
-        process.kill() # stop the image detection code
-        print("killed process")
         messages = queue.get_messages_for(QueueAgent.CONTROLL)
         print("got messages from the queue")
         for message in messages:
             message.get_object().print_to_command_line()
+            
+        process.kill() # stop the image detection code
+        print("killed process")
         
             
         

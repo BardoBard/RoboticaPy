@@ -11,13 +11,12 @@ from Components.Internal.Motors.Ax12 import Ax12
 class ArmMotor:
     @staticmethod
     def initialize():
-        # Ax12.DEVICENAME = '/dev/ttyAMA0'
-        # Ax12.BAUDRATE = 1_000_000
+        Ax12.DEVICENAME = '/dev/ttyAMA0'
+        Ax12.BAUDRATE = 1_000_000
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(18, GPIO.OUT)
         GPIO.output(18, GPIO.HIGH)
-
 
         Ax12.connect()
 

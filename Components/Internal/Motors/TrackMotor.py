@@ -24,8 +24,8 @@ class TrackMotor:
         moves left and right track motor, based on controller values
         @return: void
         """
-        if TrackMotor.ser is None:
-            return
+        # if TrackMotor.ser is None:
+        #     return
 
         # normalize joystick values
         ControllerData.normalize_joysticks()

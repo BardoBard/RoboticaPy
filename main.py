@@ -6,13 +6,12 @@ from Wrapper.Socket import Socket
 
 def get_controller_data(bluetooth_socket):
     ArmMotor.initialize()
-    motor = ArmMotor(254, 10)
+    arm_motor = ArmMotor(254, 10)
     while True:
-        print("printing")
         data = bluetooth_socket.receive(14)
         ControllerData.fill_data(data)
         TrackMotor.move()
-        motor.move(5)
+        arm_motor.move(5)  # TODO: give arm_motor values
 
 
 def print_hi(name):

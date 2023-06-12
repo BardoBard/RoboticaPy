@@ -10,14 +10,15 @@ class TrackMotor:
     ser = None
 
     # def __init__(self):
-    def __getattribute__(self, name):
+    @staticmethod
+    def __getattribute__(name):
         if name == "ser":
             try:
-                self.ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200,
+                TrackMotor.ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200,
                                          timeout=1)  # TODO: change usb to config file
             except Exception:
                 print("could not find port")
-                self.ser = None
+                TrackMotor.ser = None
 
         return super().__getattribute__(name)
 

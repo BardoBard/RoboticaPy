@@ -13,7 +13,7 @@ def get_controller_data(bluetooth_socket):
         data = bluetooth_socket.receive(14)
         ControllerData.fill_data(data)
         tm.activate_motor()
-        motor.move(++5)
+        motor.move(5)
 
 
 def print_hi(name):

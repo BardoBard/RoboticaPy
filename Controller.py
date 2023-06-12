@@ -18,7 +18,7 @@ class Controller:
 
     @staticmethod
     def get_controller_data(bluetooth_socket):
-        arm_motor = ArmMotor(254, 10)  # 254 are all servos
+        arm_motor = ArmMotor(254, 200)  # 254 are all servos
         while True:
             data = bluetooth_socket.receive(14)
             ControllerData.fill_data(data)
@@ -26,7 +26,8 @@ class Controller:
             ControllerData.normalize_joysticks()
 
             TrackMotor.move(ControllerData.joystick1[0], ControllerData.joystick1[1])
-            arm_motor.move(0)  # TODO: give arm_motor values
+            arm_motor.move(1000)  # TODO: give arm_motor values
+            print(arm_motor.get_goal_position())  # TODO: give arm_motor values
             # time.sleep(1)
             # arm_motor.move(500)
             # time.sleep(1)

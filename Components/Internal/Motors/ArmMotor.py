@@ -36,6 +36,9 @@ class ArmMotor:
         GPIO.output(ArmMotor.conditional_pin, GPIO.HIGH)
         self.my_dxl.set_goal_position(position)
 
+    def get_goal_position(self):
+        return self.my_dxl.get_goal_position()
+
     def set_speed(self, speed):
         """
         sets the speed of the servo

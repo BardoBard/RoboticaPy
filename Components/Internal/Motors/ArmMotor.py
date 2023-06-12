@@ -1,4 +1,4 @@
-from datetime import time
+import time
 
 import RPi.GPIO as GPIO
 import serial

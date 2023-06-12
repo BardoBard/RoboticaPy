@@ -10,7 +10,7 @@ from Components.Internal.Motors.Ax12 import Ax12
 class ArmMotor:
     @staticmethod
     def initialize():
-        Ax12.DEVICENAME = '/dev/tty14'
+        Ax12.DEVICENAME = '/dev/ttyS0'
         Ax12.BAUDRATE = 1_000_000
 
         Ax12.connect()

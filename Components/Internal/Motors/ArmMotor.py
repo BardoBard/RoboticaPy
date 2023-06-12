@@ -2,31 +2,28 @@ import time
 
 import RPi.GPIO as GPIO
 import serial
-from pyax12 import *
 import dynamixel_sdk
 
-# from Components.Internal.Motors.Ax12 import Ax12
+from Components.Internal.Motors.Ax12 import Ax12
 
 
 class ArmMotor:
     @staticmethod
     def initialize():
-        # Ax12.DEVICENAME = '/dev/ttyAMA0'
-        # Ax12.BAUDRATE = 1_000_000
+        Ax12.connect()
+
+        Ax12.DEVICENAME = '/dev/ttyAMA0'
+        Ax12.BAUDRATE = 1_000_000
+
+        my_dxl = Ax12(254)
+        my_dxl.set_moving_speed(200)
+
+        my_dxl.set_goal_position(500)
 
         # GPIO.setmode(GPIO.BCM)
         # GPIO.setup(18, GPIO.OUT)
-        # GPIO.output(18, GPIO.HIGH)
+        GPIO.output(18, GPIO.HIGH)
 
-        port = "/dev/ttyAMA0"
-        baudrate = 1000000
-        servo_id = 254
-
-        ax12 = connection.Connection(port=port, baudrate=baudrate)
-
-        ax12.goto(servo_id, 512, 200)
-
-        while ax12.is_moving(servo_id):
-            time.sleep(0.1)
-
-        ax12.close()
+        # disconnect
+        my_dxl.set_torque_enable(0)
+        Ax12.disconnect()

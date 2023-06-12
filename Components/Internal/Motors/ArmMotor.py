@@ -13,7 +13,7 @@ class ArmMotor:
     @staticmethod
     def initialize():
         servo_id = 254
-        serial_connection = connection.Connection(port="/dev/ttyUSB0", baudrate=1000000, timeout=3.0)
+        serial_connection = connection.Connection(port="/dev/ttyserial1", baudrate=1000000, timeout=3.0)
         print("scanning...")
 
         serial_connection.goto(servo_id, 512, speed=200, degrees=True)

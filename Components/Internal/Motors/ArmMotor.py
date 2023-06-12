@@ -1,21 +1,29 @@
-from pyax12 import *
-import pigpio
+import time
+
+import RPi.GPIO as GPIO
+import serial
+import dynamixel_sdk
+
+from Components.Internal.Motors.Ax12 import Ax12
 
 
 class ArmMotor:
-    pi = pigpio.pi()
-
     @staticmethod
     def initialize():
-        ArmMotor.pi.set_mode(18, pigpio.OUTPUT)
-        ArmMotor.pi.write(18, pigpio.HIGH)
-        serial_connection = connection.Connection(port="/dev/ttyS0", baudrate=1000000)
-        ids_available = serial_connection.scan()
+        Ax12.DEVICENAME = '/dev/ttyS0'
+        Ax12.BAUDRATE = 1_000_000
 
-        for dynamixel_id in ids_available:
-            print(dynamixel_id)
+        Ax12.connect()
 
-            serial_connection.goto(dynamixel_id, 45, speed=200, degrees=True)
+        my_dxl = Ax12(254)
+        my_dxl.set_moving_speed(200)
 
-        print("closing")
-        serial_connection.close()
+        my_dxl.set_goal_position(500)
+
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(18, GPIO.OUT)
+        GPIO.output(18, GPIO.HIGH)
+
+        # disconnect
+        my_dxl.set_torque_enable(0)
+        Ax12.disconnect()

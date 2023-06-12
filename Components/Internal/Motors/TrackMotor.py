@@ -11,7 +11,6 @@ class TrackMotor:
         checks connection to the serial port, if there is none it will give an error
         @return: serial or None
         """
-        print("check")
         if TrackMotor.serial is None:
             try:
                 TrackMotor.serial = serial.Serial(port=TrackMotor.serial_port, baudrate=115200, timeout=1)

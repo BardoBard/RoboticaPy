@@ -4,14 +4,14 @@ from Information.ControllerData import ControllerData
 from Wrapper.Socket import Socket
 
 
-
 def get_controller_data(bluetooth_socket):
-    motor = ArmMotor()
+    ArmMotor.initialize()
+    motor = ArmMotor(254, 10)
     while True:
         print("printing")
         data = bluetooth_socket.receive(14)
         ControllerData.fill_data(data)
-        TrackMotor.activate_motor()
+        TrackMotor.move()
         motor.move(5)
 
 

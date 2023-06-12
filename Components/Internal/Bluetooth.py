@@ -46,28 +46,26 @@ class Bluetooth:
         """
 
         # find the device using mac address
-        service_matches = bluetooth.find_service(
-            address=mac_address)  # TODO: this is slow, due to a timeout that cannot be changed
+        service = bluetooth.find_service(
+            address=mac_address, name=name)  # TODO: this is slow, due to a timeout that cannot be changed
 
-        # if we're unable to find the device return
-        index = Bluetooth.__find_index(service_matches, name)
-
-        if index == -1:
+        if len(service) != 1:
+            print("bluetooth services is more or less than one")
             return None
 
         # connect to mac address using socket
         try:
             socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-            socket.connect((mac_address, service_matches[index]["port"]))
+            socket.connect((mac_address, service["port"]))
             print("connected")
             socket.settimeout(0.5)
             return socket
 
         except Exception as e:
-            if service_matches[index]["name"] is not None:
-                print("name: " + service_matches[index]["name"])
-            print("port: %d" % service_matches[index]["port"])
-            print("protocol: " + service_matches[index]["protocol"])
+            if service["name"] is not None:
+                print("name: " + service["name"])
+            print("port: %d" % service["port"])
+            print("protocol: " + service["protocol"])
             print(e)
 
     @staticmethod

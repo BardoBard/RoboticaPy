@@ -4,9 +4,9 @@ from Components.Internal.Bluetooth import Bluetooth
 
 
 class Socket:
-    socket = None
-    address = None
-    name = None
+    # socket  <- this being used as non-static variable
+    # address <- this being used as non-static variable
+    # name    <- this being used as non-static variable
 
     def __init__(self, address, name=None):
         """

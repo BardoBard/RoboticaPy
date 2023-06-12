@@ -49,12 +49,12 @@ class ControllerData:
             print("LB: ", ControllerData.LB)
             print("RA: ", ControllerData.RA)
             print("RB: ", ControllerData.RB)
-            # ControllerData.normalize_joysticks()
 
     @staticmethod
     def normalize_joysticks():
+        # TODO: make magic numbers generic
+        # TODO: probably should return normalized data instead of changing current data
         ControllerData.joystick1 = (Math.normalize_neg(ControllerData.joystick1[0], 725, 2900),
-                                    -Math.normalize_neg(ControllerData.joystick1[1], 0,
-                                                        2760))  # TODO: make magic numbers generic
+                                    -Math.normalize_neg(ControllerData.joystick1[1], 0, 2760))
         print("joystick1 x: ", ControllerData.joystick1[0])
         print("joystick1 y: ", ControllerData.joystick1[1])

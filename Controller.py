@@ -25,13 +25,11 @@ class Controller:
 
             ControllerData.normalize_joysticks()
 
-            print("moving")
             TrackMotor.move(ControllerData.joystick1[0], ControllerData.joystick1[1])
-            print("moving2")
-            arm_motor.move(10)  # TODO: give arm_motor values
-            time.sleep(1)
-            arm_motor.move(500)
-            time.sleep(1)
+            # arm_motor.move(10)  # TODO: give arm_motor values
+            # time.sleep(1)
+            # arm_motor.move(500)
+            # time.sleep(1)
         # TODO: close all connections + GPIO pins
 
     socket = Socket(controller_mac_address)

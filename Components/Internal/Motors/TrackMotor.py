@@ -31,6 +31,7 @@ class TrackMotor:
         @param right_track_speed: speed of right motor float between [-1-1]
         @return: void
         """
+        print(TrackMotor.serial is None)
         if TrackMotor.serial is None:
             return
 

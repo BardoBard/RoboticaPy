@@ -20,7 +20,10 @@ class ArmMotor:
         self.my_dxl.set_moving_speed(200)
 
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(18, GPIO.OUT)
+
+        if GPIO.gpio_function(18) != GPIO.OUT:
+            GPIO.setup(18, GPIO.OUT)
+
         GPIO.output(18, GPIO.HIGH)
 
     def move(self, value):

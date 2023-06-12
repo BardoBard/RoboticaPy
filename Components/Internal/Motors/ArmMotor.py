@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import serial
 from pyax12 import connection
 
 
@@ -9,7 +10,7 @@ class ArmMotor:
 
     @staticmethod
     def initialize():
-        serial_connection = connection.Connection(port="/dev/serial1", baudrate=1000000, timeout=3.0)
+        serial_connection = serial.Serial(port="/dev/ttyAMA0", baudrate=1000000, timeout=3.0)
         print("scanning...")
         # ids_available = serial_connection.scan()
 

@@ -3,36 +3,36 @@ import time
 
 class Eyes:
     def __init__(self, servo1_pin, servo2_pin):
-        self.servo1_pin = servo1_pin
-        self.servo2_pin = servo2_pin
-        self.initialize_gpio()
+        self.__servo1_pin = servo1_pin
+        self.__servo2_pin = servo2_pin
+        self.__initialize_gpio()
 
-    def initialize_gpio(self):
+    def __initialize_gpio(self):
         GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.servo1_pin, GPIO.OUT)
-        GPIO.setup(self.servo2_pin, GPIO.OUT)
-        self.servo1 = GPIO.PWM(self.servo1_pin, 50)
-        self.servo2 = GPIO.PWM(self.servo2_pin, 50)
-        self.servo1.start(0)
-        self.servo2.start(0)
+        GPIO.setup(self.__servo1_pin, GPIO.OUT)
+        GPIO.setup(self.__servo2_pin, GPIO.OUT)
+        self.__servo1 = GPIO.PWM(self.__servo1_pin, 50)
+        self.__servo2 = GPIO.PWM(self.__servo2_pin, 50)
+        self.__servo1.start(0)
+        self.__servo2.start(0)
 
-    def set_angle(self, servo, angle):
+    def __set_angle(self, servo, angle):
         duty_cycle = 2 + (angle / 18)
         servo.ChangeDutyCycle(duty_cycle)
         time.sleep(0.3)
         servo.ChangeDutyCycle(0)
 
     def look_left(self):
-        self.set_angle(self.servo1, 90)
+        self.__set_angle(self.__servo1, 90)
 
     def look_right(self):
-        self.set_angle(self.servo1, 10)
+        self.__set_angle(self.__servo1, 10)
 
     def look_up(self):
-        self.set_angle(self.servo2, 10)
+        self.__set_angle(self.__servo2, 10)
 
     def look_down(self):
-        self.set_angle(self.servo2, 170)
+        self.__set_angle(self.__servo2, 170)
 
     def happy(self):
         self.look_up()
@@ -51,12 +51,12 @@ class Eyes:
         self.look_left()
 
     def neutral(self):
-        self.set_angle(self.servo1, 90)
-        self.set_angle(self.servo2, 90)
+        self.__set_angle(self.__servo1, 90)
+        self.__set_angle(self.__servo2, 90)
 
     def cleanup(self):
-        self.servo1.stop()
-        self.servo2.stop()
+        self.__servo1.stop()
+        self.__servo2.stop()
         GPIO.cleanup()
 
 # Usage example

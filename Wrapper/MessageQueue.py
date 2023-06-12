@@ -4,6 +4,7 @@ from Information.QueueMessage import QueueMessage
 class MessageQueue:
     def __init__(self):
         self.__queue = Queue()
+        print("queue instantiated")
         
     def get_queue(self):
         return self.__queue

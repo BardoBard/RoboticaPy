@@ -39,7 +39,7 @@ class Socket:
         dtor, closes connection
         :return: void
         """
-        self._socket.close()
+        self.socket.close()
 
     def send(self, message):
         """
@@ -48,7 +48,7 @@ class Socket:
         :return: void
         """
         try:
-            self._socket.send(message)
+            self.socket.send(message)
         except Exception:
             print('error while sending')
 

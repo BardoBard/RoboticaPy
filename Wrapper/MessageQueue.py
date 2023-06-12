@@ -12,7 +12,11 @@ class MessageQueue:
         if self.__queue.empty():
             return None
         
-        all_messages = self.__queue.get()
+        all_messages = []
+        #get all the messages from the queue
+        while self.__queue.qsize() > 0:
+            all_messages.append(message)
+        
         return_messages = []
         unreturned_messages = []
         

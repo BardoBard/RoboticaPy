@@ -23,10 +23,11 @@ class Controller:
     #app_service_name = "APP"
               
     if __name__ == '__main__':
+        print("hi B^)")
         queue = MessageQueue()
         process = Process(target=detection_process, args=(queue, ))
         process.start() # start the image detection program
-        
+        print("started process at {}".format(process.pid))
         time.sleep(15) # capture images for 15 seconds
         
         process.kill() # stop the image detection code

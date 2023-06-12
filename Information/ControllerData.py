@@ -48,6 +48,6 @@ class ControllerData:
         ControllerData.joystick1 = (Math.normalize_neg(ControllerData.joystick1[0], 725, 2900),
                                     -Math.normalize_neg(ControllerData.joystick1[1], 0, 2760))
 
-        #joystick 2
+        # joystick 2
         ControllerData.joystick2 = (Math.normalize_neg(ControllerData.joystick2[0], 800, 3100),
                                     -Math.normalize_neg(ControllerData.joystick2[1], 630, 3000))

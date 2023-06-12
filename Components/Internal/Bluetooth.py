@@ -15,17 +15,17 @@ class Bluetooth:
             print(" %s - %s" % (addr, name))
 
     @staticmethod
-    def connect(mac_address, name=None):  # TODO: bluetooth.find_service can have a name
+    def connect(mac_address, name=None):
         """
         connects to a given bluetooth device, using given mac address, returns socket object
-        :param name:
-        :param mac_address: mac address to connect
+        :param name: name of the bluetooth device to connect to (string)
+        :param mac_address: mac address to connect (string)
         :return: socket
         """
 
         # find the device using mac address
         services = bluetooth.find_service(address=mac_address,
-                                                 name=name)  # TODO: this is slow, due to a timeout that cannot be changed
+                                          name=name)  # TODO: this is slow, due to a timeout that cannot be changed
 
         # If we're unable to find the device, return None
         if not services and len(services) != 1:
@@ -57,7 +57,7 @@ class Bluetooth:
         :return: true if connection is still alive
         """
         try:
-            socket.recv(0)
+            socket.getpeername()
             return True
         except Exception:
             print("bluetooth connection disconnected")

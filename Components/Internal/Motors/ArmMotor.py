@@ -8,21 +8,14 @@ class ArmMotor:
 
     # my_dxl <- non static variable
 
-    @staticmethod
-    def initialize():
-        """
-        initialize ax12 device
-        @return: void
-        """
-        # servo setup
-        Ax12.DEVICENAME = '/dev/ttyS0'
-        Ax12.BAUDRATE = 1_000_000
-        Ax12.connect()
+    Ax12.DEVICENAME = '/dev/ttyS0'  # this is the port for the servo
+    Ax12.BAUDRATE = 1_000_000
+    Ax12.connect()
 
-        # pin setup
-        GPIO.setwarnings(False)  # suppress warning if gpio pin hasn't been properly configured
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(ArmMotor.conditional_pin, GPIO.OUT)
+    # pin setup
+    GPIO.setwarnings(False)  # suppress warning if gpio pin hasn't been properly configured
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(conditional_pin, GPIO.OUT)
 
     def __init__(self, servo_id, speed):
         """

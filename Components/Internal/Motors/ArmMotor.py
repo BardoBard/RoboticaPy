@@ -13,15 +13,10 @@ class ArmMotor:
     @staticmethod
     def initialize():
         servo_id = 254
-        packet_handler = packet.PACKET_HEADER()
         serial_connection = connection.Connection(port="/dev/ttyAMA0", baudrate=1000000, timeout=3.0)
         print("scanning...")
 
-        packet_handler.torque_enable(servo_id, True)
-
-        packet_handler.set_goal_position(servo_id, 512)
-
-        packet_handler.set_moving_speed(servo_id, 200)
+        serial_connection.goto(servo_id, 512, speed=200, degrees=True)
 
         print("closing")
         serial_connection.close()

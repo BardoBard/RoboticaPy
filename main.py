@@ -3,7 +3,6 @@ from Components.Internal.Motors.TrackMotor import TrackMotor
 from Information.ControllerData import ControllerData
 from Wrapper.Socket import Socket
 
-tm = TrackMotor()
 
 
 def get_controller_data(bluetooth_socket):
@@ -12,7 +11,7 @@ def get_controller_data(bluetooth_socket):
         print("printing")
         data = bluetooth_socket.receive(14)
         ControllerData.fill_data(data)
-        tm.activate_motor()
+        TrackMotor.activate_motor()
         motor.move(5)
 
 

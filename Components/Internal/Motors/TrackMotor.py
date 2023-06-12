@@ -15,15 +15,16 @@ class TrackMotor:
         if name == "ser":
             try:
                 TrackMotor.ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200,
-                                         timeout=1)  # TODO: change usb to config file
+                                               timeout=1)  # TODO: change usb to config file
             except Exception:
                 print("could not find port")
                 TrackMotor.ser = None
 
         return super().__getattribute__(name)
 
-    def activate_motor(self):
-        if self.ser is None:
+    @staticmethod
+    def activate_motor():
+        if TrackMotor.ser is None:
             return
         # ControllerData.normalize()
         byte_arr = bytearray([])
@@ -34,7 +35,7 @@ class TrackMotor:
         byte_arr.append(bool(ControllerData.joystick1[1] > 0))
 
         try:
-            self.ser.write(byte_arr)
+            TrackMotor.ser.write(byte_arr)
         except Exception:
             print("error writing to serial port")
         return  # void

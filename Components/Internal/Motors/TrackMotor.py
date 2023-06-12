@@ -5,21 +5,21 @@ class TrackMotor:
     serial = None
     serial_port = '/dev/ttyUSB0'  # TODO: change usb to config file
 
-    @classmethod
-    def get_serial(cls):
+    @staticmethod
+    def get_serial():
         """
         checks connection to the serial port, if there is none it will give an error
         @return: serial or None
         """
         print("check")
-        if cls.serial is None:
+        if TrackMotor.serial is None:
             try:
-                cls.serial = serial.Serial(port=cls.serial_port, baudrate=115200, timeout=1)
+                TrackMotor.serial = serial.Serial(port=TrackMotor.serial_port, baudrate=115200, timeout=1)
             except Exception:
                 print("could not find port")
-                cls.serial = None
+                TrackMotor.serial = None
 
-        return cls.serial
+        return TrackMotor.serial
 
     @staticmethod
     def move(left_track_speed, right_track_speed):

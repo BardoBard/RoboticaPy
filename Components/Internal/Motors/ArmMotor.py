@@ -19,6 +19,8 @@ class ArmMotor:
         self.my_dxl = Ax12(254)
         self.my_dxl.set_moving_speed(200)
 
+        GPIO.cleanup()
+
         GPIO.setmode(GPIO.BCM)
 
         # if GPIO.gpio_function(18) != GPIO.OUT:

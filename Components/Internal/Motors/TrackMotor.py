@@ -29,7 +29,7 @@ class TrackMotor:
         @param right_track_speed: speed of right motor float between [-1-1]
         @return: void
         """
-        if TrackMotor.get_serial is None:
+        if TrackMotor.get_serial() is None:
             return
 
         byte_arr = bytearray([])

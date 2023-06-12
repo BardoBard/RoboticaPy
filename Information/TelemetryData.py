@@ -2,7 +2,7 @@ import json
 
 class TelemetryData:
 
-    updated = False
+    __updated = False
 
     def __init__(self):
         self.__image_data_code = None
@@ -21,7 +21,7 @@ class TelemetryData:
         if image_data_code is __image_data_code:
             return
         self.__image_data_code = image_data_code
-        updated = True
+        __updated = True
 
     def get_image_data_found(self):
         return self.__image_data_found
@@ -31,7 +31,7 @@ class TelemetryData:
         if image_data_found is __image_data_found:
             return
         self.__image_data_found = image_data_found
-        updated = True
+        __updated = True
 
     def get_direction(self):
         return self.__direction
@@ -41,7 +41,7 @@ class TelemetryData:
         if direction is __direction:
             return
         self.__direction = direction
-        updated = True
+        __updated = True
 
     def get_arm_direction(self):
         return self.__arm_direction
@@ -51,7 +51,7 @@ class TelemetryData:
         if arm_direction is __arm_direction:
             return
         self.__arm_direction = arm_direction
-        updated = True
+        __updated = True
 
     def get_ultra_sonic_data(self):
         return self.__ultra_sonic_data
@@ -61,7 +61,7 @@ class TelemetryData:
         if ultra_sonic_data is __ultra_sonic_data:
             return
         self.__ultra_sonic_data = ultra_sonic_data
-        updated = True
+        __updated = True
 
     # convert to json
     def to_json(self):

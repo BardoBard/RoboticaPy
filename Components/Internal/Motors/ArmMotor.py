@@ -16,7 +16,6 @@ class ArmMotor:
     GPIO.setwarnings(False)  # suppress warning if gpio pin hasn't been properly configured
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(conditional_pin, GPIO.OUT)
-    print("")
 
     def __init__(self, servo_id, speed):
         """
@@ -36,8 +35,7 @@ class ArmMotor:
         GPIO.output(ArmMotor.conditional_pin, GPIO.HIGH)
         self.my_dxl.set_goal_position(position)
 
-    def get_goal_position(self):
-        return self.my_dxl.get_goal_position()
+    # TODO: implement angle instead of position
 
     def set_speed(self, speed):
         """

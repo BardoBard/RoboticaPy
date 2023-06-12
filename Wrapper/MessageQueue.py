@@ -19,6 +19,7 @@ class MessageQueue:
         while self.__queue.qsize() > 0:
             print("queue size is: {}".format( self.__queue.qsize()))
             all_messages.append(self.__queue.get())
+            print("queue size is: {}".format( self.__queue.qsize()))
         
         return_messages = []
         unreturned_messages = []

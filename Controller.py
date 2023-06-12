@@ -27,7 +27,10 @@ class Controller:
             ControllerData.normalize_joysticks()
 
             TrackMotor.move(ControllerData.joystick1[0], ControllerData.joystick1[1])
-            arm_motor.move(5)  # TODO: give arm_motor values
+            arm_motor.move(10)  # TODO: give arm_motor values
+            time.sleep(1)
+            arm_motor.move(500)
+            time.sleep(1)
         # TODO: close all connections + GPIO pins
 
     # controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
@@ -44,6 +47,8 @@ class Controller:
             queue.send_message(QueueAgent.OPENCV, QueueAgent.CONTROLL, image_data)
 
     if __name__ == '__main__':
+        socket = Socket(Controller.controller_mac_address)
+        Controller.get_controller_data(socket)
         print("hi B^)")
         queue = MessageQueue()
         process = Process(target=detection_process, args=(queue,))

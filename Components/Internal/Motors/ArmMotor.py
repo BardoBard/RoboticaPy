@@ -26,14 +26,14 @@ class ArmMotor:
         self.my_dxl = Ax12(servo_id)
         self.set_speed(speed)
 
-    def move(self, value):
+    def move(self, position):
         """
         moves servo to position
-        @param value: position [0-1023]
+        @param position: position [0-1023]
         @return: void
         """
         GPIO.output(ArmMotor.conditional_pin, GPIO.HIGH)
-        self.my_dxl.set_goal_position(value)
+        self.my_dxl.set_goal_position(position)
 
     def set_speed(self, speed):
         """

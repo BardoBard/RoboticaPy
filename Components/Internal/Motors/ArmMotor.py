@@ -2,7 +2,7 @@ import time
 
 import RPi.GPIO as GPIO
 import serial
-from pyax12 import connection
+from pyax12 import *
 import dynamixel_sdk
 
 # from Components.Internal.Motors.Ax12 import Ax12
@@ -24,8 +24,9 @@ class ArmMotor:
 
         ax12 = connection.Connection(port=port, baudrate=baudrate)
 
-        ax12.set_goal_position(servo_id, 512)
+        ax12.goto(servo_id, 512, 200)
 
-        time.sleep(2)
+        while ax12.is_moving(servo_id):
+            time.sleep(0.1)
 
         ax12.close()

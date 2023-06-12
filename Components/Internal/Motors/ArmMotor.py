@@ -21,8 +21,8 @@ class ArmMotor:
 
         GPIO.setmode(GPIO.BCM)
 
-        if GPIO.gpio_function(18) != GPIO.OUT:
-            GPIO.setup(18, GPIO.OUT)
+        # if GPIO.gpio_function(18) != GPIO.OUT:
+        GPIO.setup(18, GPIO.OUT)
 
         GPIO.output(18, GPIO.HIGH)
 

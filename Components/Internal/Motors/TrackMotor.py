@@ -14,8 +14,9 @@ class TrackMotor:
         @param name: default __getattribute__ name
         @return: default __getattribute__
         """
-        if name == "serial" and TrackMotor.serial is None:
+        if name == "serial" and not TrackMotor.serial:
             try:
+                print("trying")
                 TrackMotor.serial = serial.Serial(port=TrackMotor.serial_port, baudrate=115200, timeout=1)
             except Exception:
                 print("could not find port")

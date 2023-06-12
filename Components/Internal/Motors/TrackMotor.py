@@ -4,17 +4,17 @@ from Information.ControllerData import ControllerData
 
 
 class TrackMotor:
-    ser = None
+    serial = None
 
     @staticmethod
     def __getattribute__(name):
-        if name == "ser" and TrackMotor.ser is None:
+        if name == "ser" and TrackMotor.serial is None:
             try:
-                TrackMotor.ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200,
-                                               timeout=1)  # TODO: change usb to config file
+                TrackMotor.serial = serial.Serial(port='/dev/ttyUSB0', baudrate=115200,
+                                                  timeout=1)  # TODO: change usb to config file
             except Exception:
                 print("could not find port")
-                TrackMotor.ser = None
+                TrackMotor.serial = None
 
         return super().__getattribute__(name)
 
@@ -24,8 +24,8 @@ class TrackMotor:
         moves left and right track motor, based on controller values
         @return: void
         """
-        # if TrackMotor.ser is None:
-        #     return
+        if TrackMotor.serial is None:
+            return
 
         # normalize joystick values
         ControllerData.normalize_joysticks()
@@ -41,7 +41,7 @@ class TrackMotor:
         byte_arr.append(bool(ControllerData.joystick1[1] > 0))
 
         try:
-            TrackMotor.ser.write(byte_arr)
+            TrackMotor.serial.write(byte_arr)
         except Exception:
             print("error writing to serial port")
 

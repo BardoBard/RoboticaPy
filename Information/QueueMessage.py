@@ -9,7 +9,7 @@ class QueueMessage:
     def get_sender(self):
         return self.__sender
     
-    def get_reciepient(self):
+    def get_recipient(self):
         return self.__recipient
     
     def get_object(self):

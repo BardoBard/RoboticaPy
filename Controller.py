@@ -1,7 +1,10 @@
 from Components.Internal.OpenCv import OpenCv
 from Components.Internal.DataMatrix import scan_data_matrix
-from multiprocessing import Process, Queue
+from multiprocessing import Process
 from Information.ImageData import ImageData
+from Wrapper.MessageQueue import MessageQueue
+from Information.QueueMessage import QueueMessage
+from Information.QueueAgent import QueueAgent
 import time
 
 def detection_process(queue):
@@ -11,7 +14,7 @@ def detection_process(queue):
         image_data = opencv_.get_image_date_from_feed()
         if image_data.found:
             image_data = scan_data_matrix(image_data)
-            queue.put(image_data)
+            queue.send_message(QueueAgent.OPENCV, QueueAgent.CONTROLL, image_data)
                 
                 
 class Controller:
@@ -20,7 +23,7 @@ class Controller:
     #app_service_name = "APP"
               
     if __name__ == '__main__':
-        queue = Queue()
+        queue = MessageQueue()
         process = Process(target=detection_process, args=(queue, ))
         process.start() # start the image detection program
         
@@ -28,11 +31,10 @@ class Controller:
         
         process.kill() # stop the image detection code
         
-        while queue.qsize() > 1:
-            obj = queue.get()
-            print(type(obj))
-            obj.print_to_command_line() # then print the image data to the console
-            
+        messages = queue.get_messages_for(QueueAgent.CONTROLL)
+        
+        for message in messages:
+            message.get_object().print_to_command_line()
         
             
         

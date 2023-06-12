@@ -1,5 +1,7 @@
 import RPi.GPIO as GPIO
+import pyax12.packet
 import serial
+from pyax12 import packet
 from pyax12 import connection
 
 
@@ -10,16 +12,16 @@ class ArmMotor:
 
     @staticmethod
     def initialize():
-        serial_connection = serial.Serial(port="/dev/ttyAMA0", baudrate=1000000, timeout=3.0)
+        servo_id = 254
+        packet_handler = packet.PACKET_HEADER()
+        serial_connection = connection.Connection(port="/dev/ttyAMA0", baudrate=1000000, timeout=3.0)
         print("scanning...")
-        # ids_available = serial_connection.scan()
 
-        # for dynamixel_id in ids_available:
-        #     print(dynamixel_id)
+        packet_handler.torque_enable(servo_id, True)
 
-        serial_connection.write(bytearray.fromhex("FF FF 01 05 03 1E 32 03 A3"))
+        packet_handler.set_goal_position(servo_id, 512)
 
-        # serial_connection.goto(254, 45, speed=200, degrees=True)
+        packet_handler.set_moving_speed(servo_id, 200)
 
         print("closing")
         serial_connection.close()

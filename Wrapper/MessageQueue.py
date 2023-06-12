@@ -17,7 +17,7 @@ class MessageQueue:
         all_messages = []
         #get all the messages from the queue
         while self.__queue.qsize() > 0:
-            print("queue size is: {}".format() self.__queue.qsize()))
+            print("queue size is: {}".format( self.__queue.qsize()))
             all_messages.append(self.__queue.get())
         
         return_messages = []

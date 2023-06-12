@@ -9,14 +9,16 @@ class ArmMotor:
 
     @staticmethod
     def initialize():
-        serial_connection = connection.Connection(port="/dev/serial1", baudrate=1000000)
+        serial_connection = connection.Connection(port="/dev/serial1", baudrate=1000000, timeout=3.0)
         print("scanning...")
-        ids_available = serial_connection.scan()
+        # ids_available = serial_connection.scan()
 
         # for dynamixel_id in ids_available:
         #     print(dynamixel_id)
 
-        serial_connection.goto(254, 45, speed=200, degrees=True)
+        serial_connection.write(bytearray.fromhex("FF FF 01 05 03 1E 32 03 A3"))
+
+        # serial_connection.goto(254, 45, speed=200, degrees=True)
 
         print("closing")
         serial_connection.close()

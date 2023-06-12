@@ -8,6 +8,7 @@ from pyax12 import connection
 class ArmMotor:
     @staticmethod
     def initialize():
+        GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(18, GPIO.OUT)
         GPIO.output(18, GPIO.HIGH)
@@ -18,10 +19,16 @@ class ArmMotor:
         print("scanning...")
 
         while True:
-            time.sleep(3)
+            GPIO.output(18, GPIO.HIGH)
+            time.sleep(0.1)
             port.write(bytearray.fromhex("FF FF 01 05 03 1E CD 00 Fb"))
+            GPIO.output(18, GPIO.LOW)
             time.sleep(3)
+
+            GPIO.output(18, GPIO.HIGH)
+            time.sleep(0.1)
             port.write(bytearray.fromhex("FF FF 01 05 03 1E CD 00 0b"))
+            time.sleep(3)
         # serial_connection.goto(servo_id, 45, speed=200, degrees=True)
 
         print("closing")

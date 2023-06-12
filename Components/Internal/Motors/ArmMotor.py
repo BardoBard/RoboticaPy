@@ -8,22 +8,24 @@ from Components.Internal.Motors.Ax12 import Ax12
 
 
 class ArmMotor:
-    @staticmethod
-    def initialize():
+    my_dxl = None
+
+    def __init__(self):
         Ax12.DEVICENAME = '/dev/ttyS0'
         Ax12.BAUDRATE = 1_000_000
 
         Ax12.connect()
 
-        my_dxl = Ax12(254)
-        my_dxl.set_moving_speed(200)
-
-        my_dxl.set_goal_position(500)
+        self.my_dxl = Ax12(254)
+        self.my_dxl.set_moving_speed(200)
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(18, GPIO.OUT)
         GPIO.output(18, GPIO.HIGH)
 
-        # disconnect
-        my_dxl.set_torque_enable(0)
+    def move(self, value):
+        self.my_dxl.set_goal_position(value)
+
+    def disconnect(self):
+        self.my_dxl.set_torque_enable(0)
         Ax12.disconnect()

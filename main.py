@@ -7,11 +7,13 @@ tm = TrackMotor()
 
 
 def get_controller_data(bluetooth_socket):
+    motor = ArmMotor()
     while True:
         print("printing")
         data = bluetooth_socket.receive(14)
         ControllerData.fill_data(data)
         tm.activate_motor()
+        motor.move(++5)
 
 
 def print_hi(name):
@@ -23,8 +25,6 @@ if __name__ == '__main__':
     controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
     app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
 
-    ArmMotor.initialize()
-
-    # socket = Socket(controller_mac_address)
+    socket = Socket(controller_mac_address)
     # socket_app = Socket(app_mac_address)
-    # get_controller_data(socket)
+    get_controller_data(socket)

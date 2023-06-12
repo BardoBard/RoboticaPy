@@ -22,6 +22,7 @@ class ArmMotor:
         # pin setup
         GPIO.setwarnings(False)  # suppress warning if gpio pin hasn't been properly configured
         GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(GPIO.output)
 
     def __init__(self, servo_id, speed):
         """

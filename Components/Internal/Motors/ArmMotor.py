@@ -5,27 +5,27 @@ import serial
 from pyax12 import connection
 import dynamixel_sdk
 
-from Components.Internal.Motors.Ax12 import Ax12
+# from Components.Internal.Motors.Ax12 import Ax12
 
 
 class ArmMotor:
     @staticmethod
     def initialize():
-        Ax12.DEVICENAME = '/dev/ttyAMA0'
-        Ax12.BAUDRATE = 1_000_000
+        # Ax12.DEVICENAME = '/dev/ttyAMA0'
+        # Ax12.BAUDRATE = 1_000_000
 
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(18, GPIO.OUT)
-        GPIO.output(18, GPIO.HIGH)
+        # GPIO.setmode(GPIO.BCM)
+        # GPIO.setup(18, GPIO.OUT)
+        # GPIO.output(18, GPIO.HIGH)
 
-        Ax12.connect()
+        port = "/dev/ttyAMA0"
+        baudrate = 1000000
+        servo_id = 254
 
-        # Ax12.
+        ax12 = connection.Connection(port=port, baudrate=baudrate)
 
-        my_dxl = Ax12(254)
-        my_dxl.set_moving_speed(200)
+        ax12.set_goal_position(servo_id, 512)
 
-        my_dxl.set_goal_position(500)
+        time.sleep(2)
 
-        my_dxl.set_torque_enable(0)
-        Ax12.disconnect()
+        ax12.close()

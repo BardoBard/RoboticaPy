@@ -1,20 +1,18 @@
 import serial as serial
 
-from Information.ControllerData import ControllerData
-
 
 class TrackMotor:
     serial = None
     serial_port = '/dev/ttyUSB0'  # TODO: change usb to config file
 
-    @staticmethod
-    def __getattribute__(name):
+    def __getattribute__(self, name):
         """
         checks connection to the serial port, if there is none it will give an error
         @param name: default __getattribute__ name
         @return: default __getattribute__
         """
-        if name == "serial":
+        print("check")
+        if name == "serial" and TrackMotor.serial is None:
             try:
                 TrackMotor.serial = serial.Serial(port=TrackMotor.serial_port, baudrate=115200, timeout=1)
             except Exception:
@@ -22,7 +20,6 @@ class TrackMotor:
                 TrackMotor.serial = None
 
         return super().__getattribute__(name)
-
     @staticmethod
     def move(left_track_speed, right_track_speed):
         """
@@ -31,7 +28,6 @@ class TrackMotor:
         @param right_track_speed: speed of right motor float between [-1-1]
         @return: void
         """
-        print(TrackMotor.serial is None)
         if TrackMotor.serial is None:
             return
 

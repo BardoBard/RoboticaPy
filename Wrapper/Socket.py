@@ -69,4 +69,7 @@ class Socket:
         closes socket connection
         :return: void
         """
-        self.socket.close()
+        try:
+            self.socket.close()
+        except Exception:
+        print('error closing, maybe the connection went out of range')

@@ -14,15 +14,15 @@ def bluetooth_client_process(queue: MessageQueue):
     
     controller_data = ControllerData()
     
-    controller_socket = Socket(controller_mac_address)
+    #controller_socket = Socket(controller_mac_address)
     app_socket = Socket(app_mac_address, app_service_name)
     
     run = True
     print("Bluetooth process started")
     while run:
-        raw_controller_data  = controller_socket.receive(controller_packet_size)
-        controller_data.fill_data(raw_controller_data)
-        queue.send_message(QueueAgent.BLUETOOTH, QueueAgent.CONTROLL, controller_data)
+        #raw_controller_data  = controller_socket.receive(controller_packet_size)
+        #controller_data.fill_data(raw_controller_data)
+        #queue.send_message(QueueAgent.BLUETOOTH, QueueAgent.CONTROLL, controller_data)
         
         messages = queue.get_messages_for(QueueAgent.BLUETOOTH)
         
@@ -38,7 +38,7 @@ def bluetooth_client_process(queue: MessageQueue):
                 app_socket.send(data.to_json())
             elif type(data) is QueueKillProcess:
                 app_socket.close()
-                controller_socket.close()
+                #controller_socket.close()
                 queue.exit_queue()
                 print("shutting down the bluetooth process")
                 run = False

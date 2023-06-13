@@ -1,7 +1,7 @@
 import time
 import sys
 
-referenceUnit = 1
+referenceUnit = 92
 
 import RPi.GPIO as GPIO
 from hx711 import HX711

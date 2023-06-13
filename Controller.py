@@ -21,7 +21,7 @@ class Controller:
         bluetooth_process = Process(target=bluetooth_client_process, args=(queue, ))
         
         #image_process.start()  # start the image detection program
-        print("started image detection process at {}".format(image_process.pid))
+        #print("started image detection process at {}".format(image_process.pid))
         
         bluetooth_process.start()
         print("started bluetooth process at {}".format(bluetooth_process.pid))

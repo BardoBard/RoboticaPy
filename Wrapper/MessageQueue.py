@@ -23,8 +23,8 @@ class MessageQueue:
         
         Raises: Invalid QueueAgent exception if no valid QueueAgent was provided
         """
-        if not queue_agent in QueueAgent._value2member_map_:
-            raise Exception("Invalid QueueAgent")
+        #if not queue_agent in QueueAgent._value2member_map_:
+            #raise Exception("Invalid QueueAgent")
             
         if self.__queue.empty():
             return None

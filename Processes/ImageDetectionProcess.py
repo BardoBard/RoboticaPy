@@ -5,6 +5,7 @@ from Information.QueueAgent import QueueAgent
 from Information.QueueKillProcess import QueueKillProcess
 
 def detection_process(queue: MessageQueue):
+    print("starting up the opencv process")
     opencv_ = OpenCv()
     while True:
         image_data = opencv_.get_image_date_from_feed()

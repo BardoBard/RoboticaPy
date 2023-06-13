@@ -22,7 +22,6 @@ def detection_process(queue: MessageQueue):
             data = message.get_object()
             
             if type(data) is QueueKillProcess:
-                #TODO shutdown code
                 queue.exit_queue()
                 run = False
                 print("shutting down the opencv process")

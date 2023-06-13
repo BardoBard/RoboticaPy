@@ -37,7 +37,6 @@ def bluetooth_client_process(queue: MessageQueue):
             if type(data) is TelemetryData:
                 app_socket.send(data.to_json())
             elif type(data) is QueueKillProcess:
-                #TODO add shutdown code
                 app_socket.close()
                 controller_socket.close()
                 queue.exit_queue()

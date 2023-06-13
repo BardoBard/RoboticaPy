@@ -1,6 +1,7 @@
 from multiprocessing import Process, Queue
 from Information.QueueMessage import QueueMessage
 from Information.QueueAgent import QueueAgent
+from Information.QueueKillProcess import QueueKillProcess
 from typing import List
 
 class MessageQueue:
@@ -11,6 +12,9 @@ class MessageQueue:
         """You need to call this from any process that uses the queue before you kill that process.
         """
         self.__queue.close()
+        
+    def send_kill_message(self, sender, recipient):
+        self.send_message(sender, recipient, QueueKillProcess())
     
     def get_messages_for(self, queue_agent) -> List[QueueMessage]:
         """gets all the messages for a queue agent

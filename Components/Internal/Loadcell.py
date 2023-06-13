@@ -2,9 +2,6 @@ from hx711 import HX711
 import RPi.GPIO as GPIO
 
 class Loadcell:
-
-    __init__ = None
-
     hx711 = HX711(
         dout_pin=16,
         pd_sck_pin=20

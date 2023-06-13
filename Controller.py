@@ -7,6 +7,7 @@ from Information.TelemetryData import TelemetryData
 
 from Processes.BluetoothProcess import bluetooth_client_process
 from Processes.ImageDetectionProcess import detection_process
+
 import time
                 
 class Controller:

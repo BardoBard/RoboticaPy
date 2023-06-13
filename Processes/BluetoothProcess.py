@@ -38,6 +38,8 @@ def bluetooth_client_process(queue: MessageQueue):
                 app_socket.send(data.to_json())
             elif type(data) is QueueKillProcess:
                 #TODO add shutdown code
+                app_socket.close()
+                controller_socket.close()
                 queue.exit_queue()
                 print("shutting down the bluetooth process")
                 run = False

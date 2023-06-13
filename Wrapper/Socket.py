@@ -39,7 +39,7 @@ class Socket:
         dtor, closes connection
         :return: void
         """
-        self.socket.close()
+        self.close()
 
     def send(self, message):
         """

@@ -72,4 +72,4 @@ class Socket:
         try:
             self.socket.close()
         except Exception:
-        print('error closing, maybe the connection went out of range')
+            print('error closing, maybe the connection went out of range')

@@ -3,7 +3,8 @@
 - Pybluez v0.30 (only for raspberry)
 - Opencv-contrib-python v4.7.0.72 (headless for raspberry)
 - Pylibdmtx v0.1.10
-- *pins library*
+- PRi.GPIO v0.71
+- pyserial v3.5
 - *audio library*
 - hx711 v1.1.2.3
 

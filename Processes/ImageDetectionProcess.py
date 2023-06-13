@@ -26,5 +26,4 @@ def detection_process(queue: MessageQueue):
                 queue.exit_queue()
                 run = False
                 print("shutting down the opencv process")
-                
                 break

@@ -1,0 +1,2 @@
+class QueueKillProcess:
+    pass

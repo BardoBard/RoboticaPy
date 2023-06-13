@@ -9,7 +9,7 @@ def get_weight():
             pd_sck_pin=20
         )
         hx711.reset()   # Before we start, reset the HX711 (not obligate)
-        measures = hx711.get_raw_data(num_measures=5)
+        measures = hx711.get_raw_data(times=5)
     finally:
         GPIO.cleanup()  # always do a GPIO cleanup in your scripts!
     return measures

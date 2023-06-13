@@ -22,7 +22,7 @@ class Socket:
         return Bluetooth.check_connection(self.socket)
     
     def __reconnect_if_needed(self):
-        if self.check_connection(self):
+        if self.check_connection():
             return
         
         self.socket = Bluetooth.connect(self.address, self.name)

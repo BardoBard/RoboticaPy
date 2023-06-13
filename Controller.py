@@ -28,27 +28,6 @@ class Controller:
         
         # Robot logic
         
-        #test code
-        #send some data to the app
-        print("making test data")
-        tele_data = TelemetryData()
-        print(tele_data.is_modified())
-        tele_data.set_arm_direction(1)
-        print(tele_data.is_modified())
-        tele_data.set_image_data_code("12323kjdfjk123")
-        
-        time.sleep(1)
-        print("sending test data to bluetooth thread")
-        queue.send_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH, tele_data)
-        print("done sending test data to bluetooth thread")
-        time.sleep(1)
-         
-        print("getting messages")
-        messages = queue.get_messages_for(QueueAgent.CONTROLL)
-        if messages is not None:
-            for message in messages:
-                print(type(message.get_object()))
-        print("done getting messages")
         
         print("killing proccesses")
         queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

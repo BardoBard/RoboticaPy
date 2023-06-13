@@ -32,6 +32,7 @@ class Controller:
         tele.set_direction(2)
         tele.set_image_data_code(3)
         
+        
         queue.send_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH, tele)
         
         print("killing proccesses")

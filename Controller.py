@@ -79,9 +79,9 @@ class Controller:
         #send some data to the app
         print("making test data")
         tele_data = TelemetryData()
-        print(tele_data.is_modiefied())
+        print(tele_data.is_modified())
         tele_data.set_arm_direction(1)
-        print(tele_data.is_modiefied())
+        print(tele_data.is_modified())
         tele_data.set_image_data_code("12323kjdfjk123")
         
         time.sleep(1)

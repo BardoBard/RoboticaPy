@@ -1,6 +1,7 @@
 from multiprocessing import Process, Queue
 from Information.QueueMessage import QueueMessage
 from Information.QueueAgent import QueueAgent
+from typing import List
 
 class MessageQueue:
     def __init__(self):
@@ -11,7 +12,7 @@ class MessageQueue:
         """
         self.__queue.close()
     
-    def get_messages_for(self, queue_agent):
+    def get_messages_for(self, queue_agent) -> List[QueueMessage]:
         """gets all the messages for a queue agent
 
         Args:
@@ -22,8 +23,8 @@ class MessageQueue:
         
         Raises: Invalid QueueAgent exception if no valid QueueAgent was provided
         """
-        if not queue_agent in QueueAgent._value2member_map_:
-            raise Exception("Invalid QueueAgent")
+        #if not queue_agent in QueueAgent._value2member_map_:
+            #raise Exception("Invalid QueueAgent")
             
         if self.__queue.empty():
             return None

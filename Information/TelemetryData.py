@@ -1,16 +1,16 @@
 import json
 
 class TelemetryData:
-
-    __updated = False
-
     def __init__(self):
         self.__image_data_code = None
         self.__image_data_found = None
         self.__direction = None
         self.__arm_direction = None
         self.__ultra_sonic_data = None
+        self.__updated = False
 
+    def is_modiefied(self):
+        return self.__updated
 
     # getters and setters
     def get_image_data_code(self):
@@ -18,50 +18,50 @@ class TelemetryData:
 
     def set_image_data_code(self, image_data_code):
         # if the value is the same as the current value then return
-        if image_data_code is __image_data_code:
+        if image_data_code is self.__image_data_code:
             return
         self.__image_data_code = image_data_code
-        __updated = True
+        self.__updated = True
 
     def get_image_data_found(self):
         return self.__image_data_found
 
     def set_image_data_found(self, image_data_found):
         # if the value is the same as the current value then return
-        if image_data_found is __image_data_found:
+        if image_data_found is self.__image_data_found:
             return
         self.__image_data_found = image_data_found
-        __updated = True
+        self.__updated = True
 
     def get_direction(self):
         return self.__direction
 
     def set_direction(self, direction):
         # if the value is the same as the current value then return
-        if direction is __direction:
+        if direction is self.__direction:
             return
         self.__direction = direction
-        __updated = True
+        self.__updated = True
 
     def get_arm_direction(self):
         return self.__arm_direction
 
     def set_arm_direction(self, arm_direction):
         # if the value is the same as the current value then return
-        if arm_direction is __arm_direction:
+        if arm_direction is self.__arm_direction:
             return
         self.__arm_direction = arm_direction
-        __updated = True
+        self.__updated = True
 
     def get_ultra_sonic_data(self):
         return self.__ultra_sonic_data
 
     def set_ultra_sonic_data(self, ultra_sonic_data):
         # if the value is the same as the current value then return
-        if ultra_sonic_data is __ultra_sonic_data:
+        if ultra_sonic_data is self.__ultra_sonic_data:
             return
         self.__ultra_sonic_data = ultra_sonic_data
-        __updated = True
+        self.__updated = True
 
     # convert to json
     def to_json(self):

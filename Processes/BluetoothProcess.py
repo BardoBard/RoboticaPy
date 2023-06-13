@@ -17,8 +17,9 @@ def bluetooth_client_process(queue: MessageQueue):
     controller_socket = Socket(controller_mac_address)
     app_socket = Socket(app_mac_address, app_service_name)
     
+    run = True
     print("Bluetooth process started")
-    while True:
+    while run:
         raw_controller_data  = controller_socket.receive(controller_packet_size)
         controller_data.fill_data(raw_controller_data)
         queue.send_message(QueueAgent.BLUETOOTH, QueueAgent.CONTROLL, controller_data)
@@ -39,6 +40,7 @@ def bluetooth_client_process(queue: MessageQueue):
                 #TODO add shutdown code
                 queue.exit_queue()
                 print("shutting down the bluetooth process")
+                run = False
                 break
             else:
                 print("the bluetooth thread was passed an invalid object!")

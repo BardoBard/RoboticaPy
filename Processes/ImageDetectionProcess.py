@@ -7,7 +7,8 @@ from Information.QueueKillProcess import QueueKillProcess
 def detection_process(queue: MessageQueue):
     print("starting up the opencv process")
     opencv_ = OpenCv()
-    while True:
+    run = True
+    while run:
         image_data = opencv_.get_image_date_from_feed()
         if image_data.found:
             image_data = scan_data_matrix(image_data)
@@ -23,5 +24,7 @@ def detection_process(queue: MessageQueue):
             if type(data) is QueueKillProcess:
                 #TODO shutdown code
                 queue.exit_queue()
+                run = False
                 print("shutting down the opencv process")
+                
                 break

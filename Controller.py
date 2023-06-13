@@ -19,7 +19,8 @@ def detection_process(queue: MessageQueue):
         if image_data.found:
             image_data = scan_data_matrix(image_data)
             queue.send_message(QueueAgent.OPENCV, QueueAgent.CONTROLL, image_data)
-            
+
+    
 def bluetooth_client_process(queue: MessageQueue):
     print("starting up bluetooth process")
     controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
@@ -29,14 +30,14 @@ def bluetooth_client_process(queue: MessageQueue):
     
     controller_data = ControllerData()
     
-    #controller_socket = Socket(controller_mac_address)
+    controller_socket = Socket(controller_mac_address)
     app_socket = Socket(app_mac_address, app_service_name)
     
     print("entering the bluetooth main loop")
     while True:
         print("getting information from the controller")
-        #raw_controller_data  = controller_socket.receive(controller_packet_size)
-        #controller_data.fill_data(raw_controller_data)
+        raw_controller_data  = controller_socket.receive(controller_packet_size)
+        controller_data.fill_data(raw_controller_data)
         queue.send_message(QueueAgent.BLUETOOTH, QueueAgent.CONTROLL, controller_data)
         
         messages = queue.get_messages_for(QueueAgent.BLUETOOTH)
@@ -57,23 +58,6 @@ def bluetooth_client_process(queue: MessageQueue):
                 
 
 class Controller:
-    # @staticmethod
-    # def get_controller_data(bluetooth_socket):
-    #     arm_motor = ArmMotor(254, 200)  # 254 are all servos
-    #     while True:
-    #         data = bluetooth_socket.receive(14)
-    #         ControllerData.fill_data(data)
-
-    #         ControllerData.normalize_joysticks()
-
-    #         TrackMotor.move(ControllerData.joystick1[0], ControllerData.joystick1[1])
-    #         arm_motor.move(0)  # TODO: give arm_motor values
-    #         time.sleep(1)
-    #         arm_motor.move(500)
-    #         time.sleep(1)
-    #     # TODO: close all connections + GPIO pins
-
-
     if __name__ == '__main__':
         
         # Setup
@@ -118,7 +102,3 @@ class Controller:
         bluetooth_process.kill()
         
         print("All done!")
-        
-        
-        
-        

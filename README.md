@@ -5,6 +5,7 @@
 - Pylibdmtx v0.1.10
 - *pins library*
 - *audio library*
+- hx711 v1.1.2.3
 
 ***
 

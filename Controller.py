@@ -108,16 +108,16 @@ class Controller:
          
         print("getting messages")
         messages = queue.get_messages_for(QueueAgent.CONTROLL)
-        
-        for message in messages:
-            print(type(message.get_object()))
+        if messages is not None:
+            for message in messages:
+                print(type(message.get_object()))
         print("done getting messages")
         
         print("killing proccesses")
         image_process.kill()
         bluetooth_process.kill()
         
-        print("")
+        print("All done!")
         
         
         

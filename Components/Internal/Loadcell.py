@@ -20,5 +20,6 @@ class Loadcell:
         return measures
 
 if __name__ == '__main__':
-    measures = get_weight()
+    loadcell = Loadcell()
+    measures = loadcell.get_weight()
     print(measures)

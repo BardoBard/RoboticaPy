@@ -2,7 +2,7 @@ from hx711 import HX711
 import RPi.GPIO as GPIO
 
 # This function returns a list of 5 measures
-def get_weight(self):
+def get_weight():
     try:
         hx711 = HX711(
             dout_pin=16,

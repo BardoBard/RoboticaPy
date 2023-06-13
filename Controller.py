@@ -41,7 +41,7 @@ class Controller:
         print("sending test data to bluetooth thread")
         queue.send_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH, tele_data)
         print("done sending test data to bluetooth thread")
-        time.sleep(4)
+        time.sleep(1)
          
         print("getting messages")
         messages = queue.get_messages_for(QueueAgent.CONTROLL)

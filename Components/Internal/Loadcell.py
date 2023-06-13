@@ -13,6 +13,12 @@ class CustomHX711:
     def get_weight(self, num_readings=5):
         return self.hx.get_weight_mean(num_readings)
 
+    def power_down(self):
+        self.hx.power_down()
+
+    def power_up(self):
+        self.hx.power_up()
+
 
 def main():
     hx711 = CustomHX711(dout_pin=16, pd_sck_pin=20)

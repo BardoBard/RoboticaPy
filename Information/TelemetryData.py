@@ -9,6 +9,8 @@ class TelemetryData:
         self.__ultra_sonic_data = None
         self.__updated = False
 
+    def is_modiefied(self):
+        return self.__updated
 
     # getters and setters
     def get_image_data_code(self):

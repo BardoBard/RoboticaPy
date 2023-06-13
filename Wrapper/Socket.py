@@ -24,8 +24,8 @@ class Socket:
         :return: new connection socket
         """
         socket_value = object.__getattribute__(self, '__dict__').get('socket')
-        while not Bluetooth.check_connection(socket_value):
-            print("connection lost, reconnecting soon...")
+        if not Bluetooth.check_connection(socket_value):
+            print("connection lost, trying to reconnect")
             socket_value = Bluetooth.connect(self.address, self.name)
         return socket_value
 

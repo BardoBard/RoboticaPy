@@ -69,6 +69,9 @@ class Controller:
             controller_data.fill_data(controller_socket.receive(14))
             pos2 = -pos if controller_data.get_joystick2()[0] > 0 else pos
             pos3 = -pos if controller_data.get_joystick2()[1] > 0 else pos
+            print(pos2)
+            print(pos3)
+            print("")
             rotation_servo.move(original_pos + pos2)
             left_arm1.move(original_pos + pos3)
             right_arm1.move(original_pos - pos3)

@@ -65,15 +65,12 @@ def shutdown_command(controller_data: ControllerData) -> bool:
             and controller_data.get_right_a_button())
 
 def automatic_control(image_data: ImageData):
-    pass
+    print("movex{}".format(image_data.movex))
 
 def manual_control(controller_data: ControllerData):
     #tracks logic
     joystick1 = controller_data.get_joystick1()
     print("input x: {}, input y: {}".format(joystick1[0], joystick1[1]))
-    
-    #mirror the axis
-    #joystick1 = (-joystick1[0], joystick1[1])
     
     #rotate
     mapped_values = Math.rotate_tuple_over_origin((joystick1[0], joystick1[1]), 45)

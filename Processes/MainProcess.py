@@ -55,8 +55,9 @@ def automatic_control(image_data: ImageData):
 
 def manual_control(controller_data: ControllerData):
     #tracks logic
-    track_input_x = controller_data.get_joystick1().index(0)
-    track_input_y = controller_data.get_joystick1().index(1)
+    joystick1 = controller_data.get_joystick1()
+    track_input_x = joystick1[0]
+    track_input_y = joystick1[1]
     left_motor_val = track_input_x + track_input_y
     right_motor_val = track_input_x - track_input_y
     

@@ -1,13 +1,5 @@
 import numpy
 
-import threading
-# If a read and a write to the class happen from different threads at the same time
-# half written data may be read and other things may go wrong.
-# to prevent this and to make this class thread safe we need to use Threading.Lock.aquire()
-# And Threading.Lock.Release()
-# Read more about thread safety you may reference:
-# https://www.pythontutorial.net/python-concurrency/python-threading-lock/
-
 class RingBuffer:
     """a basic threadsafe implementation of a ringbuffer.
 
@@ -27,7 +19,6 @@ class RingBuffer:
         self.__index = 0
         self.__buffer = numpy.empty(shape=size, dtype=type)
         self.__full = False
-        self.__lock = threading.Lock()
 
     def append(self, value):
         """Append a value to the buffer
@@ -35,7 +26,6 @@ class RingBuffer:
         Args:
             value (any): the object or value you want to append to the ringbuffer
         """
-        self.__lock.acquire()
         self.__buffer[self.__index] = value
         self.__index += 1
 
@@ -46,7 +36,6 @@ class RingBuffer:
 
         self.__index = 0
         self.__full = True
-        self.__lock.release()
 
     def get_buffer_copy(self):
         """get a copy of the entire buffer in a threadsafe manner
@@ -54,9 +43,7 @@ class RingBuffer:
         Returns:
             numpy array: a direct copy of the entire buffer
         """
-        self.__lock.acquire()
         copy = self.__buffer.copy()
-        self.__lock.release()
 
         return copy
 
@@ -67,12 +54,10 @@ class RingBuffer:
             object: the most recent entry in the ringbuffer
         """
         val = None
-        self.__lock.acquire()
 
         # return None if there are no entries
         if self.__full or self.__index != 0:
             val = self.__buffer[self.__index - 1]
-        self.__lock.release()
 
         return val
 
@@ -89,8 +74,6 @@ class RingBuffer:
         """
 
         entries = numpy.empty(count, self.__type)
-
-        self.__lock.acquire()
         if count > self.__size:
             raise Exception("count: %s exceeds the size: %s of the ringbuffer." % (count, self.__size))
         read_index = self.__index - 1
@@ -106,7 +89,6 @@ class RingBuffer:
             read_index -= 1
             if read_index < 0:
                 read_index = self.__size - 1
-        self.__lock.release()
 
         return entries
     

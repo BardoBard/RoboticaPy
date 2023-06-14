@@ -7,24 +7,29 @@ class ArmMotor:
     conditional_pin = 18  # this is a static variable, python doesn't have a keyword for it :D
 
     # my_dxl <- non static variable
+    Ax12.DEVICENAME = '/dev/ttyS0'  # this is the port for the servo
+    Ax12.BAUDRATE = 1_000_000
+    Ax12.connect()
 
-    def __init__(self, servo_id, speed):
+    # pin setup
+    GPIO.setwarnings(False)  # suppress warning if gpio pin hasn't been properly configured
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(conditional_pin, GPIO.OUT)
+
+    def __init__(self, servo_id, speed=0, cw_angle=0, ccw_angle=1023, enable_torque=True, torque=1023):
         """
         ctor for arm motor
         @param servo_id: servo id, between [0-253] (254 means all servos)
         @param speed: servo speed [0-1023]
         """
-        Ax12.DEVICENAME = '/dev/ttyS0'  # this is the port for the servo
-        Ax12.BAUDRATE = 1_000_000
-        Ax12.connect()
-
-        # pin setup
-        GPIO.setwarnings(False)  # suppress warning if gpio pin hasn't been properly configured
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(ArmMotor.conditional_pin, GPIO.OUT)
-
         self.my_dxl = Ax12(servo_id)
         self.set_speed(speed)
+
+        self.set_torque(torque)
+        self.enable_torque(enable_torque)
+
+        self.cw_angle_limit(cw_angle)
+        self.ccw_angle_limit(ccw_angle)
 
     def move(self, position):
         """

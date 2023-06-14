@@ -19,6 +19,7 @@ torque = 1023
 cw_limit = 0
 ccw_limit = 1023
 
+
 class Controller:
     if __name__ == '__main__':
         # Setup
@@ -35,13 +36,13 @@ class Controller:
         # print("started bluetooth process at {}".format(bluetooth_process.pid))
 
         # Robot logic
-        for i in range(id):
-            arm1 = ArmMotor(i, speed)
-            arm1.enable_torque(True)
-            arm1.set_torque(torque)
-            arm1.cw_angle_limit(cw_limit)
-            arm1.ccw_angle_limit(ccw_limit)
-            arm1.move(pos)
+        rotation_servo = ArmMotor(2, speed)
+        left_arm1 = ArmMotor(7, speed)
+        right_arm1 = ArmMotor(3, speed)
+        # arm3 = ArmMotor(2, speed)
+        rotation_servo.move(pos)
+        left_arm1.move(pos)
+        right_arm1.move(pos)
         # arm1.disconnect()
 
         print("killing proccesses")

@@ -28,13 +28,13 @@ def main_process(queue :MessageQueue):
                         
         
         if latest_controller_data.get_left_a_button():
-            if mode is not automatic_control:
-                print("switching to automatic control")
-                mode = automatic_control
-        else:
             if mode is not manual_control:
                 print("switching to manual control")
                 mode = manual_control
+        else:
+            if mode is not automatic_control:
+                print("switching to automatic control")
+                mode = automatic_control
           
         
         if shutdown_command(latest_controller_data):

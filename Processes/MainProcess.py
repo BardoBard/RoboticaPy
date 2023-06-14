@@ -58,8 +58,12 @@ def manual_control(controller_data: ControllerData):
     joystick1 = controller_data.get_joystick1()
     track_input_x = joystick1[0]
     track_input_y = joystick1[1]
+    
+    print("input x: {}, input y: {}".format(track_input_x, track_input_y))
     left_motor_val = track_input_x + track_input_y
     right_motor_val = track_input_x - track_input_y
+    
+    print("left track: {}, right track: {}".format(left_motor_val, right_motor_val))
     
     TrackMotor.move(left_motor_val, right_motor_val)
         

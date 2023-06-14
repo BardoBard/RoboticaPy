@@ -25,8 +25,8 @@ class MessageQueue:
         Returns:
             a list of messages or None: the messages for this recipient
         """ 
-        if self.__queue.empty():
-            return None
+        #if self.__queue.empty():
+            #return None
         
         all_messages = []
         #Get all the messages from the queue

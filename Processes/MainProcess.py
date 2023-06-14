@@ -3,7 +3,11 @@ from Information.QueueAgent import QueueAgent
 from Information.ImageData import ImageData
 from Information.ControllerData import ControllerData
 from Components.Internal.Motors.TrackMotor import TrackMotor
+from Components.Internal.Motors.ArmMotor import ArmMotor
 from Components.Math import Math
+
+import numpy
+
 
 
 
@@ -11,6 +15,14 @@ def main_process(queue :MessageQueue):
     latest_image_detection = ImageData(None, None, None, None, None, None , None, None, None, False, None)
     latest_controller_data = None
     mode = manual_control
+    
+    motors = rotation_arm = ArmMotor(2, speed=0),
+        left_arm1 = ArmMotor(7, speed=0),
+        right_arm1 = ArmMotor(3, speed=0),
+        left_arm2 = ArmMotor(10, speed=0),
+        right_arm2 = ArmMotor(4, speed=0),
+        grabber_Arm = ArmMotor(5, speed=0)
+        
     
     while True:
         
@@ -64,4 +76,8 @@ def manual_control(controller_data: ControllerData):
     print("left track: {}, right track: {}".format(mapped_values[0], mapped_values[1]))
     
     TrackMotor.move(mapped_values[0], mapped_values[1])
+
+    joystick2 = controller_data.get_joystick2()
+    rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 1023)
+    rotation_arm.set_speed(numpy.abs(joystick2[0]) * 100)
         

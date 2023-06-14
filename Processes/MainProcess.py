@@ -67,7 +67,7 @@ def shutdown_command(controller_data: ControllerData) -> bool:
 def automatic_control(image_data: ImageData):
     print("movex{}".format(image_data.movex))
 
-def manual_control(controller_data: ControllerData):
+def control_tracks(controller_data: ControllerData):
     #tracks logic
     joystick1 = controller_data.get_joystick1()
     print("input x: {}, input y: {}".format(joystick1[0], joystick1[1]))
@@ -78,6 +78,9 @@ def manual_control(controller_data: ControllerData):
     
     TrackMotor.move(mapped_values[0], mapped_values[1])
 
+
+def manual_control(controller_data: ControllerData):
+    control_tracks(controller_data)
     # joystick2 = controller_data.get_joystick2()
     # rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 1023)
     # rotation_arm.set_speed(numpy.abs(joystick2[0]) * 100)

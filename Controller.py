@@ -66,6 +66,7 @@ class Controller:
         right_arm2 = ArmMotor(4, speed)
 
         while True:
+            time.sleep(0.1)
             controller_data.fill_data(controller_socket.receive(14))
             joystick2 = controller_data.get_joystick2()
             # pos2 = -pos if controller_data.get_joystick2()[0] > 0 else pos
@@ -79,7 +80,7 @@ class Controller:
             left_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
             right_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
 
-            rotation_servo.move(450 if numpy.sign(joystick2[0]) < 0 else 50)
+            rotation_servo.move(450 if numpy.sign(joystick2[0]) < 0 else 550)
             left_arm1.move(400 if numpy.sign(joystick2[1]) < 0 else 800)
             right_arm1.move(400 if numpy.sign(joystick2[1]) < 0 else 800)
             left_arm2.move(400 if numpy.sign(joystick2[1]) < 0 else 800)

@@ -103,7 +103,9 @@ def manual_control(controller_data: ControllerData):
 def manual_arms(controller_data: ControllerData):
     joystick2 = controller_data.get_joystick2()
 
-    ax12.scan(range(0, 30+1))
+    available_ids = ax12.scan(range(0, 30+1))
+
+    print("Available Dynamixel unit IDs:", available_ids)
 
     speed = int(numpy.abs(joystick2[0]) * max_speed)
     speed2 = int(numpy.abs(joystick2[1]) * max_speed)
@@ -121,11 +123,11 @@ def manual_arms(controller_data: ControllerData):
         print("")
 
     # try:
-    ax12.goto(2, pos, speed, degrees=False)
+    # ax12.goto(2, pos, speed, degrees=False)
 
-    ax12.goto(7, pos2, speed2, degrees=False)
+    # ax12.goto(7, pos2, speed2, degrees=False)
 
-    ax12.goto(3, pos3, speed2, degrees=False)
+    # ax12.goto(3, pos3, speed2, degrees=False)
 
     # ax12.goto(10, pos3, speed2, degrees=False)
 

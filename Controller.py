@@ -66,6 +66,7 @@ class Controller:
         right_arm2 = ArmMotor(4, speed)
 
         while True:
+            controller_data.fill_data(controller_socket.receive(14))
             pos2 = -pos if controller_data.get_joystick2()[0] > 0 else pos
             pos3 = -pos if controller_data.get_joystick2()[1] > 0 else pos
             rotation_servo.move(original_pos + pos2)

@@ -12,9 +12,9 @@ from Processes.ImageDetectionProcess import detection_process
 
 import time
 
-id = 10
-speed = 80
-pos = 0
+id = 15
+speed = 1000
+pos = 512
 torque = 1023
 cw_limit = 0
 ccw_limit = 1023

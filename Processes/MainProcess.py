@@ -9,7 +9,7 @@ from Components.Math import Math
 
 def main_process(queue :MessageQueue):
     latest_image_detection = ImageData(None, None, None, None, None, None , None, None, None, False, None)
-    past_controller_data = None
+    past_controller_data = ControllerData()
     latest_controller_data = ControllerData()
     mode = manual_control
     
@@ -59,6 +59,7 @@ def automatic_control(image_data: ImageData):
 def manual_control(controller_data: ControllerData, past_controller_data: ControllerData):
     #tracks logic
     if controller_data == past_controller_data:
+        print("returning because there's no new data")
         return
     
     joystick1 = controller_data.get_joystick1()

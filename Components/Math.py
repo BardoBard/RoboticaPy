@@ -42,4 +42,5 @@ class Math:
         new_y = x * s + y * c
         
         return (new_x, new_y)
+    
         

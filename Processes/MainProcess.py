@@ -103,6 +103,8 @@ def manual_control(controller_data: ControllerData):
 def manual_arms(controller_data: ControllerData):
     joystick2 = controller_data.get_joystick2()
 
+    ax12.scan(range(0, 30+1))
+
     speed = int(numpy.abs(joystick2[0]) * max_speed)
     speed2 = int(numpy.abs(joystick2[1]) * max_speed)
     pos = 400 if numpy.sign(joystick2[0]) < 0 else 600
@@ -127,7 +129,7 @@ def manual_arms(controller_data: ControllerData):
 
     # ax12.goto(10, pos3, speed2, degrees=False)
 
-    ax12.goto(4, pos2, speed2, degrees=False)
+    # ax12.goto(4, pos2, speed2, degrees=False)
 
     # except Exception:
     #     print("uhh, error")

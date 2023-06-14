@@ -51,10 +51,7 @@ class Controller:
 
         serial_connection = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
 
-        is_available = serial_connection.ping(2)
-
-        print(is_available)
-        # serial_connection.goto()
+        serial_connection.pretty_print_control_table(2)
 
         serial_connection.close()
 

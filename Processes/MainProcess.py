@@ -107,11 +107,19 @@ def manual_arms(controller_data: ControllerData):
         speed2 = 1
 
     try:
-        rotation_arm_servo.move(2, pos, speed=speed)
+        rotation_arm_servo.set_speed(speed)
+        rotation_arm_servo.move(pos)
 
-        rotation_arm_servo.move(7, pos2, speed=speed2)
-        rotation_arm_servo.move(3, -pos2, speed=speed2)
-        rotation_arm_servo.move(10, -pos2, speed=speed2)
-        rotation_arm_servo.move(4, pos2, speed=speed2)
+        left_arm1.set_speed(pos2, speed2)
+        left_arm1.move(pos2)
+
+        right_arm1.set_speed(speed2)
+        right_arm1.move(-pos2)
+
+        left_arm2.set_speed(speed2)
+        left_arm2.move(-pos2)
+
+        right_arm2.set_speed(speed2)
+        right_arm2.move(pos2)
     except Exception:
         print("uhh, error")

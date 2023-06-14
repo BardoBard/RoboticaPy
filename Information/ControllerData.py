@@ -23,6 +23,7 @@ class ControllerData:
 
     def __eq__(self, __value: object) -> bool:
         if type(__value) is ControllerData:
+            print("comparing values")
             return (__value.get_joystick1() is self.__joystick1 and
                     __value.get_joystick1_click() is self.__joystick1_click and
                     __value.get_joystick2() is self.__joystick2 and
@@ -32,7 +33,9 @@ class ControllerData:
                     __value.get_right_a_button() is self.__RA and
                     __value.get_right_b_button() is self.__RB)
         else:
+            print("different types")
             return False
+            
         
         
     #getters

@@ -42,6 +42,8 @@ def main_process(queue :MessageQueue):
                 latest_controller_data = data
                 mode = switch_mode(mode, latest_controller_data.get_left_a_button())
                 if shutdown_command(latest_controller_data):
+                    print("shutting down main thread")
+                    TrackMotor.move(0, 0)
                     return
                 if mode is manual_control:
                     manual_control(latest_controller_data)
@@ -59,10 +61,6 @@ def switch_mode(mode, button):
     #         return automatic_control
 
 def shutdown_command(controller_data: ControllerData) -> bool:
-    print("left b: {}".format(controller_data.get_left_b_button()))
-    print("right b: {}".format(controller_data.get_right_b_button()))
-    print("right a: {}".format(controller_data.get_right_a_button()))
-    
     return (controller_data.get_left_b_button() 
             and controller_data.get_right_b_button()
             and controller_data.get_right_a_button())

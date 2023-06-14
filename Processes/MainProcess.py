@@ -102,23 +102,29 @@ def manual_arms(controller_data: ControllerData):
     speed2 = int(numpy.abs(joystick2[1]) * max_speed)
     pos = 400 if numpy.sign(joystick2[0]) < 0 else 600
     pos2 = 300 if numpy.sign(joystick2[1]) < 0 else 300
+    pos3 = 300 if not numpy.sign(joystick2[1]) < 0 else 300
+
     if speed == 0 or speed2 == 0:
         print("speed 0")
         speed = 1
         speed2 = 1
 
+        print(speed)
+        print(speed2)
+        print("")
+
     try:
         rotation_arm_servo.set_speed(speed)
         rotation_arm_servo.move(pos)
 
-        left_arm1.set_speed(pos2, speed2)
+        left_arm1.set_speed(speed2)
         left_arm1.move(pos2)
 
         right_arm1.set_speed(speed2)
-        right_arm1.move(-pos2)
+        right_arm1.move(pos3)
 
         left_arm2.set_speed(speed2)
-        left_arm2.move(-pos2)
+        left_arm2.move(pos3)
 
         right_arm2.set_speed(speed2)
         right_arm2.move(pos2)

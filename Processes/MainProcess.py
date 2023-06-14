@@ -8,7 +8,7 @@ from Components.Math import Math
 
 
 def main_process(queue :MessageQueue):
-    latest_image_detection = ImageData()
+    latest_image_detection = ImageData(None, None, None, None, None, None , None, None, None, False, None)
     latest_controller_data = ControllerData()
     mode = manual_control()
     

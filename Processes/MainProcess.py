@@ -103,8 +103,8 @@ def manual_control(controller_data: ControllerData):
 def manual_arms(controller_data: ControllerData):
     joystick2 = controller_data.get_joystick2()
 
-    for i in range(1, 250):
-        ax12.set_baud_rate(i, baudrate=1_000_000)
+    # for i in range(1, 250):
+    #     ax12.set_baud_rate(i, baudrate=1_000_000)
 
     available_ids = ax12.scan(range(0, 30 + 1))
 

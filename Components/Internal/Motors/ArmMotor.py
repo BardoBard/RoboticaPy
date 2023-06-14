@@ -52,6 +52,12 @@ class ArmMotor:
     def set_torque(self, torque):
         self.my_dxl.set_max_torque(torque)
 
+    def ccw_angle_limit(self, limit):
+        self.my_dxl.set_ccw_angle_limit(limit)
+
+    def cw_angle_limit(self, limit):
+        self.my_dxl.set_ccw_angle_limit(limit)
+
     def disconnect(self):
         """
         disconnects the servo

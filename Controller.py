@@ -16,6 +16,8 @@ id = 10
 speed = 80
 pos = 0
 torque = 1023
+cw_limit = 0
+ccw_limit = 1023
 
 class Controller:
     if __name__ == '__main__':
@@ -36,6 +38,8 @@ class Controller:
         arm1 = ArmMotor(id, speed)
         arm1.enable_torque(True)
         arm1.set_torque(torque)
+        arm1.cw_angle_limit(cw_limit)
+        arm1.ccw_angle_limit(ccw_limit)
         arm1.move(pos)
         # arm1.disconnect()
 

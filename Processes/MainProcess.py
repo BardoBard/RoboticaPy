@@ -1,19 +1,23 @@
+from pyax12.connection import Connection
+
 from Wrapper.MessageQueue import MessageQueue
 from Information.QueueAgent import QueueAgent
 from Information.ImageData import ImageData
 from Information.ControllerData import ControllerData
 from Components.Internal.Motors.TrackMotor import TrackMotor
-from Components.Internal.Motors.ArmMotor import ArmMotor
 from Components.Math import Math
 
 import numpy
 
 max_speed = 50
-rotation_arm_servo = ArmMotor(2)
-left_arm1 = ArmMotor(7)
-right_arm1 = ArmMotor(3)
-left_arm2 = ArmMotor(10)
-right_arm2 = ArmMotor(4)
+ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
+
+
+# rotation_arm_servo = ArmMotor(2)
+# left_arm1 = ArmMotor(7)
+# right_arm1 = ArmMotor(3)
+# left_arm2 = ArmMotor(10)
+# right_arm2 = ArmMotor(4)
 
 
 def main_process(queue: MessageQueue):
@@ -48,7 +52,8 @@ def main_process(queue: MessageQueue):
                 if shutdown_command(latest_controller_data):
                     print("shutting down main thread")
                     TrackMotor.move(0, 0)
-                    ArmMotor.close_serial_connection()
+                    ax12.close()
+                    # ArmMotor.close_serial_connection()
                     return
                 if mode is manual_control:
                     manual_control(latest_controller_data)
@@ -114,19 +119,15 @@ def manual_arms(controller_data: ControllerData):
         print("")
 
     # try:
-    rotation_arm_servo.set_speed(speed)
-    rotation_arm_servo.move(pos)
+    ax12.goto(2, pos, speed, degrees=False)
 
-    left_arm1.set_speed(speed2)
-    left_arm1.move(pos2)
+    ax12.goto(7, pos2, speed2, degrees=False)
 
-    right_arm1.set_speed(speed2)
-    right_arm1.move(pos3)
+    ax12.goto(3, pos3, speed2, degrees=False)
 
-    left_arm2.set_speed(speed2)
-    left_arm2.move(pos3)
+    ax12.goto(10, pos3, speed2, degrees=False)
 
-    right_arm2.set_speed(speed2)
-    right_arm2.move(pos2)
+    ax12.goto(4, pos2, speed2, degrees=False)
+
     # except Exception:
     #     print("uhh, error")

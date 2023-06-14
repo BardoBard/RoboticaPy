@@ -44,16 +44,16 @@ class Controller:
         #     print(traceback.format_exc())
 
         rotation_arm = ArmMotor(2, speed=40)
+        controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
+        controller_packet_size = 14
+        # app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
+        # app_service_name = "APP"
+
+        controller_data = ControllerData()
+
+        controller_socket = Socket(controller_mac_address)
+
         while True:
-            controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
-            controller_packet_size = 14
-            # app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
-            # app_service_name = "APP"
-
-            controller_data = ControllerData()
-
-            controller_socket = Socket(controller_mac_address)
-            # app_socket = Socket(app_mac_address, app_service_name)
 
             raw_controller_data = controller_socket.receive(controller_packet_size)
             controller_data.fill_data(raw_controller_data)

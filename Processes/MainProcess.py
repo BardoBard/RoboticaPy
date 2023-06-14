@@ -49,7 +49,7 @@ def main_process(queue :MessageQueue):
 
 
         
-def shutdown_command(controller_data: ControllerData, past_controller_data: ControllerData) -> bool:
+def shutdown_command(controller_data: ControllerData) -> bool:
     return (controller_data.get_left_b_button() 
             and controller_data.get_right_b_button()
             and controller_data.get_right_a_button())

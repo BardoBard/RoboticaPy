@@ -12,7 +12,6 @@ from Processes.ImageDetectionProcess import detection_process
 
 import time
 
-id = 15
 speed = 1000
 pos = 512
 torque = 1023
@@ -39,6 +38,8 @@ class Controller:
         rotation_servo = ArmMotor(2, speed)
         left_arm1 = ArmMotor(7, speed)
         right_arm1 = ArmMotor(3, speed)
+        left_arm2 = ArmMotor(10, speed)
+        right_arm2 = ArmMotor(4, speed)
         # arm3 = ArmMotor(2, speed)
         rotation_servo.move(pos)
         left_arm1.move(pos)

@@ -9,7 +9,6 @@ class ArmMotor:
     # my_dxl <- non static variable
     Ax12.DEVICENAME = '/dev/ttyS0'  # this is the port for the servo
     Ax12.BAUDRATE = 1_000_000
-    Ax12.connect()
 
     # pin setup
     GPIO.setwarnings(False)  # suppress warning if gpio pin hasn't been properly configured
@@ -22,6 +21,7 @@ class ArmMotor:
         @param servo_id: servo id, between [0-253] (254 means all servos)
         @param speed: servo speed [0-1023]
         """
+        Ax12.connect()
         self.my_dxl = Ax12(servo_id)
         self.set_speed(speed)
 

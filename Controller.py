@@ -7,7 +7,7 @@ from Information.TelemetryData import TelemetryData
 
 from Processes.BluetoothProcess import bluetooth_client_process
 from Processes.ImageDetectionProcess import detection_process
-from Processes.MainProsess import main_process
+from Processes.MainProcess import main_process
 
 import time
                 

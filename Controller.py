@@ -29,6 +29,7 @@ class Controller:
         # Robot logic
         
         
+        
         print("killing proccesses")
         queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)
         queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.OPENCV)

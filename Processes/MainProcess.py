@@ -25,29 +25,28 @@ def main_process(queue :MessageQueue):
                 elif type(data) is ControllerData:
                     past_controller_data = latest_controller_data
                     latest_controller_data = data
+                    mode = switch_mode(mode)
+                    on_controller_data(latest_controller_data, past_controller_data, mode, latest_image_detection)
+                    
                         
-        
-        if latest_controller_data.get_left_a_button():
-            if mode is not manual_control:
-                print("switching to manual control")
-                mode = manual_control
-        else:
-            if mode is not automatic_control:
-                print("switching to automatic control")
-                mode = automatic_control
-          
-        
-        if shutdown_command(latest_controller_data):
-            print("shutting down")
-            break
-        
-        if mode is manual_control:
-            manual_control(latest_controller_data, past_controller_data)
-        elif mode is automatic_control(latest_image_detection):
-            automatic_control(latest_image_detection)
+def on_controller_data(controller_data: ControllerData, past_controller_data: ControllerData, mode, image_data):
+    if mode is automatic_control:
+        automatic_control(image_data)
+    elif mode is manual_control:
+        manual_control(controller_data, past_controller_data)
 
 
-        
+def switch_mode(mode, button):
+    if button:
+        if mode is not manual_control:
+            print("switching to manual control")
+            mode_ = manual_control
+    else:
+        if mode is not automatic_control:
+            print("switching to automatic control")
+            mode_ = automatic_control
+    return mode_
+
 def shutdown_command(controller_data: ControllerData) -> bool:
     return (controller_data.get_left_b_button() 
             and controller_data.get_right_b_button()

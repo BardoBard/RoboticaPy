@@ -4,7 +4,7 @@ from pyax12.connection import Connection
 class ArmMotor:
     ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
 
-    def __init__(self, servo_id, speed=0):
+    def __init__(self, servo_id, speed=1):
         """
         ctor for arm motor
         @param servo_id: servo id, between [0-253] (254 means all servos)
@@ -32,9 +32,13 @@ class ArmMotor:
         """
         sets the speed of the servo
         important: 1023 is 114 RPM! 300 means 33 RPM
-        @param speed: int between [0-1023]
+        @param speed: int between [1-1023]
         @return: void
         """
+        if speed <= 0:
+            print("error setting speed, too low: " + str(speed))
+
+        self.speed = speed
         self.ax12.set_speed(self.servo_id, speed)
 
     def disconnect(self):

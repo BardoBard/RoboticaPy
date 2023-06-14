@@ -48,6 +48,7 @@ def main_process(queue: MessageQueue):
                 if shutdown_command(latest_controller_data):
                     print("shutting down main thread")
                     TrackMotor.move(0, 0)
+                    ArmMotor.close_serial_connection()
                     return
                 if mode is manual_control:
                     manual_control(latest_controller_data)

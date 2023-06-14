@@ -16,12 +16,12 @@ def main_process(queue :MessageQueue):
     latest_controller_data = None
     mode = manual_control
     
-    motors = rotation_arm = ArmMotor(2, speed=0),
-    left_arm1 = ArmMotor(7, speed=0),
-    right_arm1 = ArmMotor(3, speed=0),
-    left_arm2 = ArmMotor(10, speed=0),
-    right_arm2 = ArmMotor(4, speed=0),
-    grabber_Arm = ArmMotor(5, speed=0)
+    # motors = rotation_arm = ArmMotor(2, speed=0),
+    # left_arm1 = ArmMotor(7, speed=0),
+    # right_arm1 = ArmMotor(3, speed=0),
+    # left_arm2 = ArmMotor(10, speed=0),
+    # right_arm2 = ArmMotor(4, speed=0),
+    # grabber_Arm = ArmMotor(5, speed=0)
     
         
     while True:

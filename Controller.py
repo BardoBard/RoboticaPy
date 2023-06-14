@@ -50,7 +50,6 @@ class Controller:
         while True:
             controller_data.fill_data(controller_socket.receive(14))
             joystick2 = controller_data.get_joystick2()
-            serial_connection = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
 
             serial_connection.goto(2, 400 if numpy.sign(joystick2[0]) < 0 else 600,
                                    speed=(numpy.abs(joystick2[0]) * 50), degrees=False)

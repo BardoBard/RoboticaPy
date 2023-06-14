@@ -37,12 +37,11 @@ def switch_mode(mode, button):
     if button:
         if mode is not manual_control:
             print("switching to manual control")
-            mode_ = manual_control
+            return manual_control
     else:
         if mode is not automatic_control:
             print("switching to automatic control")
-            mode_ = automatic_control
-    return mode_
+            return automatic_control
 
 def shutdown_command(controller_data: ControllerData) -> bool:
     return (controller_data.get_left_b_button() 

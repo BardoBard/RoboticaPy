@@ -58,7 +58,7 @@ def automatic_control(image_data: ImageData):
 
 def manual_control(controller_data: ControllerData, past_controller_data: ControllerData):
     #tracks logic
-    if controller_data == past_controller_data:
+    if controller_data.__eq__(past_controller_data):
         print("returning because there's no new data")
         return
     

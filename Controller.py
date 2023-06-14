@@ -40,4 +40,5 @@ class Controller:
         queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)
         #queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.OPENCV)
         
+        bluetooth_process.join()
         print("All done!")

@@ -79,11 +79,11 @@ class Controller:
             left_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
             right_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
 
-            rotation_servo.move(400 if numpy.sign(joystick2[0]) < 0 else 600)
-            left_arm1.move(300 if numpy.sign(joystick2[0]) < 0 else 900)
-            right_arm1.move(300 if numpy.sign(joystick2[0]) < 0 else 900)
-            left_arm2.move(300 if numpy.sign(joystick2[0]) < 0 else 900)
-            right_arm2.move(300 if numpy.sign(joystick2[0]) < 0 else 900)
+            rotation_servo.move(450 if numpy.sign(joystick2[0]) < 0 else 50)
+            left_arm1.move(400 if numpy.sign(joystick2[0]) < 0 else 800)
+            right_arm1.move(400 if numpy.sign(joystick2[0]) < 0 else 800)
+            left_arm2.move(400 if numpy.sign(joystick2[0]) < 0 else 800)
+            right_arm2.move(400 if numpy.sign(joystick2[0]) < 0 else 800)
 
         print("killing proccesses")
         # queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

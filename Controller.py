@@ -65,11 +65,14 @@ class Controller:
         left_arm2 = ArmMotor(10, speed)
         right_arm2 = ArmMotor(4, speed)
 
-        rotation_servo.move(original_pos + pos)
-        left_arm1.move(original_pos + pos)
-        right_arm1.move(original_pos - pos)
-        left_arm2.move(original_pos - pos)
-        right_arm2.move(original_pos + pos)
+        while True:
+            pos2 = -pos if controller_data.get_joystick2()[0] > 0 else pos
+            pos3 = -pos if controller_data.get_joystick2()[1] > 0 else pos
+            rotation_servo.move(original_pos + pos2)
+            left_arm1.move(original_pos + pos3)
+            right_arm1.move(original_pos - pos3)
+            left_arm2.move(original_pos - pos3)
+            right_arm2.move(original_pos + pos3)
 
         print("killing proccesses")
         # queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

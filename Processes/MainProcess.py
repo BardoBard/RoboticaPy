@@ -68,18 +68,18 @@ def automatic_control(image_data: ImageData):
 def control_tracks(controller_data: ControllerData):
     #tracks logic
     joystick1 = controller_data.get_joystick1()
-    print("input x: {}, input y: {}".format(joystick1[0], joystick1[1]))
+    # print("input x: {}, input y: {}".format(joystick1[0], joystick1[1]))
 
     #rotate
     mapped_values = Math.rotate_tuple_over_origin((joystick1[0], joystick1[1]), 45)
-    print("left track: {}, right track: {}".format(mapped_values[0], mapped_values[1]))
+    # print("left track: {}, right track: {}".format(mapped_values[0], mapped_values[1]))
 
     # TrackMotor.move(mapped_values[0], mapped_values[1])
 
 def move_arm(controller_data: ControllerData):
     joystick2 = controller_data.get_joystick2()
     print(400 if numpy.sign(joystick2[0]) < 0 else 600)
-    print(numpy.abs(joystick2[0]) * 100)
+    print(numpy.abs(joystick2[0]) * 30)
     print("")
     rotation_arm.move(400 if numpy.sign(joystick2[0]) < 0 else 600)
     rotation_arm.set_speed(int(numpy.abs(joystick2[0]) * 30))

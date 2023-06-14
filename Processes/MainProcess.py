@@ -22,8 +22,8 @@ def main_process(queue :MessageQueue):
     left_arm2 = ArmMotor(10, speed=0),
     right_arm2 = ArmMotor(4, speed=0),
     grabber_Arm = ArmMotor(5, speed=0)
+    
         
-    main_loop:
     while True:
         
         #get and process messages to this process
@@ -42,7 +42,7 @@ def main_process(queue :MessageQueue):
                 latest_controller_data = data
                 mode = switch_mode(mode, latest_controller_data.get_left_a_button())
                 if shutdown_command(latest_controller_data):
-                    break main_loop
+                    return
                 if mode is manual_control:
                     manual_control(latest_controller_data)
                 

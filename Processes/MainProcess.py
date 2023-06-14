@@ -106,9 +106,9 @@ def manual_arms(controller_data: ControllerData):
     # for i in range(1, 250):
     #     ax12.set_baud_rate(i, baudrate=1_000_000)
 
-    available_ids = ax12.scan(range(0, 30 + 1))
+    # available_ids = ax12.scan(range(0, 30 + 1))
 
-    print("Available Dynamixel unit IDs:", available_ids)
+    # print("Available Dynamixel unit IDs:", available_ids)
 
     speed = int(numpy.abs(joystick2[0]) * max_speed)
     speed2 = int(numpy.abs(joystick2[1]) * max_speed)
@@ -125,16 +125,16 @@ def manual_arms(controller_data: ControllerData):
         print(speed2)
         print("")
 
-    # try:
-    # ax12.goto(2, pos, speed, degrees=False)
+    try:
+        ax12.goto(2, pos, speed, degrees=False)
 
-    # ax12.goto(7, pos2, speed2, degrees=False)
+        ax12.goto(7, pos2, speed2, degrees=False)
 
-    # ax12.goto(3, pos3, speed2, degrees=False)
+        ax12.goto(3, pos3, speed2, degrees=False)
 
-    # ax12.goto(10, pos3, speed2, degrees=False)
+        ax12.goto(10, pos3, speed2, degrees=False)
 
-    # ax12.goto(4, pos2, speed2, degrees=False)
+        ax12.goto(4, pos2, speed2, degrees=False)
 
-    # except Exception:
-    #     print("uhh, error")
+    except Exception:
+        print("uhh, error")

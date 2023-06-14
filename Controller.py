@@ -64,7 +64,7 @@ class Controller:
                 serial_connection.goto(2, pos, speed=speed, degrees=False)
                 serial_connection.goto(7, pos2, speed=speed, degrees=False)
                 serial_connection.goto(3, -pos2, speed=speed, degrees=False)
-            except:
+            except Exception:
                 print("uhh, error")
 
         print("killing proccesses")

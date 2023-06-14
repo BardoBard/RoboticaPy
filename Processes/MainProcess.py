@@ -23,9 +23,8 @@ def main_process(queue :MessageQueue):
                 if type(data) is ImageData:
                     latest_image_detection = data
                 elif type(data) is ControllerData:
-                    if data is not latest_controller_data:
-                        past_controller_data = latest_controller_data
-                        latest_controller_data = data
+                    past_controller_data = latest_controller_data
+                    latest_controller_data = data
                         
         
         if latest_controller_data.get_left_a_button():
@@ -59,7 +58,7 @@ def automatic_control(image_data: ImageData):
 
 def manual_control(controller_data: ControllerData, past_controller_data: ControllerData):
     #tracks logic
-    if past_controller_data is controller_data:
+    if controller_data == past_controller_data:
         return
     
     joystick1 = controller_data.get_joystick1()
@@ -67,7 +66,7 @@ def manual_control(controller_data: ControllerData, past_controller_data: Contro
     track_input_y = joystick1[1]
     
     print("input x: {}, input y: {}".format(track_input_x, track_input_y))
-    left_motor_val = (track_input_x + track_input_y) /2
+    left_motor_val = (track_input_x + track_input_y)/2
     right_motor_val = (track_input_x - track_input_y)/2
     
     print("left track: {}, right track: {}".format(left_motor_val, right_motor_val))

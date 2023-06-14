@@ -19,19 +19,20 @@ class Controller:
         print("Hi B^)")
 
         queue = MessageQueue()
-        image_process = Process(target=detection_process, args=(queue,))
-        bluetooth_process = Process(target=bluetooth_client_process, args=(queue,))
-
-        image_process.start()  # start the image detection program
-        print("started image detection process at {}".format(image_process.pid))
-
-        bluetooth_process.start()
-        print("started bluetooth process at {}".format(bluetooth_process.pid))
+        # image_process = Process(target=detection_process, args=(queue,))
+        # bluetooth_process = Process(target=bluetooth_client_process, args=(queue,))
+        #
+        # image_process.start()  # start the image detection program
+        # print("started image detection process at {}".format(image_process.pid))
+        #
+        # bluetooth_process.start()
+        # print("started bluetooth process at {}".format(bluetooth_process.pid))
 
         # Robot logic
         arm1 = ArmMotor(2, 60)
-        arm1.move(0)
-        arm1.disconnect()
+        arm1.enable_torque(True)
+        arm1.move(1000)
+        # arm1.disconnect()
 
         print("killing proccesses")
         queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

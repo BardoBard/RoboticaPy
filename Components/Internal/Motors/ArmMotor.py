@@ -46,10 +46,13 @@ class ArmMotor:
         """
         self.my_dxl.set_moving_speed(speed)
 
+    def enable_torque(self, torque_bool):
+        self.my_dxl.set_torque_enable(torque_bool)
+
     def disconnect(self):
         """
         disconnects the servo
         @return: void
         """
-        self.my_dxl.set_torque_enable(0)
+        self.my_dxl.set_torque_enable(False)
         self.my_dxl.disconnect()

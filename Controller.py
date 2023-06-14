@@ -28,7 +28,11 @@ class Controller:
         print("started bluetooth process at {}".format(bluetooth_process.pid))
         
         # Robot logic
-        main_process()
+        try: 
+            main_process(queue)
+        except Exception as e:
+            print("FATAL ERROR!")
+            print(e)
         
         
         print("killing proccesses")

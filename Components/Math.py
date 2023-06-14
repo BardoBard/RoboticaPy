@@ -21,7 +21,7 @@ class Math:
         return numpy.clip(2 * ((value - min_value) / (max_value - min_value)) - 1, a_min=-1, a_max=1)
 
     @staticmethod
-    def rotate_tuple_over_origin(tuple_: tuple(float), angle) -> tuple[float, float]:
+    def rotate_tuple_over_origin(tuple_: tuple[float, float], angle) -> tuple[float, float]:
         """rotates a point over the origin
 
         Args:

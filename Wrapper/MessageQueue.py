@@ -1,4 +1,4 @@
-from multiprocessing import Process, Queue
+from multiprocessing import Process, Queue, Lock
 from Information.QueueMessage import QueueMessage
 from Information.QueueAgent import QueueAgent
 from Information.QueueKillProcess import QueueKillProcess
@@ -7,6 +7,7 @@ from typing import List
 class MessageQueue:
     def __init__(self):
         self.__queue = Queue()
+        self.__lock = Lock()
         
     def exit_queue(self):
         """You need to call this from any process that uses the queue before you kill that process.
@@ -14,7 +15,9 @@ class MessageQueue:
         self.__queue.close()
         
     def send_kill_message(self, sender, recipient):
+        self.__lock.acquire()
         self.send_message(sender, recipient, QueueKillProcess())
+        self.__lock.release()
     
     def get_messages_for(self, queue_agent) -> List[QueueMessage]:
         """gets all the messages for a queue agent
@@ -25,8 +28,10 @@ class MessageQueue:
         Returns:
             a list of messages or None: the messages for this recipient
         """ 
-        #if self.__queue.empty():
-            #return None
+        self.__lock.acquire()
+        if self.__queue.empty():
+            self.__lock.release()
+            return None
         
         all_messages = []
         #Get all the messages from the queue
@@ -47,7 +52,8 @@ class MessageQueue:
         # Put the messages that weren't meant for us back in the queue
         for message in unreturned_messages:
             self.__queue.put(message)
-                
+        
+        self.__lock.release()        
         return return_messages
         
     
@@ -59,4 +65,6 @@ class MessageQueue:
             recipient (QueueAgent): the process that's intended to recieve the message
             obj (object): any object
         """
+        self.__lock.acquire()
         self.__queue.put(QueueMessage(sender, recipient, obj))
+        self.__lock.release()

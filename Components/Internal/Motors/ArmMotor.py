@@ -1,7 +1,4 @@
-import RPi.GPIO as GPIO
 from pyax12.connection import Connection
-
-from Packages.Ax12 import Ax12
 
 
 class ArmMotor:
@@ -16,10 +13,10 @@ class ArmMotor:
         self.servo_id = servo_id
         self.speed = speed
 
-        ArmMotor.ax12.set_speed(speed)
+        self.set_speed(speed)
 
     def __del__(self):
-        self.set_speed(self.servo_id, 0)
+        self.set_speed(0)
 
     def move(self, position):
         """

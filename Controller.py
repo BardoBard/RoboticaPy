@@ -21,7 +21,8 @@ from Wrapper.Socket import Socket
 
 speed = 50
 original_pos = 512
-pos = 100
+pos = original_pos
+pos2 = original_pos
 torque = 1023
 cw_limit = 0
 ccw_limit = 1023
@@ -74,17 +75,19 @@ class Controller:
             # print(pos2)
             # print(pos3)
             # print("")
-            rotation_servo.set_speed(int(numpy.abs(joystick2[0]) * speed))
-            left_arm1.set_speed(int(numpy.abs(joystick2[1]) * speed))
-            right_arm1.set_speed(int(numpy.abs(joystick2[1]) * speed))
-            left_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
-            right_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
+            # rotation_servo.set_speed(int(numpy.abs(joystick2[0]) * speed))
+            # left_arm1.set_speed(int(numpy.abs(joystick2[1]) * speed))
+            # right_arm1.set_speed(int(numpy.abs(joystick2[1]) * speed))
+            # left_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
+            # right_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
 
-            rotation_servo.move(450 if numpy.sign(joystick2[0]) < 0 else 550)
-            left_arm1.move(400 if numpy.sign(joystick2[1]) < 0 else 800)
-            right_arm1.move(400 if numpy.sign(joystick2[1]) < 0 else 800)
-            left_arm2.move(400 if numpy.sign(joystick2[1]) < 0 else 800)
-            right_arm2.move(400 if numpy.sign(joystick2[1]) < 0 else 800)
+            pos = numpy.clip(pos + 5 * numpy.sign(joystick2[1]), a_min=400, a_max=600)
+            pos2 = numpy.clip(pos2 + 5 * numpy.sign(joystick2[1]), a_min=450, a_max=550)
+            rotation_servo.move(pos2)
+            left_arm1.move(pos)
+            right_arm1.move(-pos)
+            left_arm2.move(-pos)
+            right_arm2.move(pos)
 
         print("killing proccesses")
         # queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

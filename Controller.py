@@ -39,7 +39,7 @@ class Controller:
         #     print("FATAL ERROR!")
         #     print(traceback.format_exc())
 
-        rotation_arm = ArmMotor(2, speed=100)
+        # rotation_arm = ArmMotor(2, speed=100)
         controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
         controller_packet_size = 14
         # app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address

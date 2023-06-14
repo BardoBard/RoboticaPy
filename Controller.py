@@ -12,9 +12,9 @@ from Processes.ImageDetectionProcess import detection_process
 
 import time
 
-speed = 100
+speed = 50
 original_pos = 512
-pos = 512
+pos = 100
 torque = 1023
 cw_limit = 0
 ccw_limit = 1023
@@ -46,8 +46,8 @@ class Controller:
         # rotation_servo.move(pos)
         left_arm1.move(original_pos + pos)
         right_arm1.move(original_pos - pos)
-        left_arm2.move(original_pos + pos)
-        right_arm2.move(original_pos - pos)
+        left_arm2.move(original_pos - pos)
+        right_arm2.move(original_pos + pos)
         # arm1.disconnect()
 
         print("killing proccesses")

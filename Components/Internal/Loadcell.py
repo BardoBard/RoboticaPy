@@ -12,12 +12,21 @@ class Loadcell:
         print("Tare done! Add weight now...")
 
     def get_weight(self):
+        """
+        Returns the average weight over 5 readings
+        """
         return self.hx.get_weight(5)  # Get the average weight over 5 readings
 
     def tare(self):
+        """
+        Resets the scale to 0
+        """
         self.hx.tare()
 
     def set_reference_unit(self, reference_unit):
+        """
+        Sets the reference unit
+        """
         self.hx.set_reference_unit(reference_unit)
 
     def power_down(self):

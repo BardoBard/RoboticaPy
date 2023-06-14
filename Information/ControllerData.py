@@ -21,6 +21,30 @@ class ControllerData:
         if data is not None:
             self.fill_data(data)
 
+    #getters
+    def get_joystick1(self) -> tuple(float, float):
+        return self.__joystick1
+    
+    def get_joystick1_click(self) -> bool:
+        return self.__joystick1_click
+    
+    def get_joystick2 (self) -> tuple(float, float):
+        return self.__joystick2
+    
+    def get_joystick2_click(self) -> bool:
+        return self.__joystick2_click
+
+    def get_left_a_button(self) -> bool:
+        return self.__LA
+    
+    def get_left_b_button(self) -> bool:
+        return self.__LB
+    
+    def get_right_a_button(self) -> bool:
+        return self.__RA
+    
+    def get_right_b_button(self) -> bool:
+        return self.__RB
     
     def fill_data(self, data):
         """

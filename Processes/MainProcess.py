@@ -74,7 +74,7 @@ def control_tracks(controller_data: ControllerData):
     mapped_values = Math.rotate_tuple_over_origin((joystick1[0], joystick1[1]), 45)
     print("left track: {}, right track: {}".format(mapped_values[0], mapped_values[1]))
 
-    TrackMotor.move(mapped_values[0], mapped_values[1])
+    # TrackMotor.move(mapped_values[0], mapped_values[1])
 
 def move_arm(controller_data: ControllerData):
     joystick2 = controller_data.get_joystick2()

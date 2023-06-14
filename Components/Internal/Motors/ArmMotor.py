@@ -40,6 +40,7 @@ class ArmMotor:
     def set_speed(self, speed):
         """
         sets the speed of the servo
+        important: 1023 is 114 RPM! 300 means 33 RPM
         @param speed: int between [0-1023]
         @return: void
         """
@@ -51,4 +52,4 @@ class ArmMotor:
         @return: void
         """
         self.my_dxl.set_torque_enable(0)
-        Ax12.disconnect()
+        self.my_dxl.disconnect()

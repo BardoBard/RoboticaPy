@@ -31,6 +31,7 @@ class Controller:
         # Robot logic
         arm1 = ArmMotor(2, 60)
         arm1.move(0)
+        arm1.disconnect()
 
         print("killing proccesses")
         queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

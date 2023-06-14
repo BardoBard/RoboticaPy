@@ -3,9 +3,6 @@ from pyax12.connection import Connection
 
 from Components.Internal.Motors.ArmMotor import ArmMotor
 from Information.ControllerData import ControllerData
-
-import time
-
 from Wrapper.Socket import Socket
 
 speed = 50
@@ -39,7 +36,6 @@ class Controller:
         #     print("FATAL ERROR!")
         #     print(traceback.format_exc())
 
-        # rotation_arm = ArmMotor(2, speed=100)
         controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
         controller_packet_size = 14
         # app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
@@ -48,19 +44,13 @@ class Controller:
         controller_data = ControllerData()
 
         controller_socket = Socket(controller_mac_address)
+        while True:
+            controller_data.fill_data(controller_socket.receive(14))
+            joystick2 = controller_data.get_joystick2()
+            serial_connection = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
 
-        serial_connection = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
-
-        serial_connection.goto(2, 400, speed=50, degrees=False)
-        time.sleep(1)  # Wait 1 second
-
-        # Go to -45° (45° CW)
-        serial_connection.goto(2, 500, speed=50, degrees=False)
-        time.sleep(1)
-
-        # serial_connection.pretty_print_control_table(2)
-
-        serial_connection.close()
+            serial_connection.goto(2, 400 if numpy.sign(joystick2[0]) < 0 else 600,
+                                   speed=(numpy.abs(joystick2[0]) * 50), degrees=False)
 
         print("killing proccesses")
         # queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

@@ -8,7 +8,7 @@ from Components.Math import Math
 
 import numpy
 
-motors = rotation_arm = ArmMotor(2, speed=0),
+rotation_arm = ArmMotor(2, speed=0),
 left_arm1 = ArmMotor(7, speed=0),
 right_arm1 = ArmMotor(3, speed=0),
 left_arm2 = ArmMotor(10, speed=0),

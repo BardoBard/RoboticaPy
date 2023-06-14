@@ -44,6 +44,9 @@ class Controller:
         controller_data = ControllerData()
 
         controller_socket = Socket(controller_mac_address)
+
+        serial_connection = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
+
         while True:
             controller_data.fill_data(controller_socket.receive(14))
             joystick2 = controller_data.get_joystick2()

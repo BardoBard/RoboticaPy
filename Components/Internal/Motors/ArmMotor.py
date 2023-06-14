@@ -15,7 +15,7 @@ class ArmMotor:
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(conditional_pin, GPIO.OUT)
 
-    def __init__(self, servo_id, speed=0, cw_angle=0, ccw_angle=1023, enable_torque=True, torque=100):
+    def __init__(self, servo_id, speed=0, cw_angle=0, ccw_angle=1023, enable_torque=True, torque=1023):
         """
         ctor for arm motor
         @param servo_id: servo id, between [0-253] (254 means all servos)

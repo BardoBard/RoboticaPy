@@ -12,7 +12,8 @@ from Processes.ImageDetectionProcess import detection_process
 
 import time
 
-speed = 1000
+speed = 100
+original_pos = 512
 pos = 512
 torque = 1023
 cw_limit = 0
@@ -35,15 +36,18 @@ class Controller:
         # print("started bluetooth process at {}".format(bluetooth_process.pid))
 
         # Robot logic
-        rotation_servo = ArmMotor(2, speed)
+        # rotation_servo = ArmMotor(2, speed)
         left_arm1 = ArmMotor(7, speed)
         right_arm1 = ArmMotor(3, speed)
         left_arm2 = ArmMotor(10, speed)
         right_arm2 = ArmMotor(4, speed)
+
         # arm3 = ArmMotor(2, speed)
-        rotation_servo.move(pos)
-        left_arm1.move(pos)
-        right_arm1.move(pos)
+        # rotation_servo.move(pos)
+        left_arm1.move(original_pos + pos)
+        right_arm1.move(original_pos - pos)
+        left_arm2.move(original_pos + pos)
+        right_arm2.move(original_pos - pos)
         # arm1.disconnect()
 
         print("killing proccesses")

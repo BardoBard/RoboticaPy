@@ -31,6 +31,9 @@ class ArmMotor:
         self.cw_angle_limit(cw_angle)
         self.ccw_angle_limit(ccw_angle)
 
+    def __del__(self):
+        self.disconnect()
+
     def move(self, position):
         """
         moves servo to position
@@ -68,5 +71,7 @@ class ArmMotor:
         disconnects the servo
         @return: void
         """
-        self.my_dxl.set_torque_enable(False)
+        self.enable_torque(False)
+        self.set_torque(0)
+        self.set_speed(0)
         self.my_dxl.disconnect()

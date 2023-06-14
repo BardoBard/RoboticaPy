@@ -16,19 +16,21 @@ def main_process(queue :MessageQueue):
         
         #get and process messages to this process
         messages = queue.get_messages_for(QueueAgent.CONTROLL)
-        if messages is not None: 
-            for message in messages:
-                data = message.get_object()
-                if type(data) is ImageData:
-                    latest_image_detection = data
-                    if mode is automatic_control:
-                        automatic_control(latest_image_detection)
-                elif type(data) is ControllerData:
-                    latest_controller_data = data
-                    mode = switch_mode(mode)
-                    if mode is manual_control:
-                        manual_control(latest_controller_data)
-                    
+        if messages is None: 
+            continue
+        
+        for message in messages:
+            data = message.get_object()
+            if type(data) is ImageData:
+                latest_image_detection = data
+                if mode is automatic_control:
+                    automatic_control(latest_image_detection)
+            elif type(data) is ControllerData:
+                latest_controller_data = data
+                mode = switch_mode(mode)
+                if mode is manual_control:
+                    manual_control(latest_controller_data)
+                
                         
 def switch_mode(mode, button):
     if button:

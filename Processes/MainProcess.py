@@ -41,6 +41,7 @@ def main_process(queue :MessageQueue):
             elif type(data) is ControllerData:
                 latest_controller_data = data
                 mode = switch_mode(mode, latest_controller_data.get_left_a_button())
+                shutdown_command(latest_controller_data)
                 if mode is manual_control:
                     manual_control(latest_controller_data)
                 

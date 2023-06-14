@@ -35,12 +35,13 @@ class Controller:
         # print("started bluetooth process at {}".format(bluetooth_process.pid))
 
         # Robot logic
-        arm1 = ArmMotor(id, speed)
-        arm1.enable_torque(True)
-        arm1.set_torque(torque)
-        arm1.cw_angle_limit(cw_limit)
-        arm1.ccw_angle_limit(ccw_limit)
-        arm1.move(pos)
+        for i in range(id):
+            arm1 = ArmMotor(i, speed)
+            arm1.enable_torque(True)
+            arm1.set_torque(torque)
+            arm1.cw_angle_limit(cw_limit)
+            arm1.ccw_angle_limit(ccw_limit)
+            arm1.move(pos)
         # arm1.disconnect()
 
         print("killing proccesses")

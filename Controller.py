@@ -81,8 +81,8 @@ class Controller:
             # left_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
             # right_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
 
-            pos = numpy.clip(pos + 5 * numpy.sign(joystick2[1]), a_min=400, a_max=600)
-            pos2 = numpy.clip(pos2 + 5 * numpy.sign(joystick2[1]), a_min=450, a_max=550)
+            pos = int(numpy.clip(pos + 5 * numpy.sign(joystick2[1]), a_min=400, a_max=600))
+            pos2 = int(numpy.clip(pos2 + 5 * numpy.sign(joystick2[1]), a_min=450, a_max=550))
             rotation_servo.move(pos2)
             left_arm1.move(pos)
             right_arm1.move(-pos)

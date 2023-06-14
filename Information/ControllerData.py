@@ -22,13 +22,13 @@ class ControllerData:
             self.fill_data(data)
 
     #getters
-    def get_joystick1(self) -> tuple(float):
+    def get_joystick1(self) -> tuple[float, float]:
         return self.__joystick1
     
     def get_joystick1_click(self) -> bool:
         return self.__joystick1_click
     
-    def get_joystick2 (self) -> tuple(float):
+    def get_joystick2 (self) -> tuple[float, float]:
         return self.__joystick2
     
     def get_joystick2_click(self) -> bool:

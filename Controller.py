@@ -51,7 +51,14 @@ class Controller:
 
         serial_connection = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
 
-        serial_connection.pretty_print_control_table(2)
+        serial_connection.goto(2, 400, speed=50, degrees=False)
+        time.sleep(1)  # Wait 1 second
+
+        # Go to -45° (45° CW)
+        serial_connection.goto(2, 500, speed=50, degrees=False)
+        time.sleep(1)
+
+        # serial_connection.pretty_print_control_table(2)
 
         serial_connection.close()
 

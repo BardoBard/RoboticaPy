@@ -8,7 +8,7 @@ from Components.Math import Math
 
 import numpy
 
-rotation_arm = ArmMotor(2, speed=0)
+rotation_arm = ArmMotor(2, speed=10)
 left_arm1 = ArmMotor(7, speed=0)
 right_arm1 = ArmMotor(3, speed=0)
 left_arm2 = ArmMotor(10, speed=0)
@@ -79,10 +79,10 @@ def control_tracks(controller_data: ControllerData):
 def move_arm(controller_data: ControllerData):
     joystick2 = controller_data.get_joystick2()
     print(400 if numpy.sign(joystick2[0]) < 0 else 600)
-    print(int(numpy.abs(joystick2[0]) * 10))
+    print(int(numpy.abs(joystick2[0]) * 150))
     print("")
     rotation_arm.set_speed(int(numpy.abs(joystick2[0]) * 150))
-    rotation_arm.move(400 if numpy.sign(joystick2[0]) < 0 else 600)
+    # rotation_arm.move(400 if numpy.sign(joystick2[0]) < 0 else 600)
 
 
 def manual_control(controller_data: ControllerData):

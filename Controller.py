@@ -1,20 +1,9 @@
-from multiprocessing import Process
-
 import numpy
+from pyax12.connection import Connection
 
 from Components.Internal.Motors.ArmMotor import ArmMotor
 from Information.ControllerData import ControllerData
-from Wrapper.MessageQueue import MessageQueue
-from Information.ImageData import ImageData
-from Information.QueueMessage import QueueMessage
-from Information.QueueAgent import QueueAgent
-from Information.TelemetryData import TelemetryData
 
-from Processes.BluetoothProcess import bluetooth_client_process
-from Processes.ImageDetectionProcess import detection_process
-from Processes.MainProcess import main_process
-
-import traceback
 import time
 
 from Wrapper.Socket import Socket
@@ -60,34 +49,11 @@ class Controller:
 
         controller_socket = Socket(controller_mac_address)
 
-        rotation_servo = ArmMotor(2, speed)
-        left_arm1 = ArmMotor(7, speed)
-        right_arm1 = ArmMotor(3, speed)
-        left_arm2 = ArmMotor(10, speed)
-        right_arm2 = ArmMotor(4, speed)
+        serial_connection = Connection(port="/dev/ttyS0", baudrate=1_000_000, timeout=0.05)
 
-        while True:
-            time.sleep(0.1)
-            controller_data.fill_data(controller_socket.receive(14))
-            joystick2 = controller_data.get_joystick2()
-            # pos2 = -pos if controller_data.get_joystick2()[0] > 0 else pos
-            # pos3 = -pos if controller_data.get_joystick2()[1] > 0 else pos
-            # print(pos2)
-            # print(pos3)
-            # print("")
-            # rotation_servo.set_speed(int(numpy.abs(joystick2[0]) * speed))
-            # left_arm1.set_speed(int(numpy.abs(joystick2[1]) * speed))
-            # right_arm1.set_speed(int(numpy.abs(joystick2[1]) * speed))
-            # left_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
-            # right_arm2.set_speed(int(numpy.abs(joystick2[1]) * speed))
+        serial_connection.pretty_print_control_table(2)
 
-            pos = int(numpy.clip(pos + 5 * numpy.sign(joystick2[1]), a_min=400, a_max=600))
-            pos2 = int(numpy.clip(pos2 + 5 * numpy.sign(joystick2[1]), a_min=450, a_max=550))
-            rotation_servo.move(pos2)
-            left_arm1.move(pos)
-            right_arm1.move(-pos)
-            left_arm2.move(-pos)
-            right_arm2.move(pos)
+        serial_connection.close()
 
         print("killing proccesses")
         # queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

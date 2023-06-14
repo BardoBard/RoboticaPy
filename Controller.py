@@ -54,16 +54,24 @@ class Controller:
             speed = int(numpy.abs(joystick2[0]) * 50)
             speed2 = int(numpy.abs(joystick2[1]) * 50)
             pos = 400 if numpy.sign(joystick2[0]) < 0 else 600
-            pos2 = 400 if numpy.sign(joystick2[1]) < 0 else 600
+            pos2 = 300 if numpy.sign(joystick2[1]) < 0 else 300
             print(pos)
             print(pos2)
             print(speed)
             print(speed2)
             print("")
+            if speed == 0 or speed2 == 0:
+                print("speed 0")
+                speed = 1
+                speed2 = 1
+
             try:
                 serial_connection.goto(2, pos, speed=speed, degrees=False)
+
                 serial_connection.goto(7, pos2, speed=speed, degrees=False)
                 serial_connection.goto(3, -pos2, speed=speed, degrees=False)
+                serial_connection.goto(10, -pos2, speed=speed, degrees=False)
+                serial_connection.goto(4, pos2, speed=speed, degrees=False)
             except Exception:
                 print("uhh, error")
 

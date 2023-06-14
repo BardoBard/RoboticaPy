@@ -49,7 +49,7 @@ class Controller:
 
         controller_socket = Socket(controller_mac_address)
 
-        serial_connection = Connection(port="/dev/ttyS0", baudrate=1_000_000, timeout=0.05)
+        serial_connection = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
 
         is_available = serial_connection.ping(2)
 

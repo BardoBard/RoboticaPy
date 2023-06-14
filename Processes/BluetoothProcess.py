@@ -21,8 +21,8 @@ def bluetooth_client_process(queue: MessageQueue):
     print("Bluetooth process started")
     while run:
         raw_controller_data  = controller_socket.receive(controller_packet_size)
-        controller_data.fill_data(raw_controller_data)
-        queue.send_message(QueueAgent.BLUETOOTH, QueueAgent.CONTROLL, controller_data)
+        if controller_data.fill_data(raw_controller_data):
+            queue.send_message(QueueAgent.BLUETOOTH, QueueAgent.CONTROLL, controller_data)
         
         messages = queue.get_messages_for(QueueAgent.BLUETOOTH)
         

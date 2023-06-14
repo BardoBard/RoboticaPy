@@ -69,22 +69,26 @@ class ControllerData:
         :param data: 14 byte array
         :return: void
         """
-        if data and len(data) == 14:
-            # joystick left (x,y)
-            self.__joystick1 = struct.unpack('H' * 2, data[0:4])
-            self.__joystick1_click = bool(data[4])
+        if not data or len(data) != 14:
+            return False
+        
+        # joystick left (x,y)
+        self.__joystick1 = struct.unpack('H' * 2, data[0:4])
+        self.__joystick1_click = bool(data[4])
 
-            # joystick right (x,y)
-            self.__joystick2 = struct.unpack("H" * 2, data[5:9])
-            self.__joystick2_click = bool(data[9])
+        # joystick right (x,y)
+        self.__joystick2 = struct.unpack("H" * 2, data[5:9])
+        self.__joystick2_click = bool(data[9])
 
-            # buttons on controller
-            self.__LA = bool(data[10])
-            self.__LB = bool(data[11])
-            self.__RA = bool(data[12])
-            self.__RB = bool(data[13])
-            
-            self.__normalize_joysticks()
+        # buttons on controller
+        self.__LA = bool(data[10])
+        self.__LB = bool(data[11])
+        self.__RA = bool(data[12])
+        self.__RB = bool(data[13])
+        
+        self.__normalize_joysticks()
+        
+        return True
 
     def __normalize_joysticks(self):
         # TODO: make magic numbers generic

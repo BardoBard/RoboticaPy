@@ -1,38 +1,25 @@
 import RPi.GPIO as GPIO
+from pyax12.connection import Connection
 
 from Packages.Ax12 import Ax12
 
 
 class ArmMotor:
-    conditional_pin = 18  # this is a static variable, python doesn't have a keyword for it :D
+    ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
 
-    # my_dxl <- non static variable
-    Ax12.DEVICENAME = '/dev/ttyS0'  # this is the port for the servo
-    Ax12.BAUDRATE = 1_000_000
-
-    # pin setup
-    GPIO.setwarnings(False)  # suppress warning if gpio pin hasn't been properly configured
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(conditional_pin, GPIO.OUT)
-
-    def __init__(self, servo_id, speed=0, cw_angle=0, ccw_angle=1023, enable_torque=True, torque=1023):
+    def __init__(self, servo_id, speed=0):
         """
         ctor for arm motor
         @param servo_id: servo id, between [0-253] (254 means all servos)
         @param speed: servo speed [0-1023]
         """
-        Ax12.connect()
-        self.my_dxl = Ax12(servo_id)
-        self.set_speed(speed)
+        self.servo_id = servo_id
+        self.speed = speed
 
-        self.set_torque(torque)
-        self.enable_torque(enable_torque)
-
-        self.cw_angle_limit(cw_angle)
-        self.ccw_angle_limit(ccw_angle)
+        ArmMotor.ax12.set_speed(speed)
 
     def __del__(self):
-        self.disconnect()
+        self.set_speed(self.servo_id, 0)
 
     def move(self, position):
         """
@@ -40,10 +27,9 @@ class ArmMotor:
         @param position: position [0-1023]
         @return: void
         """
-        GPIO.output(ArmMotor.conditional_pin, GPIO.HIGH)
-        self.my_dxl.set_goal_position(position)
+        ArmMotor.ax12.goto(self.servo_id, position, self.speed, degrees=False)
 
-    # TODO: implement angle instead of position
+    # TODO: implement angle too
 
     def set_speed(self, speed):
         """
@@ -52,26 +38,15 @@ class ArmMotor:
         @param speed: int between [0-1023]
         @return: void
         """
-        self.my_dxl.set_moving_speed(speed)
-
-    def enable_torque(self, torque_bool):
-        self.my_dxl.set_torque_enable(torque_bool)
-
-    def set_torque(self, torque):
-        self.my_dxl.set_max_torque(torque)
-
-    def ccw_angle_limit(self, limit):
-        self.my_dxl.set_ccw_angle_limit(limit)
-
-    def cw_angle_limit(self, limit):
-        self.my_dxl.set_ccw_angle_limit(limit)
+        self.ax12.set_speed(self.servo_id, speed)
 
     def disconnect(self):
         """
         disconnects the servo
         @return: void
         """
-        self.enable_torque(False)
-        self.set_torque(0)
         self.set_speed(0)
-        self.my_dxl.disconnect()
+
+    @staticmethod
+    def close_serial_connection():
+        ArmMotor.ax12.close()

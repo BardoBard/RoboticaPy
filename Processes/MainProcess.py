@@ -8,29 +8,33 @@ from Components.Math import Math
 
 import numpy
 
+max_speed = 50
+rotation_arm_servo = ArmMotor(2)
+left_arm1 = ArmMotor(7)
+right_arm1 = ArmMotor(3)
+left_arm2 = ArmMotor(10)
+right_arm2 = ArmMotor(4)
 
 
-
-def main_process(queue :MessageQueue):
-    latest_image_detection = ImageData(None, None, None, None, None, None , None, None, None, False, None)
+def main_process(queue: MessageQueue):
+    latest_image_detection = ImageData(None, None, None, None, None, None, None, None, None, False, None)
     latest_controller_data = None
     mode = manual_control
-    
+
     # motors = rotation_arm = ArmMotor(2, speed=0),
     # left_arm1 = ArmMotor(7, speed=0),
     # right_arm1 = ArmMotor(3, speed=0),
     # left_arm2 = ArmMotor(10, speed=0),
     # right_arm2 = ArmMotor(4, speed=0),
     # grabber_Arm = ArmMotor(5, speed=0)
-    
-        
+
     while True:
-        
-        #get and process messages to this process
+
+        # get and process messages to this process
         messages = queue.get_messages_for(QueueAgent.CONTROLL)
-        if messages is None: 
+        if messages is None:
             continue
-        
+
         for message in messages:
             print("processing message")
             data = message.get_object()
@@ -47,8 +51,8 @@ def main_process(queue :MessageQueue):
                     return
                 if mode is manual_control:
                     manual_control(latest_controller_data)
-                
-                        
+
+
 def switch_mode(mode, button):
     if button:
         if mode is not manual_control:
@@ -59,29 +63,55 @@ def switch_mode(mode, button):
             print("switching to automatic control")
             return automatic_control
 
+
 def shutdown_command(controller_data: ControllerData) -> bool:
-    return (controller_data.get_left_b_button() 
+    return (controller_data.get_left_b_button()
             and controller_data.get_right_b_button()
             and controller_data.get_right_a_button())
+
 
 def automatic_control(image_data: ImageData):
     print("movex{}".format(image_data.movex))
 
+
 def control_tracks(controller_data: ControllerData):
-    #tracks logic
+    # tracks logic
     joystick1 = controller_data.get_joystick1()
     print("input x: {}, input y: {}".format(joystick1[0], joystick1[1]))
-    
-    #rotate
+
+    # rotate
     mapped_values = Math.rotate_tuple_over_origin((joystick1[0], joystick1[1]), 45)
     print("left track: {}, right track: {}".format(mapped_values[0], mapped_values[1]))
-    
+
     TrackMotor.move(mapped_values[0], mapped_values[1])
 
 
 def manual_control(controller_data: ControllerData):
     control_tracks(controller_data)
+    manual_arms(controller_data)
     # joystick2 = controller_data.get_joystick2()
     # rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 1023)
     # rotation_arm.set_speed(numpy.abs(joystick2[0]) * 100)
-        
+
+
+def manual_arms(controller_data: ControllerData):
+    joystick2 = controller_data.get_joystick2()
+
+    speed = int(numpy.abs(joystick2[0]) * max_speed)
+    speed2 = int(numpy.abs(joystick2[1]) * max_speed)
+    pos = 400 if numpy.sign(joystick2[0]) < 0 else 600
+    pos2 = 300 if numpy.sign(joystick2[1]) < 0 else 300
+    if speed == 0 or speed2 == 0:
+        print("speed 0")
+        speed = 1
+        speed2 = 1
+
+    try:
+        rotation_arm_servo.move(2, pos, speed=speed)
+
+        rotation_arm_servo.move(7, pos2, speed=speed2)
+        rotation_arm_servo.move(3, -pos2, speed=speed2)
+        rotation_arm_servo.move(10, -pos2, speed=speed2)
+        rotation_arm_servo.move(4, pos2, speed=speed2)
+    except Exception:
+        print("uhh, error")

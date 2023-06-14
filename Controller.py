@@ -7,6 +7,7 @@ from Information.TelemetryData import TelemetryData
 
 from Processes.BluetoothProcess import bluetooth_client_process
 from Processes.ImageDetectionProcess import detection_process
+from Processes.MainProsess import main_process
 
 import time
                 
@@ -27,7 +28,7 @@ class Controller:
         print("started bluetooth process at {}".format(bluetooth_process.pid))
         
         # Robot logic
-        
+        main_process()
         
         
         print("killing proccesses")

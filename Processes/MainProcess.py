@@ -20,6 +20,7 @@ def main_process(queue :MessageQueue):
             continue
         
         for message in messages:
+            print("processing message")
             data = message.get_object()
             if type(data) is ImageData:
                 latest_image_detection = data
@@ -27,7 +28,7 @@ def main_process(queue :MessageQueue):
                     automatic_control(latest_image_detection)
             elif type(data) is ControllerData:
                 latest_controller_data = data
-                mode = switch_mode(mode)
+                mode = switch_mode(mode, latest_controller_data.get_left_a_button())
                 if mode is manual_control:
                     manual_control(latest_controller_data)
                 

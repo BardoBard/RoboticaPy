@@ -9,6 +9,7 @@ from Processes.BluetoothProcess import bluetooth_client_process
 from Processes.ImageDetectionProcess import detection_process
 from Processes.MainProcess import main_process
 
+import traceback
 import time
                 
 class Controller:
@@ -32,7 +33,7 @@ class Controller:
             main_process(queue)
         except Exception as e:
             print("FATAL ERROR!")
-            print(e.with_traceback())
+            print(traceback.format_exc())
         
         
         print("killing proccesses")

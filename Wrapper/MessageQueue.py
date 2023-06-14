@@ -15,9 +15,7 @@ class MessageQueue:
         self.__queue.close()
         
     def send_kill_message(self, sender, recipient):
-        self.__lock.acquire()
         self.send_message(sender, recipient, QueueKillProcess())
-        self.__lock.release()
     
     def get_messages_for(self, queue_agent) -> List[QueueMessage]:
         """gets all the messages for a queue agent

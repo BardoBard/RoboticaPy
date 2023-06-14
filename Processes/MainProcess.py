@@ -65,7 +65,7 @@ def manual_control(controller_data: ControllerData, past_controller_data: Contro
     print("input x: {}, input y: {}".format(joystick1[0], joystick1[1]))
     
     #mirror the axis
-    joystick1[0] = -joystick1[0]
+    joystick1 = (-joystick1[0], joystick1[1])
     
     #rotate
     mapped_values = Math.rotate_tuple_over_origin(joystick1, 45)

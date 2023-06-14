@@ -67,16 +67,23 @@ class Controller:
 
         while True:
             controller_data.fill_data(controller_socket.receive(14))
-            pos2 = -pos if controller_data.get_joystick2()[0] > 0 else pos
-            pos3 = -pos if controller_data.get_joystick2()[1] > 0 else pos
-            print(pos2)
-            print(pos3)
-            print("")
-            rotation_servo.move(original_pos + pos2)
-            left_arm1.move(original_pos + pos3)
-            right_arm1.move(original_pos - pos3)
-            left_arm2.move(original_pos - pos3)
-            right_arm2.move(original_pos + pos3)
+            joystick2 = controller_data.get_joystick2()
+            # pos2 = -pos if controller_data.get_joystick2()[0] > 0 else pos
+            # pos3 = -pos if controller_data.get_joystick2()[1] > 0 else pos
+            # print(pos2)
+            # print(pos3)
+            # print("")
+            rotation_servo.set_speed(numpy.abs(joystick2[1]) * speed)
+            left_arm1.set_speed(numpy.abs(joystick2[1]) * speed)
+            right_arm1.set_speed(numpy.abs(joystick2[1]) * speed)
+            left_arm2.set_speed(numpy.abs(joystick2[1]) * speed)
+            right_arm2.set_speed(numpy.abs(joystick2[1]) * speed)
+
+            rotation_servo.move(400 if numpy.sign(joystick2[0]) < 0 else 600)
+            left_arm1.move(300 if numpy.sign(joystick2[0]) < 0 else 900)
+            right_arm1.move(300 if numpy.sign(joystick2[0]) < 0 else 900)
+            left_arm2.move(300 if numpy.sign(joystick2[0]) < 0 else 900)
+            right_arm2.move(300 if numpy.sign(joystick2[0]) < 0 else 900)
 
         print("killing proccesses")
         # queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

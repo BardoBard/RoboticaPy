@@ -9,8 +9,7 @@ from Components.Math import Math
 
 def main_process(queue :MessageQueue):
     latest_image_detection = ImageData(None, None, None, None, None, None , None, None, None, False, None)
-    past_controller_data = ControllerData()
-    latest_controller_data = ControllerData()
+    latest_controller_data = None
     mode = manual_control
     
     while True:
@@ -22,20 +21,15 @@ def main_process(queue :MessageQueue):
                 data = message.get_object()
                 if type(data) is ImageData:
                     latest_image_detection = data
+                    if mode is automatic_control:
+                        automatic_control(latest_image_detection)
                 elif type(data) is ControllerData:
-                    past_controller_data = latest_controller_data
                     latest_controller_data = data
                     mode = switch_mode(mode)
-                    on_controller_data(latest_controller_data, past_controller_data, mode, latest_image_detection)
+                    if mode is manual_control:
+                        manual_control(latest_controller_data)
                     
                         
-def on_controller_data(controller_data: ControllerData, past_controller_data: ControllerData, mode, image_data):
-    if mode is automatic_control:
-        automatic_control(image_data)
-    elif mode is manual_control:
-        manual_control(controller_data, past_controller_data)
-
-
 def switch_mode(mode, button):
     if button:
         if mode is not manual_control:
@@ -55,12 +49,8 @@ def shutdown_command(controller_data: ControllerData) -> bool:
 def automatic_control(image_data: ImageData):
     pass
 
-def manual_control(controller_data: ControllerData, past_controller_data: ControllerData):
+def manual_control(controller_data: ControllerData):
     #tracks logic
-    if controller_data.__eq__(past_controller_data):
-        print("returning because there's no new data")
-        return
-    
     joystick1 = controller_data.get_joystick1()
     print("input x: {}, input y: {}".format(joystick1[0], joystick1[1]))
     

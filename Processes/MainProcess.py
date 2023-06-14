@@ -88,7 +88,7 @@ def control_tracks(controller_data: ControllerData):
 
 
 def manual_control(controller_data: ControllerData):
-    control_tracks(controller_data)
+    # control_tracks(controller_data)
     manual_arms(controller_data)
     # joystick2 = controller_data.get_joystick2()
     # rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 1023)
@@ -113,20 +113,20 @@ def manual_arms(controller_data: ControllerData):
         print(speed2)
         print("")
 
-    try:
-        rotation_arm_servo.set_speed(speed)
-        rotation_arm_servo.move(pos)
+    # try:
+    rotation_arm_servo.set_speed(speed)
+    rotation_arm_servo.move(pos)
 
-        left_arm1.set_speed(speed2)
-        left_arm1.move(pos2)
+    left_arm1.set_speed(speed2)
+    left_arm1.move(pos2)
 
-        right_arm1.set_speed(speed2)
-        right_arm1.move(pos3)
+    right_arm1.set_speed(speed2)
+    right_arm1.move(pos3)
 
-        left_arm2.set_speed(speed2)
-        left_arm2.move(pos3)
+    left_arm2.set_speed(speed2)
+    left_arm2.move(pos3)
 
-        right_arm2.set_speed(speed2)
-        right_arm2.move(pos2)
-    except Exception:
-        print("uhh, error")
+    right_arm2.set_speed(speed2)
+    right_arm2.move(pos2)
+    # except Exception:
+    #     print("uhh, error")

@@ -79,10 +79,10 @@ def control_tracks(controller_data: ControllerData):
 def move_arm(controller_data: ControllerData):
     joystick2 = controller_data.get_joystick2()
     print(400 if numpy.sign(joystick2[0]) < 0 else 600)
-    print(numpy.abs(joystick2[0]) * 30)
+    print(int(numpy.abs(joystick2[0]) * 10))
     print("")
     rotation_arm.move(500 if numpy.sign(joystick2[0]) < 0 else 524)
-    rotation_arm.set_speed(int(numpy.abs(joystick2[0]) * 30))
+    rotation_arm.set_speed(int(numpy.abs(joystick2[0]) * 10))
 
 
 def manual_control(controller_data: ControllerData):

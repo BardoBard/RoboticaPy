@@ -18,8 +18,8 @@ def main_process(queue :MessageQueue):
         #get and process messages to this process
         messages = queue.get_messages_for(QueueAgent.CONTROLL)
         if messages is not None: 
-            for messsage in messages:
-                data = messsage.get_object()
+            for message in messages:
+                data = message.get_object()
                 if type(data) is ImageData:
                     latest_image_detection = data
                 elif type(data) is ControllerData:

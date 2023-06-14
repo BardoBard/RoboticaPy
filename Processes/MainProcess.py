@@ -23,7 +23,7 @@ def main_process(queue :MessageQueue):
     right_arm2 = ArmMotor(4, speed=0),
     grabber_Arm = ArmMotor(5, speed=0)
         
-    
+    main_loop:
     while True:
         
         #get and process messages to this process
@@ -41,7 +41,8 @@ def main_process(queue :MessageQueue):
             elif type(data) is ControllerData:
                 latest_controller_data = data
                 mode = switch_mode(mode, latest_controller_data.get_left_a_button())
-                shutdown_command(latest_controller_data)
+                if shutdown_command(latest_controller_data):
+                    break main_loop
                 if mode is manual_control:
                     manual_control(latest_controller_data)
                 
@@ -58,6 +59,10 @@ def switch_mode(mode, button):
     #         return automatic_control
 
 def shutdown_command(controller_data: ControllerData) -> bool:
+    print("left b: {}".format(controller_data.get_left_b_button()))
+    print("right b: {}".format(controller_data.get_right_b_button()))
+    print("right a: {}".format(controller_data.get_right_a_button()))
+    
     return (controller_data.get_left_b_button() 
             and controller_data.get_right_b_button()
             and controller_data.get_right_a_button())

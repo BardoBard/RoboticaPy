@@ -9,6 +9,7 @@ from Components.Math import Math
 
 def main_process(queue :MessageQueue):
     latest_image_detection = ImageData(None, None, None, None, None, None , None, None, None, False, None)
+    past_controller_data = None
     latest_controller_data = ControllerData()
     mode = manual_control
     
@@ -22,7 +23,10 @@ def main_process(queue :MessageQueue):
                 if type(data) is ImageData:
                     latest_image_detection = data
                 elif type(data) is ControllerData:
-                    latest_controller_data = data
+                    if data is not latest_controller_data:
+                        past_controller_data = latest_controller_data
+                        latest_controller_data = data
+                        
         
         if latest_controller_data.get_left_a_button():
             if mode is not automatic_control:
@@ -39,13 +43,13 @@ def main_process(queue :MessageQueue):
             break
         
         if mode is manual_control:
-            manual_control(latest_controller_data)
+            manual_control(latest_controller_data, past_controller_data)
         elif mode is automatic_control(latest_image_detection):
             automatic_control(latest_image_detection)
 
 
         
-def shutdown_command(controller_data: ControllerData) -> bool:
+def shutdown_command(controller_data: ControllerData, past_controller_data: ControllerData) -> bool:
     return (controller_data.get_left_b_button() 
             and controller_data.get_right_b_button()
             and controller_data.get_right_a_button())
@@ -53,8 +57,11 @@ def shutdown_command(controller_data: ControllerData) -> bool:
 def automatic_control(image_data: ImageData):
     pass
 
-def manual_control(controller_data: ControllerData):
+def manual_control(controller_data: ControllerData, past_controller_data: ControllerData):
     #tracks logic
+    if past_controller_data is controller_data:
+        return
+    
     joystick1 = controller_data.get_joystick1()
     track_input_x = joystick1[0]
     track_input_y = joystick1[1]

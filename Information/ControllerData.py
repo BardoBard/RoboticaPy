@@ -21,6 +21,20 @@ class ControllerData:
         if data is not None:
             self.fill_data(data)
 
+    def __eq__(self, __value: object) -> bool:
+        if type(__value) is ControllerData:
+            return (__value.get_joystick1() is self.__joystick1 and
+                    __value.get_joystick1_click() is self.__joystick1_click and
+                    __value.get_joystick2() is self.__joystick2 and
+                    __value.get_joystick2_click() is self.__joystick2_click and
+                    __value.get_left_a_button() is self.__LA and
+                    __value.get_left_b_button() is self.__LB and
+                    __value.get_right_a_button() is self.__RA and
+                    __value.get_right_b_button() is self.__RB)
+        else:
+            return False
+        
+        
     #getters
     def get_joystick1(self) -> tuple[float, float]:
         return self.__joystick1

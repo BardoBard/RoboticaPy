@@ -32,7 +32,7 @@ class Controller:
             main_process(queue)
         except Exception as e:
             print("FATAL ERROR!")
-            print(e)
+            print(e.with_traceback())
         
         
         print("killing proccesses")

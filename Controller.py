@@ -51,8 +51,21 @@ class Controller:
             controller_data.fill_data(controller_socket.receive(14))
             joystick2 = controller_data.get_joystick2()
 
-            serial_connection.goto(2, 400 if numpy.sign(joystick2[0]) < 0 else 600,
-                                   speed=(int(numpy.abs(joystick2[0]) * 50)), degrees=False)
+            speed = int(numpy.abs(joystick2[0]) * 50)
+            speed2 = int(numpy.abs(joystick2[1]) * 50)
+            pos = 400 if numpy.sign(joystick2[0]) < 0 else 600
+            pos2 = 400 if numpy.sign(joystick2[1]) < 0 else 600
+            print(pos)
+            print(pos2)
+            print(speed)
+            print(speed2)
+            print("")
+            try:
+                serial_connection.goto(2, pos, speed=speed, degrees=False)
+                serial_connection.goto(7, pos2, speed=speed, degrees=False)
+                serial_connection.goto(3, -pos2, speed=speed, degrees=False)
+            except:
+                print("uhh, error")
 
         print("killing proccesses")
         # queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

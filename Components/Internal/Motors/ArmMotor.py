@@ -49,6 +49,9 @@ class ArmMotor:
     def enable_torque(self, torque_bool):
         self.my_dxl.set_torque_enable(torque_bool)
 
+    def set_torque(self, torque):
+        self.my_dxl.set_max_torque(torque)
+
     def disconnect(self):
         """
         disconnects the servo

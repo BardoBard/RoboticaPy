@@ -12,6 +12,10 @@ from Processes.ImageDetectionProcess import detection_process
 
 import time
 
+id = 10
+speed = 80
+pos = 0
+torque = 1023
 
 class Controller:
     if __name__ == '__main__':
@@ -29,9 +33,10 @@ class Controller:
         # print("started bluetooth process at {}".format(bluetooth_process.pid))
 
         # Robot logic
-        arm1 = ArmMotor(2, 60)
+        arm1 = ArmMotor(id, speed)
         arm1.enable_torque(True)
-        arm1.move(1000)
+        arm1.set_torque(torque)
+        arm1.move(pos)
         # arm1.disconnect()
 
         print("killing proccesses")

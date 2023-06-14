@@ -43,7 +43,7 @@ class Controller:
         #     print("FATAL ERROR!")
         #     print(traceback.format_exc())
 
-        rotation_arm = ArmMotor(2, speed=100)
+        rotation_arm = ArmMotor(10, speed=100)
         controller_mac_address = "78:21:84:7C:A4:F6"  # controller_mac_address
         controller_packet_size = 14
         # app_mac_address = "00:E1:8C:A5:60:44"  # app_mac_address
@@ -58,7 +58,7 @@ class Controller:
             raw_controller_data = controller_socket.receive(controller_packet_size)
             controller_data.fill_data(raw_controller_data)
             joystick2 = controller_data.get_joystick2()
-
+            time.sleep(0.5)
             rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 700)
 
         print("killing proccesses")

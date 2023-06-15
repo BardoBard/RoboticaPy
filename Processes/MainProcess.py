@@ -15,21 +15,7 @@ max_speed = 50  # TODO: move to class
 offset = -12
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 
-try:
-    ax12.goto(2, 512, 50, degrees=False)
 
-    ax12.goto(7, 512, 50, degrees=False)
-
-    ax12.goto(3, 512, 50, degrees=False)
-
-    ax12.goto(10, 512, 50, degrees=False)
-
-    ax12.goto(4, 512, 50, degrees=False)
-
-    ax12.goto(5, 512, 50, degrees=False)
-
-except Exception:
-    print("setup")
 
 
 
@@ -49,6 +35,22 @@ def main_process(queue: MessageQueue):
     time.sleep(1)
     loadcell = Loadcell(16, 20, 1)
     loadcell.main()
+    
+    try:
+        ax12.goto(2, 512, 50, degrees=False)
+
+        ax12.goto(7, 512, 50, degrees=False)
+
+        ax12.goto(3, 512, 50, degrees=False)
+
+        ax12.goto(10, 512, 50, degrees=False)
+
+        ax12.goto(4, 512, 50, degrees=False)
+
+        ax12.goto(5, 512, 50, degrees=False)
+
+    except Exception:
+        print("setup")
     
     # motors = rotation_arm = ArmMotor(2, speed=0),
     # left_arm1 = ArmMotor(7, speed=0),

@@ -82,7 +82,7 @@ class OpenCv:
         (x, y), (width, height), angle = rotated_rect
         rotated_area = width * height
         center = (int(x), int(y))
-        size = (int(width), int(height))
+        size_rect = (int(width), int(height))
 
         # calculate the rotation matrix
         matrix = cv2.getRotationMatrix2D(center, angle, 1)
@@ -91,7 +91,7 @@ class OpenCv:
         img_rot = cv2.warpAffine(img, matrix, img_size)
 
         # crop image
-        crop_img = cv2.getRectSubPix(img_rot, size, center)
+        crop_img = cv2.getRectSubPix(img_rot, size_rect, center)
 
         imagedata_ = ImageData(center, angle, cv2.contourArea(contours[main_box]),
                                cv2.contourArea(contours[main_box]) * (100.0 / rotated_area), rotated_area,

@@ -129,6 +129,9 @@ def manual_arms(controller_data: ControllerData):
     pos2 = 300 if numpy.sign(joystick2[1]) > 0 else 600
     pos3 = 300 if not numpy.sign(joystick2[1]) > 0 else 600
 
+    print("pos2: " + str(pos2))
+    print("pos3: " + str(pos3))
+
     if speed == 0 or speed2 == 0:
         print("speed 0")
         speed = 1

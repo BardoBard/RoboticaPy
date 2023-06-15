@@ -5,8 +5,10 @@ from Information.QueueAgent import QueueAgent
 from Information.ImageData import ImageData
 from Information.ControllerData import ControllerData
 from Components.Internal.Motors.TrackMotor import TrackMotor
+from Components.Internal.Loadcell import Loadcell
 from Components.Math import Math
 
+import time
 import numpy
 
 max_speed = 50  # TODO: move to class
@@ -30,6 +32,7 @@ except Exception:
     print("setup")
 
 
+
 # rotation_arm_servo = ArmMotor(2)
 # left_arm1 = ArmMotor(7)
 # right_arm1 = ArmMotor(3)
@@ -41,7 +44,11 @@ def main_process(queue: MessageQueue):
     latest_image_detection = ImageData(None, None, None, None, None, None, None, None, None, False, None)
     latest_controller_data = None
     mode = manual_control
-
+    
+    #calibrate loadcell
+    time.sleep(1)
+    loadcell = Loadcell(16, 20, 1)
+    
     # motors = rotation_arm = ArmMotor(2, speed=0),
     # left_arm1 = ArmMotor(7, speed=0),
     # right_arm1 = ArmMotor(3, speed=0),

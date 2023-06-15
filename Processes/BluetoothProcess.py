@@ -42,6 +42,6 @@ def bluetooth_client_process(queue: MessageQueue):
                 queue.exit_queue()
                 print("shutting down the bluetooth process")
                 run = False
-                break
+                return
             else:
                 print("the bluetooth thread was passed an invalid object!")

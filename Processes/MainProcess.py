@@ -122,6 +122,9 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     joystick_left_b = controller_data.get_left_b_button()
     joystick_right_b = controller_data.get_right_b_button()
 
+    if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
+        return
+
     rotation_speed = int(numpy.abs(joystick2[0]) * max_speed)
     arm_speed = int(numpy.abs(joystick2[1]) * max_speed)
     grabby_speed = (joystick_left_b or joystick_right_b) * max_speed

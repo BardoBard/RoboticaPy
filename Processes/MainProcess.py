@@ -64,7 +64,7 @@ def main_process(queue: MessageQueue):
             data = message.get_object()
             if type(data) is ImageData:
                 latest_image_detection = data
-                
+                print("movex: {}".format(latest_image_detection.movex))
                 if mode is automatic_control:
                     automatic_control(latest_image_detection)
             elif type(data) is ControllerData:

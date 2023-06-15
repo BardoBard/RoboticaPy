@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 
 class AX12:
     def __init__(self, port="/dev/ttyS0", baudrate=1000000):
-        self.rpi_gpio = rpi_gpio
+        self.rpi_gpio = True
 
         if self.rpi_gpio:
             if "RPi" in sys.modules:

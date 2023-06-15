@@ -154,13 +154,17 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     joystick_right_a = controller_data.get_right_a_button()
     joystick_right_b = controller_data.get_right_b_button()
 
+    print("move_grabby:" + str(move_grabby))
+    print("joystick_right_a:" + str(joystick_right_a))
+    print("prev_a:" + str(prev_ra))
+
     rotation_speed = int(numpy.abs(joystick2[0]) * max_speed)
     arm_speed = int(numpy.abs(joystick2[1]) * max_speed)
     grabby_speed = (joystick_left_b or joystick_right_b) * max_speed
 
     rotation_pos = (612 if numpy.sign(joystick2[0]) > 0 else 412)
-    left_arm_pos = (950 if numpy.sign(joystick2[1]) > 0 else 312)
-    right_arm_pos = (950 if not numpy.sign(joystick2[1]) > 0 else 312)
+    left_arm_pos = (712 if numpy.sign(joystick2[1]) > 0 else 312)
+    right_arm_pos = (712 if not numpy.sign(joystick2[1]) > 0 else 312)
     grabby_pos = 512
 
     if joystick_right_b:
@@ -192,7 +196,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
         try:
-            ax12.goto(2, position=512, speed=1, degrees=False)
+            ax12.goa(2, position=512, speed=1, degrees=False)
 
             ax12.goto(7, position=512, speed=1, degrees=False)
 
@@ -209,22 +213,13 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
         return
 
-    if joystick_right_a and not prev_ra:
-        move_grabby = not move_grabby
-
-    prev_ra = joystick_right_a
-
-    print("move_grabby:" + str(move_grabby))
-    print("joystick_right_a:" + str(joystick_right_a))
-    print("prev_a:" + str(prev_ra))
-
     try:
         ax12.goto(2, rotation_pos, rotation_speed, degrees=False)
 
-        if not move_grabby:
-            ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
+        # if not move_grabby:
+        ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
 
-            ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
+        ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
 
         ax12.goto(10, right_arm_pos, arm_speed, degrees=False)
 

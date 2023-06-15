@@ -72,3 +72,23 @@ class AX12:
         checksum = sum(instruction_packet) & 0xFF
         instruction_packet.append(0xFF - checksum)
         return instruction_packet
+
+if name == "main":
+    ax12 = AX12()
+
+    try:
+        ax12.goto(2, 512, 50, degrees=False)
+
+        ax12.goto(7, 512, 50, degrees=False)
+
+        ax12.goto(3, 512, 50, degrees=False)
+
+        ax12.goto(10, 512, 50, degrees=False)
+
+        ax12.goto(4, 512, 50, degrees=False)
+
+        ax12.goto(5, 512, 50, degrees=False)
+    except:
+        print("error while closing down")
+
+    ax12.close()

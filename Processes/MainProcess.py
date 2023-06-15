@@ -127,7 +127,7 @@ def manual_arms(controller_data: ControllerData):
     speed2 = int(numpy.abs(joystick2[1]) * max_speed)
     pos = 400 if numpy.sign(joystick2[0]) > 0 else 600
     pos2 = 300 if numpy.sign(joystick2[1]) > 0 else 600
-    pos3 = 300 if not numpy.sign(joystick2[1]) < 0 else 600
+    pos3 = 300 if not numpy.sign(joystick2[1]) > 0 else 600
 
     if speed == 0 or speed2 == 0:
         print("speed 0")

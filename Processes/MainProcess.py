@@ -12,7 +12,6 @@ import numpy
 
 max_speed = 50  # TODO: move to class
 offset = 50
-prevs_ra = False
 move_grabby = False
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 

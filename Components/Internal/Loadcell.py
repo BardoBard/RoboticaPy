@@ -59,7 +59,7 @@ def calculate_reference_unit():
     input("Place a known weight on the cell and press enter to continue...")
 
     # Read the average value from the HX711 over multiple readings
-    average_value = hx.get_raw_data_mean()
+    average_value = hx.get_raw_data()
 
     # Prompt the user to enter the weight of the known object
     known_weight = float(input("Enter the weight of the known object (in your desired unit): "))

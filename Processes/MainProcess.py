@@ -155,4 +155,4 @@ def manual_arms(controller_data: ControllerData):
         # ax12.goto(5, , speed2, degrees=False)
 
     except Exception:
-        print("uhh, error")
+        print("something went wrong with sending information")

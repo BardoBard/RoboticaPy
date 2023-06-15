@@ -70,17 +70,17 @@ def main_process(queue: MessageQueue):
                     print("shutting down main thread")
                     TrackMotor.move(0, 0)
                     try:
-                        ax12.goto(2, position=512, speed=0, degrees=False)
+                        ax12.goto(2, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(7, position=512, speed=0, degrees=False)
+                        ax12.goto(7, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(3, position=512, speed=0, degrees=False)
+                        ax12.goto(3, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(10, position=512, speed=0, degrees=False)
+                        ax12.goto(10, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(4, position=512, speed=0, degrees=False)
+                        ax12.goto(4, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(5, position=512, speed=0, degrees=False)
+                        ax12.goto(5, position=512, speed=max_speed, degrees=False)
                     except:
                         print("error while closing down")
 
@@ -139,17 +139,17 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
         try:
-            ax12.goto(2, position=512, speed=0, degrees=False)
+            ax12.goto(2, position=512, speed=1, degrees=False)
 
-            ax12.goto(7, position=512, speed=0, degrees=False)
+            ax12.goto(7, position=512, speed=1, degrees=False)
 
-            ax12.goto(3, position=512, speed=0, degrees=False)
+            ax12.goto(3, position=512, speed=1, degrees=False)
 
-            ax12.goto(10, position=512, speed=0, degrees=False)
+            ax12.goto(10, position=512, speed=1, degrees=False)
 
-            ax12.goto(4, position=512, speed=0, degrees=False)
+            ax12.goto(4, position=512, speed=1, degrees=False)
 
-            ax12.goto(5, position=512, speed=0, degrees=False)
+            ax12.goto(5, position=512, speed=1, degrees=False)
         except:
             print("error while closing down")
 

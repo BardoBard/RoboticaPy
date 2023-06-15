@@ -12,7 +12,7 @@ import numpy
 
 max_speed = 50  # TODO: move to class
 offset = -12
-ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000, waiting_time=1)
+ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000, timeout=0.4, waiting_time=0.5)
 
 try:
     ax12.goto(2, 512, 50, degrees=False)

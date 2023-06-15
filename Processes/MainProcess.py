@@ -1,4 +1,5 @@
 from pyax12.connection import Connection
+from Components.Internal.ax12lib import Ax12
 
 from Wrapper.MessageQueue import MessageQueue
 from Information.QueueAgent import QueueAgent
@@ -11,7 +12,7 @@ import numpy
 
 max_speed = 50  # TODO: move to class
 offset = -12
-ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
+ax12 = AX12()
 
 try:
     ax12.goto(2, 512, 50, degrees=False)

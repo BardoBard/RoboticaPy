@@ -73,7 +73,7 @@ class AX12:
         instruction_packet.append(0xFF - checksum)
         return instruction_packet
 
-if name == "main":
+if __name__ == "main":
     ax12 = AX12()
 
     try:

@@ -135,18 +135,18 @@ def manual_control(controller_data: ControllerData):
 def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor class, but for now this WORKS
     joystick2 = controller_data.get_joystick2()
     joystick_left_b = controller_data.get_left_b_button()
-    joystick_right_b = controller_data.get_right_b_button()
+    joystick_right_a = controller_data.get_right_a_button()
 
     rotation_speed = int(numpy.abs(joystick2[0]) * max_speed)
     arm_speed = int(numpy.abs(joystick2[1]) * max_speed)
-    grabby_speed = (joystick_left_b or joystick_right_b) * max_speed
+    grabby_speed = (joystick_left_b or joystick_right_a) * max_speed
 
     rotation_pos = (612 if numpy.sign(joystick2[0]) > 0 else 412)
     left_arm_pos = (712 if numpy.sign(joystick2[1]) > 0 else 312) - offset
     right_arm_pos = (712 if not numpy.sign(joystick2[1]) > 0 else 312) - offset
     grabby_pos = 512
 
-    if joystick_right_b:
+    if joystick_right_a:
         grabby_pos = 312
         grabby_speed = max_speed * 2
     if joystick_left_b:

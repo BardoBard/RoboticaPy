@@ -26,7 +26,7 @@ try:
 
     ax12.goto(4, 512 + offset, 50, degrees=False)
 
-    ax12.goto(5, 812, 50, degrees=False)
+    ax12.goto(5, 712, 50, degrees=False)
 
 except Exception:
     print(traceback.format_exc())
@@ -84,7 +84,7 @@ def main_process(queue: MessageQueue):
 
                         ax12.goto(4, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(5, position=812, speed=max_speed, degrees=False)
+                        ax12.goto(5, position=712, speed=max_speed, degrees=False)
                     except:
                         print(traceback.format_exc())
                         print("error while closing down")

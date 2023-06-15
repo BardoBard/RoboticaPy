@@ -142,7 +142,7 @@ def manual_arms(controller_data: ControllerData):
         print("")
 
     try:
-        # ax12.goto(2, pos, speed, degrees=False)
+        ax12.goto(2, pos, speed, degrees=False)
 
         ax12.goto(7, pos2, speed2, degrees=False)
 

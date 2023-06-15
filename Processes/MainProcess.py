@@ -14,6 +14,7 @@ import numpy
 max_speed = 50  # TODO: move to class
 offset = -12
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
+print("ax12: {}".format(ax12))
 
 
 

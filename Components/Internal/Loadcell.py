@@ -35,7 +35,7 @@ class Loadcell:
     def power_up(self):
         self.hx.power_up()
 
-    def main():
+    def main(self):
         # Prompt the user to calibrate the loadcell, or start measuring
         calibrate = input("Calibrate loadcell? (y/n): ")
 

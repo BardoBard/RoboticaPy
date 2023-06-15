@@ -5,7 +5,7 @@ from hx711 import HX711
 class Loadcell:
     def __init__(self, dout_pin, pd_sck_pin, reference_unit):
         self.hx = HX711(dout_pin, pd_sck_pin)
-        #self.hx.set_reading_format("MSB", "MSB")
+        self.hx.set_reading_format("MSB", "MSB")
         self.hx.set_reference_unit(reference_unit)
         self.hx.reset()
         self.hx.tare()

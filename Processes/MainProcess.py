@@ -163,6 +163,9 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     right_arm_pos = (950 if not numpy.sign(joystick2[1]) > 0 else 312)
     grabby_pos = 512
 
+    print("move_grabby:" + str(move_grabby))
+    print("joystick_right_a:" + str(joystick_right_a))
+
     if joystick_right_b:
         grabby_pos = 312
         grabby_speed = max_speed * 2
@@ -185,9 +188,6 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
     if grabby_speed == 0:
         grabby_speed = 1
-
-    print("move_grabby:" + str(move_grabby))
-    print("joystick_right_a:" + str(joystick_right_a))
 
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
         try:

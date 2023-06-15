@@ -26,7 +26,7 @@ try:
 
     ax12.goto(4, 512 + offset, 50, degrees=False)
 
-    ax12.goto(5, 512, 50, degrees=False)
+    ax12.goto(5, 812, 50, degrees=False)
 
 except Exception:
     print(traceback.format_exc())
@@ -84,7 +84,7 @@ def main_process(queue: MessageQueue):
 
                         ax12.goto(4, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(5, position=512, speed=max_speed, degrees=False)
+                        ax12.goto(5, position=812, speed=max_speed, degrees=False)
                     except:
                         print(traceback.format_exc())
                         print("error while closing down")
@@ -155,8 +155,8 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     grabby_speed = (joystick_left_b or joystick_right_b) * max_speed
 
     rotation_pos = (612 if numpy.sign(joystick2[0]) > 0 else 412)
-    left_arm_pos = (712 if numpy.sign(joystick2[1]) > 0 else 312) - offset
-    right_arm_pos = (712 if not numpy.sign(joystick2[1]) > 0 else 312) - offset
+    left_arm_pos = (712 if numpy.sign(joystick2[1]) > 0 else 312)
+    right_arm_pos = (712 if not numpy.sign(joystick2[1]) > 0 else 312)
     grabby_pos = 512
 
     if joystick_right_b:

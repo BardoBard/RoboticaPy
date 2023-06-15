@@ -59,7 +59,7 @@ def calculate_reference_unit():
     input("Place a known weight on the cell and press enter to continue...")
 
     # Read the average value from the HX711 over multiple readings
-    average_value = hx.get_raw_data_mean()
+    average_value = hx.get_weight(5)
 
     # Prompt the user to enter the weight of the known object
     known_weight = float(input("Enter the weight of the known object (in your desired unit): "))
@@ -73,7 +73,7 @@ def calculate_reference_unit():
     # Cleanup GPIO pins
     GPIO.cleanup()
 
-if __name__ == "__main__":
+def main():
     # Prompt the user to calibrate the loadcell, or start measuring
     calibrate = input("Calibrate loadcell? (y/n): ")
 
@@ -90,3 +90,6 @@ if __name__ == "__main__":
                 print(loadcell.get_weight())
             except (KeyboardInterrupt, SystemExit):
                 cleanAndExit()
+
+if __name__ == "__main__":
+    main()

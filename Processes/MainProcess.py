@@ -9,7 +9,8 @@ from Components.Math import Math
 
 import numpy
 
-max_speed = 50
+max_speed = 50  # TODO: move to class
+offset = -12
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 
 try:
@@ -23,8 +24,11 @@ try:
 
     ax12.goto(4, 512, 50, degrees=False)
 
+    ax12.goto(5, 512, 50, degrees=False)
+
 except Exception:
     print("setup")
+
 
 # rotation_arm_servo = ArmMotor(2)
 # left_arm1 = ArmMotor(7)
@@ -113,46 +117,50 @@ def manual_control(controller_data: ControllerData):
     # rotation_arm.set_speed(numpy.abs(joystick2[0]) * 100)
 
 
-def manual_arms(controller_data: ControllerData):
+def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor class, but for now this WORKS
     joystick2 = controller_data.get_joystick2()
+    joystick_left_b = controller_data.get_left_b_button()
+    joystick_right_b = controller_data.get_right_b_button()
 
-    # for i in range(1, 250):
-    #     ax12.set_baud_rate(i, baudrate=1_000_000)
+    rotation_speed = int(numpy.abs(joystick2[0]) * max_speed)
+    arm_speed = int(numpy.abs(joystick2[1]) * max_speed)
+    grabby_speed = (joystick_left_b or joystick_right_b) * max_speed
 
-    # available_ids = ax12.scan(range(0, 30 + 1))
+    rotation_pos = (612 if numpy.sign(joystick2[0]) > 0 else 412)
+    left_arm_pos = (712 if numpy.sign(joystick2[1]) > 0 else 312) - offset
+    right_arm_pos = (712 if not numpy.sign(joystick2[1]) > 0 else 312) - offset
+    grabby_pos = (612 if not numpy.sign(joystick2[1]) > 0 else 412) - offset
 
-    # print("Available Dynamixel unit IDs:", available_ids)
+    # print("pos2: " + str(left_arm_pos))
+    # print("right_arm_pos: " + str(right_arm_pos))
 
-    speed = int(numpy.abs(joystick2[0]) * max_speed)
-    speed2 = int(numpy.abs(joystick2[1]) * max_speed)
-    pos = 412 if numpy.sign(joystick2[0]) > 0 else 624
-    pos2 = 312 if numpy.sign(joystick2[1]) > 0 else 724
-    pos3 = 312 if not numpy.sign(joystick2[1]) > 0 else 724
+    if rotation_speed == 0:
+        print("rotation_speed 0")
+        rotation_speed = 1
 
-    print("pos2: " + str(pos2))
-    print("pos3: " + str(pos3))
+    if arm_speed == 0:
+        print("rotation_speed 0")
+        arm_speed = 1
 
-    if speed == 0 or speed2 == 0:
-        print("speed 0")
-        speed = 1
-        speed2 = 1
+    if grabby_speed == 0:
+        grabby_speed = 0
 
-        print(speed)
-        print(speed2)
+        print(rotation_speed)
+        print(arm_speed)
         print("")
 
     try:
-        ax12.goto(2, pos, speed, degrees=False)
+        ax12.goto(2, rotation_pos, rotation_speed, degrees=False)
 
-        ax12.goto(7, pos2, speed2, degrees=False)
+        ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
 
-        ax12.goto(3, pos3, speed2, degrees=False)
+        ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
 
-        ax12.goto(10, pos3, speed2, degrees=False)
+        ax12.goto(10, right_arm_pos, arm_speed, degrees=False)
 
-        ax12.goto(4, pos2, speed2, degrees=False)
+        ax12.goto(4, left_arm_pos, arm_speed, degrees=False)
 
-        # ax12.goto(5, , speed2, degrees=False)
+        ax12.goto(5, grabby_pos, grabby_speed, degrees=False)
 
     except Exception:
         print("something went wrong with sending information")

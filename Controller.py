@@ -16,7 +16,7 @@ class Controller:
     if __name__ == '__main__':
         
         # Setup
-        print("Hi B^)")
+        print("Hi everyone, I'm Walter!")
         
         queue = MessageQueue()
         image_process = Process(target=detection_process, args=(queue,))

@@ -95,7 +95,7 @@ class OpenCv:
 
         imagedata_ = ImageData(center, angle, cv2.contourArea(contours[main_box]),
                                cv2.contourArea(contours[main_box]) * (100.0 / rotated_area), rotated_area,
-                               hierarchy_size, 250 - x, y - 250, crop_img, True, None)
+                               hierarchy_size, (size/2) - x, y - (size/2), crop_img, True, None)
         return imagedata_
 
     def __blur_difference(self, img, h1, s1, h2, s2):

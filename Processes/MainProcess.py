@@ -61,6 +61,7 @@ def main_process(queue: MessageQueue):
             data = message.get_object()
             if type(data) is ImageData:
                 latest_image_detection = data
+                
                 if mode is automatic_control:
                     automatic_control(latest_image_detection)
             elif type(data) is ControllerData:
@@ -110,7 +111,14 @@ def shutdown_command(controller_data: ControllerData) -> bool:
 
 def automatic_control(image_data: ImageData):
     print("movex{}".format(image_data.movex))
-
+    dead_zone = 5
+    #camera is upside down, 
+    #positive movex is left
+    #negative movex is right
+    if image_data.movex > dead_zone:
+        pass
+    elif image_data.movex < -dead_zone:
+        pass
 
 def control_tracks(controller_data: ControllerData):
     # tracks logic

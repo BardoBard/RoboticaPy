@@ -18,6 +18,8 @@ class ControllerData:
         self.__RA = False
         self.__RB = False
 
+        self.prev_ra = False
+
         if data is not None:
             self.fill_data(data)
 
@@ -85,6 +87,12 @@ class ControllerData:
         self.__LB = bool(data[11])
         self.__RB = bool(data[12])
         self.__RA = bool(data[13])
+
+        if not self.prev_ra and self.__RA:
+            self.prev_ra = self.__RA
+            self.__RA = not self.__RA
+        else:
+            self.prev_ra = self.__RA
         
         self.__normalize_joysticks()
         

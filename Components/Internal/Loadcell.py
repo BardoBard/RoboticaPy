@@ -74,9 +74,19 @@ def calculate_reference_unit():
     GPIO.cleanup()
 
 if __name__ == "__main__":
-    while True:
-        try:
-            # Start calibrating the reference unit
-            calculate_reference_unit()
-        except (KeyboardInterrupt, SystemExit):
-            cleanAndExit()
+    # Prompt the user to calibrate the loadcell, or start measuring
+    calibrate = input("Calibrate loadcell? (y/n): ")
+
+    # If the user wants to calibrate the loadcell
+    if calibrate == "y":
+        calculate_reference_unit()
+    else:
+        # Create an instance of the Loadcell class
+        loadcell = Loadcell(16, 20, 1)
+
+        # Start measuring the weight
+        while True:
+            try:
+                print(loadcell.get_weight())
+            except (KeyboardInterrupt, SystemExit):
+                cleanAndExit()

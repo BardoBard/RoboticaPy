@@ -196,7 +196,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
         try:
-            ax12.goa(2, position=512, speed=1, degrees=False)
+            ax12.goto(2, position=512, speed=1, degrees=False)
 
             ax12.goto(7, position=512, speed=1, degrees=False)
 

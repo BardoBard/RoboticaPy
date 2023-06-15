@@ -10,12 +10,12 @@ import numpy
 
 max_speed = 50
 
-rotation_arm = ArmMotor(2, 1)
-left_arm1 = ArmMotor(7, 1)
-right_arm1 = ArmMotor(3, 1)
-left_arm2 = ArmMotor(10, 1)
-right_arm2 = ArmMotor(4, 1)
-grabby_arm = ArmMotor(5, 1)
+rotation_arm = ArmMotor(2, 50)
+left_arm1 = ArmMotor(7, 50)
+right_arm1 = ArmMotor(3, 50)
+left_arm2 = ArmMotor(10, 50)
+right_arm2 = ArmMotor(4, 50)
+grabby_arm = ArmMotor(5, 50)
 
 
 def main_process(queue: MessageQueue):
@@ -89,7 +89,8 @@ def control_tracks(controller_data: ControllerData):
 
 
 def manual_control(controller_data: ControllerData):
-    control_tracks(controller_data)
+    # control_tracks(controller_data)
+    manual_arms(controller_data)
     # joystick2 = controller_data.get_joystick2()
     # rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 1023)
     # rotation_arm.set_speed(numpy.abs(joystick2[0]) * 100)

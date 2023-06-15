@@ -7,6 +7,7 @@ from Information.ControllerData import ControllerData
 from Components.Internal.Motors.TrackMotor import TrackMotor
 from Components.Math import Math
 
+import traceback
 import numpy
 
 max_speed = 50  # TODO: move to class
@@ -27,6 +28,7 @@ try:
     ax12.goto(5, 512, 50, degrees=False)
 
 except Exception:
+    print(traceback.format_exc())
     print("setup")
 
 
@@ -83,6 +85,7 @@ def main_process(queue: MessageQueue):
 
                         ax12.goto(5, position=512, speed=max_speed, degrees=False)
                     except:
+                        print(traceback.format_exc())
                         print("error while closing down")
 
                     ax12.close()
@@ -197,6 +200,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
             ax12.goto(5, position=grabby_pos, speed=grabby_speed, degrees=False)
         except:
             print("error while closing down")
+            print(traceback.format_exc())
 
         return
     try:

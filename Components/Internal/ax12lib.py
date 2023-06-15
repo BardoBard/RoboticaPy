@@ -79,7 +79,7 @@ if __name__ == "main":
     try:
         ax12.goto(2, 512, 50, degrees=False)
         # now move it back
-        ax12.goto(2, 400, 50, degrees=False)
+        ax12.goto(2, 0, 50, degrees=False)
     except:
         print("error while closing down")
 

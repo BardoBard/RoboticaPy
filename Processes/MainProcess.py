@@ -176,7 +176,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         arm_speed = 1
 
     if grabby_speed == 0:
-        grabby_speed = 0
+        grabby_speed = 1
 
         print(rotation_speed)
         print(arm_speed)

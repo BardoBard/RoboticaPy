@@ -11,22 +11,24 @@ import traceback
 import numpy
 
 max_speed = 50  # TODO: move to class
-offset = -12
+offset = 50
+prev_ra = False
+move_grabby = False
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 
 try:
-    ax12.goto(254, 512, 20, degrees=False)
-    # ax12.goto(2, 512, 50, degrees=False)
+    # ax12.goto(254, 512, 20, degrees=False)
+    ax12.goto(2, 512, 50, degrees=False)
     
-    # ax12.goto(7, 512, 50, degrees=False)
+    ax12.goto(7, 512, 50, degrees=False)
 
-    # ax12.goto(3, 512, 50, degrees=False)
+    ax12.goto(3, 512, 50, degrees=False)
 
-    # ax12.goto(10, 512, 50, degrees=False)
+    ax12.goto(10, 512 - offset, 50, degrees=False)
 
-    # ax12.goto(4, 512, 50, degrees=False)
+    ax12.goto(4, 512 + offset, 50, degrees=False)
 
-    # ax12.goto(5, 512, 50, degrees=False)
+    ax12.goto(5, 512, 50, degrees=False)
 
 except Exception:
     print(traceback.format_exc())
@@ -145,8 +147,10 @@ def manual_control(controller_data: ControllerData):
 
 
 def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor class, but for now this WORKS
+    global move_grabby
     joystick2 = controller_data.get_joystick2()
     joystick_left_b = controller_data.get_left_b_button()
+    joystick_right_a = controller_data.get_right_a_button()
     joystick_right_b = controller_data.get_right_b_button()
 
     rotation_speed = int(numpy.abs(joystick2[0]) * max_speed)
@@ -154,8 +158,8 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     grabby_speed = (joystick_left_b or joystick_right_b) * max_speed
 
     rotation_pos = (612 if numpy.sign(joystick2[0]) > 0 else 412)
-    left_arm_pos = (712 if numpy.sign(joystick2[1]) > 0 else 312) - offset
-    right_arm_pos = (712 if not numpy.sign(joystick2[1]) > 0 else 312) - offset
+    left_arm_pos = (950 if numpy.sign(joystick2[1]) > 0 else 312)
+    right_arm_pos = (950 if not numpy.sign(joystick2[1]) > 0 else 312)
     grabby_pos = 512
 
     if joystick_right_b:
@@ -204,12 +208,19 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
             print(traceback.format_exc())
 
         return
+
+    if joystick_right_a and not prev_ra:
+        move_grabby = not move_grabby
+
+    prev_ra = joystick_right_a
+
     try:
         ax12.goto(2, rotation_pos, rotation_speed, degrees=False)
 
-        ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
+        if not move_grabby:
+            ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
 
-        ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
+            ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
 
         ax12.goto(10, right_arm_pos, arm_speed, degrees=False)
 

@@ -14,6 +14,13 @@ offset = -12
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 
 try:
+    print("2: " + str(ax12.get_max_torque(2)))
+    print("7: " + str(ax12.get_max_torque(7)))
+    print("3: " + str(ax12.get_max_torque(3)))
+    print("10: " + str(ax12.get_max_torque(10)))
+    print("4: " + str(ax12.get_max_torque(4)))
+    print("5: " + str(ax12.get_max_torque(5)))
+
     ax12.goto(2, 512, 50, degrees=False)
 
     ax12.goto(7, 512, 50, degrees=False)

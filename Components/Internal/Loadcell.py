@@ -1,6 +1,6 @@
 import sys
 import RPi.GPIO as GPIO
-from hx711 import HX711
+from Components.Internal.hx711 import HX711
 
 class Loadcell:
     def __init__(self, dout_pin, pd_sck_pin, reference_unit):

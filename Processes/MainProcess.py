@@ -1,5 +1,5 @@
 from pyax12.connection import Connection
-from Components.Internal.ax12lib import Ax12
+from Components.Internal.ax12lib import AX12
 
 from Wrapper.MessageQueue import MessageQueue
 from Information.QueueAgent import QueueAgent

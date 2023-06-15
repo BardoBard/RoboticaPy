@@ -1,6 +1,7 @@
 import serial
 import time
 import RPi.GPIO as GPIO
+import sys
 
 class AX12:
     def __init__(self, port="/dev/ttyS0", baudrate=1000000):
@@ -13,9 +14,7 @@ class AX12:
             else:
                 raise Exception("RPi.GPIO cannot be imported")
 
-        self.waiting_time = waiting_time
-
-        self.serial_connection = serial.Serial(port=port, baudrate=baudrate, timeout=timeout,
+        self.serial_connection = serial.Serial(port=port, baudrate=baudrate, timeout=0.1,
                                                bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
                                                stopbits=serial.STOPBITS_ONE)
 
@@ -39,16 +38,7 @@ class AX12:
             GPIO.output(18, GPIO.LOW)
             time.sleep(0.004)
         else:
-            time.sleep(self.waiting_time)
-
-        num_bytes_available = self.serial_connection.inWaiting()
-        status_packet_bytes = self.serial_connection.read(num_bytes_available)
-
-        status_packet = None
-        if len(status_packet_bytes) > 0:
-            status_packet = sp.StatusPacket(status_packet_bytes)
-
-        return status_packet
+            time.sleep(0.02)
 
     def flush(self):
         if self.rpi_gpio:
@@ -72,7 +62,7 @@ class AX12:
             data.extend([speed & 0xFF, (speed >> 8) & 0xFF])
 
         instruction_packet = self._create_instruction_packet(servo_id, 5, data)
-        return self.send(instruction_packet)
+        self.send(instruction_packet)
 
     def _convert_degrees_to_position(self, degrees):
         return int((degrees / 300) * 1023)

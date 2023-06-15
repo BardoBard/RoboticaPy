@@ -14,8 +14,8 @@ max_speed = 50  # TODO: move to class
 offset = -12
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 
-try:
-    ax12.goto(254, 512, 20, degrees=False)
+#try:
+    # ax12.goto(254, 512, 20, degrees=False)
     # ax12.goto(2, 512, 50, degrees=False)
     
     # ax12.goto(7, 512, 50, degrees=False)
@@ -28,9 +28,9 @@ try:
 
     # ax12.goto(5, 512, 50, degrees=False)
 
-except Exception:
-    print(traceback.format_exc())
-    print("setup")
+# except Exception:
+#     print(traceback.format_exc())
+#     print("setup")
 
 
 # rotation_arm_servo = ArmMotor(2)
@@ -73,23 +73,23 @@ def main_process(queue: MessageQueue):
                 if shutdown_command(latest_controller_data):
                     print("shutting down main thread")
                     TrackMotor.move(0, 0)
-                    try:
-                        ax12.goto(2, position=512, speed=max_speed, degrees=False)
+                    # try:
+                    #     ax12.goto(2, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(7, position=512, speed=max_speed, degrees=False)
+                    #     ax12.goto(7, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(3, position=512, speed=max_speed, degrees=False)
+                    #     ax12.goto(3, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(10, position=512, speed=max_speed, degrees=False)
+                    #     ax12.goto(10, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(4, position=512, speed=max_speed, degrees=False)
+                    #     ax12.goto(4, position=512, speed=max_speed, degrees=False)
 
-                        ax12.goto(5, position=512, speed=max_speed, degrees=False)
-                    except:
-                        print(traceback.format_exc())
-                        print("error while closing down")
+                    #     ax12.goto(5, position=512, speed=max_speed, degrees=False)
+                    # except:
+                    #     print(traceback.format_exc())
+                    #     print("error while closing down")
 
-                    ax12.close()
+                    #ax12.close()
                     # ArmMotor.close_serial_connection()
                     return
                 if mode is manual_control:
@@ -137,8 +137,9 @@ def control_tracks(controller_data: ControllerData):
 
 
 def manual_control(controller_data: ControllerData):
+    pass
     # control_tracks(controller_data)
-    manual_arms(controller_data)
+    #manual_arms(controller_data)
     # joystick2 = controller_data.get_joystick2()
     # rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 1023)
     # rotation_arm.set_speed(numpy.abs(joystick2[0]) * 100)

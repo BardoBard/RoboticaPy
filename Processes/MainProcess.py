@@ -69,18 +69,20 @@ def main_process(queue: MessageQueue):
                 if shutdown_command(latest_controller_data):
                     print("shutting down main thread")
                     TrackMotor.move(0, 0)
+                    try:
+                        ax12.goto(2, position=512, speed=0, degrees=False)
 
-                    ax12.goto(2, position=512, speed=0, degrees=False)
+                        ax12.goto(7, position=512, speed=0, degrees=False)
 
-                    ax12.goto(7, position=512, speed=0, degrees=False)
+                        ax12.goto(3, position=512, speed=0, degrees=False)
 
-                    ax12.goto(3, position=512, speed=0, degrees=False)
+                        ax12.goto(10, position=512, speed=0, degrees=False)
 
-                    ax12.goto(10, position=512, speed=0, degrees=False)
+                        ax12.goto(4, position=512, speed=0, degrees=False)
 
-                    ax12.goto(4, position=512, speed=0, degrees=False)
-
-                    ax12.goto(5, position=512, speed=0, degrees=False)
+                        ax12.goto(5, position=512, speed=0, degrees=False)
+                    except:
+                        print("error while closing down")
 
                     ax12.close()
                     # ArmMotor.close_serial_connection()
@@ -136,17 +138,21 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     joystick_right_b = controller_data.get_right_b_button()
 
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
-        ax12.goto(2, position=512, speed=0, degrees=False)
+        try:
+            ax12.goto(2, position=512, speed=0, degrees=False)
 
-        ax12.goto(7, position=512, speed=0, degrees=False)
+            ax12.goto(7, position=512, speed=0, degrees=False)
 
-        ax12.goto(3, position=512, speed=0, degrees=False)
+            ax12.goto(3, position=512, speed=0, degrees=False)
 
-        ax12.goto(10, position=512, speed=0, degrees=False)
+            ax12.goto(10, position=512, speed=0, degrees=False)
 
-        ax12.goto(4, position=512, speed=0, degrees=False)
+            ax12.goto(4, position=512, speed=0, degrees=False)
 
-        ax12.goto(5, position=512, speed=0, degrees=False)
+            ax12.goto(5, position=512, speed=0, degrees=False)
+        except:
+            print("error while closing down")
+
         return
 
     rotation_speed = int(numpy.abs(joystick2[0]) * max_speed)

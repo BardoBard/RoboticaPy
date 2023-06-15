@@ -19,7 +19,7 @@ ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 try:
     # ax12.goto(254, 512, 20, degrees=False)
     ax12.goto(2, 512, 50, degrees=False)
-    
+
     ax12.goto(7, 512, 50, degrees=False)
 
     ax12.goto(3, 512, 50, degrees=False)
@@ -66,7 +66,7 @@ def main_process(queue: MessageQueue):
             data = message.get_object()
             if type(data) is ImageData:
                 latest_image_detection = data
-                
+
                 if mode is automatic_control:
                     automatic_control(latest_image_detection)
             elif type(data) is ControllerData:
@@ -118,13 +118,14 @@ def shutdown_command(controller_data: ControllerData) -> bool:
 def automatic_control(image_data: ImageData):
     print("movex{}".format(image_data.movex))
     dead_zone = 5
-    #camera is upside down, 
-    #positive movex is left
-    #negative movex is right
+    # camera is upside down,
+    # positive movex is left
+    # negative movex is right
     if image_data.movex > dead_zone:
         pass
     elif image_data.movex < -dead_zone:
         pass
+
 
 def control_tracks(controller_data: ControllerData):
     # tracks logic
@@ -171,7 +172,6 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
     print(grabby_speed)
 
-
     # print("pos2: " + str(left_arm_pos))
     # print("right_arm_pos: " + str(right_arm_pos))
 
@@ -213,6 +213,10 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         move_grabby = not move_grabby
 
     prev_ra = joystick_right_a
+
+    print("move_grabby:" + str(move_grabby))
+    print("joystick_right_a:" + str(joystick_right_a))
+    print("prev_a:" + str(prev_ra))
 
     try:
         ax12.goto(2, rotation_pos, rotation_speed, degrees=False)

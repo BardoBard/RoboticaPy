@@ -12,6 +12,19 @@ import numpy
 max_speed = 50
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
 
+try:
+    ax12.goto(2, 512, 50, degrees=False)
+
+    ax12.goto(7, 512, 50, degrees=False)
+
+    ax12.goto(3, 512, 50, degrees=False)
+
+    ax12.goto(10, 512, 50, degrees=False)
+
+    ax12.goto(4, 512, 50, degrees=False)
+
+except Exception:
+    print("setup")
 
 # rotation_arm_servo = ArmMotor(2)
 # left_arm1 = ArmMotor(7)

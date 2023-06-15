@@ -11,22 +11,22 @@ import traceback
 import numpy
 
 max_speed = 50  # TODO: move to class
-offset = -12
+offset = 50
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 
 try:
-    ax12.goto(254, 512, 20, degrees=False)
-    # ax12.goto(2, 512, 50, degrees=False)
-    
-    # ax12.goto(7, 512, 50, degrees=False)
+    # ax12.goto(254, 512, 20, degrees=False)
+    ax12.goto(2, 512, 50, degrees=False)
 
-    # ax12.goto(3, 512, 50, degrees=False)
+    ax12.goto(7, 512, 50, degrees=False)
 
-    # ax12.goto(10, 512, 50, degrees=False)
+    ax12.goto(3, 512, 50, degrees=False)
 
-    # ax12.goto(4, 512, 50, degrees=False)
+    ax12.goto(10, 512 - offset, 50, degrees=False)
 
-    # ax12.goto(5, 512, 50, degrees=False)
+    ax12.goto(4, 512 + offset, 50, degrees=False)
+
+    ax12.goto(5, 512, 50, degrees=False)
 
 except Exception:
     print(traceback.format_exc())
@@ -64,7 +64,7 @@ def main_process(queue: MessageQueue):
             data = message.get_object()
             if type(data) is ImageData:
                 latest_image_detection = data
-                
+
                 if mode is automatic_control:
                     automatic_control(latest_image_detection)
             elif type(data) is ControllerData:
@@ -116,13 +116,14 @@ def shutdown_command(controller_data: ControllerData) -> bool:
 def automatic_control(image_data: ImageData):
     print("movex{}".format(image_data.movex))
     dead_zone = 5
-    #camera is upside down, 
-    #positive movex is left
-    #negative movex is right
+    # camera is upside down,
+    # positive movex is left
+    # negative movex is right
     if image_data.movex > dead_zone:
         pass
     elif image_data.movex < -dead_zone:
         pass
+
 
 def control_tracks(controller_data: ControllerData):
     # tracks logic
@@ -166,7 +167,6 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         grabby_speed = max_speed * 2
 
     print(grabby_speed)
-
 
     # print("pos2: " + str(left_arm_pos))
     # print("right_arm_pos: " + str(right_arm_pos))

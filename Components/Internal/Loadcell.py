@@ -35,6 +35,24 @@ class Loadcell:
     def power_up(self):
         self.hx.power_up()
 
+    def main():
+        # Prompt the user to calibrate the loadcell, or start measuring
+        calibrate = input("Calibrate loadcell? (y/n): ")
+
+        # If the user wants to calibrate the loadcell
+        if calibrate == "y":
+            calculate_reference_unit()
+        else:
+            # Create an instance of the Loadcell class
+            loadcell = Loadcell(16, 20, 1)
+
+            # Start measuring the weight
+            while True:
+                try:
+                    print(loadcell.get_weight())
+                except (KeyboardInterrupt, SystemExit):
+                    cleanAndExit()
+
 def cleanAndExit():
     print("Cleaning...")
     GPIO.cleanup()
@@ -72,24 +90,6 @@ def calculate_reference_unit():
 
     # Cleanup GPIO pins
     GPIO.cleanup()
-
-def main():
-    # Prompt the user to calibrate the loadcell, or start measuring
-    calibrate = input("Calibrate loadcell? (y/n): ")
-
-    # If the user wants to calibrate the loadcell
-    if calibrate == "y":
-        calculate_reference_unit()
-    else:
-        # Create an instance of the Loadcell class
-        loadcell = Loadcell(16, 20, 1)
-
-        # Start measuring the weight
-        while True:
-            try:
-                print(loadcell.get_weight())
-            except (KeyboardInterrupt, SystemExit):
-                cleanAndExit()
 
 if __name__ == "__main__":
     main()

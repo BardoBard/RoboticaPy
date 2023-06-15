@@ -48,6 +48,7 @@ def main_process(queue: MessageQueue):
     #calibrate loadcell
     time.sleep(1)
     loadcell = Loadcell(16, 20, 1)
+    loadcell.main()
     
     # motors = rotation_arm = ArmMotor(2, speed=0),
     # left_arm1 = ArmMotor(7, speed=0),

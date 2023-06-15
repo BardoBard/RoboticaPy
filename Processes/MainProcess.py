@@ -10,7 +10,7 @@ from Components.Math import Math
 import numpy
 
 max_speed = 50
-ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
+ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 
 try:
     ax12.goto(2, 512, 50, degrees=False)
@@ -139,15 +139,17 @@ def manual_arms(controller_data: ControllerData):
         print("")
 
     try:
-        ax12.goto(2, pos, speed, degrees=False)
-
-        ax12.goto(7, pos2, speed2, degrees=False)
-
-        ax12.goto(3, pos3, speed2, degrees=False)
+        # ax12.goto(2, pos, speed, degrees=False)
+        #
+        # ax12.goto(7, pos2, speed2, degrees=False)
+        #
+        # ax12.goto(3, pos3, speed2, degrees=False)
 
         ax12.goto(10, pos3, speed2, degrees=False)
 
         ax12.goto(4, pos2, speed2, degrees=False)
+
+        # ax12.goto(5, , speed2, degrees=False)
 
     except Exception:
         print("uhh, error")

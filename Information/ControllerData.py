@@ -17,7 +17,7 @@ class ControllerData:
         self.__LB = False
         self.__RA = False
         self.__RB = False
-        
+
         if data is not None:
             self.fill_data(data)
 
@@ -83,8 +83,8 @@ class ControllerData:
         # buttons on controller
         self.__LA = bool(data[10])
         self.__LB = bool(data[11])
-        self.__RA = bool(data[12])
-        self.__RB = bool(data[13])
+        self.__RB = bool(data[12])
+        self.__RA = bool(data[13])
         
         self.__normalize_joysticks()
         

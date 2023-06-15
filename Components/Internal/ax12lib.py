@@ -78,16 +78,8 @@ if name == "main":
 
     try:
         ax12.goto(2, 512, 50, degrees=False)
-
-        ax12.goto(7, 512, 50, degrees=False)
-
-        ax12.goto(3, 512, 50, degrees=False)
-
-        ax12.goto(10, 512, 50, degrees=False)
-
-        ax12.goto(4, 512, 50, degrees=False)
-
-        ax12.goto(5, 512, 50, degrees=False)
+        # now move it back
+        ax12.goto(2, 400, 50, degrees=False)
     except:
         print("error while closing down")
 

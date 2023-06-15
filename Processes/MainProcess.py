@@ -162,7 +162,12 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     rotation_pos = (612 if numpy.sign(joystick2[0]) > 0 else 412)
     left_arm_pos = (712 if numpy.sign(joystick2[1]) > 0 else 312) - offset
     right_arm_pos = (712 if not numpy.sign(joystick2[1]) > 0 else 312) - offset
-    grabby_pos = (612 if not numpy.sign(joystick2[1]) > 0 else 412) - offset
+    grabby_pos = 512
+
+    if joystick_right_b:
+        grabby_pos = 612
+    if joystick_left_b:
+        grabby_pos = 412
 
     # print("pos2: " + str(left_arm_pos))
     # print("right_arm_pos: " + str(right_arm_pos))

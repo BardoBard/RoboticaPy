@@ -12,7 +12,7 @@ import numpy
 
 max_speed = 50  # TODO: move to class
 offset = 50
-prev_ra = False
+prevs_ra = False
 move_grabby = False
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 
@@ -141,13 +141,13 @@ def control_tracks(controller_data: ControllerData):
 
 def manual_control(controller_data: ControllerData):
     # control_tracks(controller_data)
-    manual_arms(controller_data)
+    manual_arms(controller_data, prevs_ra)
     # joystick2 = controller_data.get_joystick2()
     # rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 1023)
     # rotation_arm.set_speed(numpy.abs(joystick2[0]) * 100)
 
 
-def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor class, but for now this WORKS
+def manual_arms(controller_data: ControllerData, prev_ra):  # TODO: change it to ArmMotor class, but for now this WORKS
     global move_grabby
     joystick2 = controller_data.get_joystick2()
     joystick_left_b = controller_data.get_left_b_button()
@@ -189,6 +189,15 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         # print(rotation_speed)
         # print(arm_speed)
         print("")
+    if joystick_right_a and not prev_ra:
+        move_grabby = not move_grabby
+
+    prev_ra = joystick_right_a
+
+    print("move_grabby:" + str(move_grabby))
+    print("joystick_right_a:" + str(joystick_right_a))
+    print("prev_a:" + str(prev_ra))
+
 
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
         try:
@@ -208,15 +217,6 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
             print(traceback.format_exc())
 
         return
-
-    if joystick_right_a and not prev_ra:
-        move_grabby = not move_grabby
-
-    prev_ra = joystick_right_a
-
-    print("move_grabby:" + str(move_grabby))
-    print("joystick_right_a:" + str(joystick_right_a))
-    print("prev_a:" + str(prev_ra))
 
     try:
         ax12.goto(2, rotation_pos, rotation_speed, degrees=False)

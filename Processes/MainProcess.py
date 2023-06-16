@@ -110,7 +110,8 @@ def switch_mode(mode, button):
 def shutdown_command(controller_data: ControllerData) -> bool:
     return (controller_data.get_left_b_button()
             and controller_data.get_right_b_button()
-            and controller_data.get_right_a_button())
+            # and controller_data.get_right_a_button()
+            )
 
 
 def automatic_control(image_data: ImageData):

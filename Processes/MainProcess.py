@@ -194,9 +194,9 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
             ax12.goto(7, position=0, speed=1, degrees=False)
 
-            ax12.goto(3, position=0 - offset, speed=1, degrees=False)
+            ax12.goto(3, position=0, speed=1, degrees=False)
 
-            ax12.goto(10, position=0 + offset, speed=1, degrees=False)
+            ax12.goto(10, position=0, speed=1, degrees=False)
 
             ax12.goto(4, position=0, speed=1, degrees=False)
 

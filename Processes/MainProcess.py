@@ -150,7 +150,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     joystick2 = controller_data.get_joystick2()
     joystick_left_b = controller_data.get_left_b_button()
     joystick_right_b = controller_data.get_right_b_button()
-    # joystick_right_b = controller_data.get_right_a_button()
+    joystick_right_a = controller_data.get_right_a_button()
 
     rotation_speed = int(numpy.abs(joystick2[0]) * max_speed)
     arm_speed = int(numpy.abs(joystick2[1]) * max_speed)
@@ -211,7 +211,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
         ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
 
-        if not joystick_right_b:
+        if not joystick_right_a:
             ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
 
             ax12.goto(10, right_arm_pos, arm_speed, degrees=False)

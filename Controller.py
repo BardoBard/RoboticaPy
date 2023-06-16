@@ -45,17 +45,11 @@ class Controller:
 
         # arm3 = ArmMotor(2, speed)
         rotation_servo.move(original_pos)
-        rotation_servo.disconnect()
         left_arm1.move(original_pos + pos)
-        left_arm1.disconnect()
         right_arm1.move(original_pos - pos)
-        right_arm1.disconnect()
         left_arm2.move(original_pos - pos)
-        left_arm2.disconnect()
         right_arm2.move(original_pos + pos)
-        right_arm2.disconnect()
         grabby.move(512)
-        grabby.disconnect()
 
         print("killing proccesses")
         queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)

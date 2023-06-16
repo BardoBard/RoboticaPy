@@ -31,8 +31,8 @@ class ArmMotor:
         self.cw_angle_limit(cw_angle)
         self.ccw_angle_limit(ccw_angle)
 
-    def __del__(self):
-        self.disconnect()
+  #  def __del__(self):
+   #     self.disconnect()
 
     def move(self, position):
         """

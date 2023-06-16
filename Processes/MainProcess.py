@@ -209,12 +209,12 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     try:
         ax12.goto(2, rotation_pos, rotation_speed, degrees=False)
 
-        ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
+        if joystick_right_a:
+            ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
 
-        if not joystick_right_a:
             ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
 
-            ax12.goto(10, right_arm_pos, arm_speed, degrees=False)
+        ax12.goto(10, right_arm_pos, arm_speed, degrees=False)
 
         ax12.goto(4, left_arm_pos, arm_speed, degrees=False)
 

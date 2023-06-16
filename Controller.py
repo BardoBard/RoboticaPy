@@ -41,6 +41,7 @@ class Controller:
         right_arm1 = ArmMotor(3, speed)
         left_arm2 = ArmMotor(10, speed)
         right_arm2 = ArmMotor(4, speed)
+        right_arm2 = ArmMotor(5, speed)
 
         # arm3 = ArmMotor(2, speed)
         # rotation_servo.move(pos)
@@ -48,6 +49,7 @@ class Controller:
         right_arm1.move(original_pos - pos)
         left_arm2.move(original_pos - pos)
         right_arm2.move(original_pos + pos)
+        right_arm2.move(512)
         # arm1.disconnect()
 
         print("killing proccesses")

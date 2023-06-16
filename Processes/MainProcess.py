@@ -16,7 +16,7 @@ ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 
 try:
     # ax12.goto(254, 512, 20, degrees=False)
-    ax12.goto(2, 512, 50, degrees=False)
+    ax12.goto(15, 512, 50, degrees=False)
 
     ax12.goto(7, 512, 50, degrees=False)
 
@@ -74,7 +74,7 @@ def main_process(queue: MessageQueue):
                     print("shutting down main thread")
                     TrackMotor.move(0, 0)
                     try:
-                        ax12.goto(2, position=512, speed=max_speed, degrees=False)
+                        ax12.goto(15, position=512, speed=max_speed, degrees=False)
 
                         ax12.goto(7, position=512, speed=max_speed, degrees=False)
 
@@ -190,7 +190,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
         try:
-            ax12.goto(2, position=512, speed=1, degrees=False)
+            ax12.goto(15, position=512, speed=1, degrees=False)
 
             ax12.goto(7, position=512, speed=1, degrees=False)
 
@@ -207,7 +207,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
         return
     try:
-        ax12.goto(2, rotation_pos, rotation_speed, degrees=False)
+        ax12.goto(15, rotation_pos, rotation_speed, degrees=False)
 
         ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
 

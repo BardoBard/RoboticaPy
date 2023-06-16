@@ -168,7 +168,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         grabby_pos = 712
         grabby_speed = max_speed * 2
 
-    print(grabby_speed)
+    print(joystick_right_a)
 
     # print("pos2: " + str(left_arm_pos))
     # print("right_arm_pos: " + str(right_arm_pos))

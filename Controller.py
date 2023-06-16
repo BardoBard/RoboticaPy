@@ -36,7 +36,7 @@ class Controller:
         # print("started bluetooth process at {}".format(bluetooth_process.pid))
 
         # Robot logic
-        # rotation_servo = ArmMotor(2, speed)
+        rotation_servo = ArmMotor(2, speed)
         left_arm1 = ArmMotor(7, speed)
         right_arm1 = ArmMotor(3, speed)
         left_arm2 = ArmMotor(10, speed)

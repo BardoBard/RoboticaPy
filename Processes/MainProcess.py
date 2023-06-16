@@ -190,15 +190,25 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
         try:
-            ax12.goto(15, position=512, speed=1, degrees=False)
+            ax12.goto(15, position=0, speed=1, degrees=False)
 
-            ax12.goto(7, position=512, speed=1, degrees=False)
+            ax12.goto(7, position=0, speed=1, degrees=False)
 
-            ax12.goto(3, position=512 - offset, speed=1, degrees=False)
+            ax12.goto(3, position=0 - offset, speed=1, degrees=False)
 
-            ax12.goto(10, position=512 + offset, speed=1, degrees=False)
+            ax12.goto(10, position=0 + offset, speed=1, degrees=False)
 
-            ax12.goto(4, position=512, speed=1, degrees=False)
+            ax12.goto(4, position=0, speed=1, degrees=False)
+
+            ax12.goto(15, position=1023, speed=1, degrees=False)
+
+            ax12.goto(7, position=1023, speed=1, degrees=False)
+
+            ax12.goto(3, position=1023, speed=1, degrees=False)
+
+            ax12.goto(10, position=1023, speed=1, degrees=False)
+
+            ax12.goto(4, position=1023, speed=1, degrees=False)
 
             ax12.goto(5, position=grabby_pos, speed=grabby_speed, degrees=False)
         except:
@@ -210,7 +220,6 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         ax12.goto(15, rotation_pos, rotation_speed, degrees=False)
 
         if not joystick_right_a:
-
             ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
 
             ax12.goto(3, right_arm_pos, arm_speed, degrees=False)

@@ -10,6 +10,7 @@ from Processes.ImageDetectionProcess import detection_process
 from Processes.MainProcess import main_process
 from Components.Internal.Loadcell import Loadcell
 
+
 import traceback
 import time
                 
@@ -18,8 +19,8 @@ class Controller:
         
         # Setup
         print("Hi everyone, I'm Walter!")
-        
-        loadcell = Loadcell(16, 20, 6.75) 
+        loadcell = Loadcell(16, 20, 6.75)
+        loadcell.main()
         while True: 
             print(loadcell.get_weight())
         

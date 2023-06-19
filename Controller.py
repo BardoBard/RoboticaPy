@@ -7,46 +7,30 @@ from Information.TelemetryData import TelemetryData
 
 from Processes.BluetoothProcess import bluetooth_client_process
 from Processes.ImageDetectionProcess import detection_process
-from Processes.MainProcess import main_process
-from Components.Internal.Loadcell import Loadcell, calibrate_script
 
-
-import traceback
 import time
                 
 class Controller:
     if __name__ == '__main__':
         
         # Setup
-        print("Hi everyone, I'm Walter!")
-        loadcell = Loadcell(16, 20, 2213.39)
-        #calibrate_script()
-        while True: 
-            print(loadcell.get_weight())
+        print("Hi B^)")
         
+        queue = MessageQueue()
+        image_process = Process(target=detection_process, args=(queue,))
+        bluetooth_process = Process(target=bluetooth_client_process, args=(queue, ))
         
-        #queue = MessageQueue()
-        #image_process = Process(target=detection_process, args=(queue,))
-        #bluetooth_process = Process(target=bluetooth_client_process, args=(queue, ))
+        image_process.start()  # start the image detection program
+        print("started image detection process at {}".format(image_process.pid))
         
-        #image_process.start()  # start the image detection program
-        #print("started image detection process at {}".format(image_process.pid))
-        
-        #bluetooth_process.start()
-        #print("started bluetooth process at {}".format(bluetooth_process.pid))
+        bluetooth_process.start()
+        print("started bluetooth process at {}".format(bluetooth_process.pid))
         
         # Robot logic
-        # try: 
-        #     main_process(queue)
-        # except Exception as e:
-        #     print("FATAL ERROR!")
-        #     print(traceback.format_exc())
         
         
         print("killing proccesses")
-        #queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)
-        #queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.OPENCV)
+        queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)
+        queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.OPENCV)
         
-        #bluetooth_process.join()
-        #image_process.join()
         print("All done!")

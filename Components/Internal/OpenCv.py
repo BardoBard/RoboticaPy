@@ -18,6 +18,7 @@ class OpenCv:
         Returns:
             ImageData: Class containing the best estimation of where the box is in the image
         """
+        print("video feed is open: {}".format(self.__cap.isOpened()))
         ret, img = self.__cap.read()
         
         if not ret:

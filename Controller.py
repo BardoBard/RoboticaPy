@@ -7,14 +7,16 @@ from Information.TelemetryData import TelemetryData
 
 from Processes.BluetoothProcess import bluetooth_client_process
 from Processes.ImageDetectionProcess import detection_process
+from Processes.MainProcess import main_process
 
+import traceback
 import time
                 
 class Controller:
     if __name__ == '__main__':
         
         # Setup
-        print("Hi B^)")
+        print("Hi everyone, I'm Walter!")
         
         queue = MessageQueue()
         image_process = Process(target=detection_process, args=(queue,))
@@ -27,10 +29,17 @@ class Controller:
         print("started bluetooth process at {}".format(bluetooth_process.pid))
         
         # Robot logic
+        try: 
+            main_process(queue)
+        except Exception as e:
+            print("FATAL ERROR!")
+            print(traceback.format_exc())
         
         
         print("killing proccesses")
         queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)
         queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.OPENCV)
         
+        bluetooth_process.join()
+        image_process.join()
         print("All done!")

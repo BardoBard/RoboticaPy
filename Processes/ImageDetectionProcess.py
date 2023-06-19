@@ -9,7 +9,8 @@ def detection_process(queue: MessageQueue):
     opencv_ = OpenCv()
     run = True
     while run:
-        image_data = opencv_.get_image_date_from_feed()
+        #TODO spelling error on next line
+        image_data = opencv_.get_image_data_from_feed()
         if image_data.found:
             image_data = scan_data_matrix(image_data)
             queue.send_message(QueueAgent.OPENCV, QueueAgent.CONTROLL, image_data)
@@ -25,4 +26,4 @@ def detection_process(queue: MessageQueue):
                 queue.exit_queue()
                 run = False
                 print("shutting down the opencv process")
-                break
+                return

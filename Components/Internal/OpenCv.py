@@ -9,7 +9,7 @@ class OpenCv:
         self.__cap = cv2.VideoCapture(0) #Get a new video feed
         self.__image_size = 1000 #Images get resized to this size
     
-    def get_image_date_from_feed(self) -> ImageData:
+    def get_image_data_from_feed(self) -> ImageData:
         """Tries to get an image from the video feed and detect if there's something there
 
         Raises:
@@ -82,7 +82,7 @@ class OpenCv:
         (x, y), (width, height), angle = rotated_rect
         rotated_area = width * height
         center = (int(x), int(y))
-        size = (int(width), int(height))
+        size_rect = (int(width), int(height))
 
         # calculate the rotation matrix
         matrix = cv2.getRotationMatrix2D(center, angle, 1)
@@ -91,11 +91,11 @@ class OpenCv:
         img_rot = cv2.warpAffine(img, matrix, img_size)
 
         # crop image
-        crop_img = cv2.getRectSubPix(img_rot, size, center)
+        crop_img = cv2.getRectSubPix(img_rot, size_rect, center)
 
         imagedata_ = ImageData(center, angle, cv2.contourArea(contours[main_box]),
                                cv2.contourArea(contours[main_box]) * (100.0 / rotated_area), rotated_area,
-                               hierarchy_size, 250 - x, y - 250, crop_img, True, None)
+                               hierarchy_size, (size/2) - x, y - (size/2), crop_img, True, None)
         return imagedata_
 
     def __blur_difference(self, img, h1, s1, h2, s2):

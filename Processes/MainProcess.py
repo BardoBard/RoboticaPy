@@ -128,41 +128,27 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
     print(joystick_right_a)
 
-    # if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
-    #     try:
-    #         ax12.goto(15, position=512, speed=1, degrees=False)
-    #
-    #         ax12.goto(7, position=512, speed=1, degrees=False)
-    #
-    #         ax12.goto(3, position=512 - offset, speed=1, degrees=False)
-    #
-    #         ax12.goto(10, position=512 + offset, speed=1, degrees=False)
-    #
-    #         ax12.goto(4, position=512, speed=1, degrees=False)
-    #
-    #         ax12.goto(5, position=grabby_pos, speed=grabby_speed, degrees=False)
-    #     except:
-    #         print("error while closing down")
-    #         print(traceback.format_exc())
-    #
-    #     return
-    # try:
-        # ax12.goto(15, rotation_pos, rotation_speed, degrees=False)
-        #
-        # if not joystick_right_a:
-        #     ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
-        #     print("id: {}, pos: {}".format(7, left_arm_pos))
-        #
-        #     ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
-        #     print("id: {}, pos: {}".format(3, right_arm_pos))
-        #
-        # ax12.goto(10, right_arm_pos, arm_speed, degrees=False)
-        # print("id: {}, pos: {}".format(10, right_arm_pos))
-        #
-        # ax12.goto(4, left_arm_pos, arm_speed, degrees=False)
-        # print("id: {}, pos: {}".format(4, left_arm_pos))
-        #
-        # ax12.goto(5, grabby_pos, grabby_speed, degrees=False)
+    if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
+        rotation_speed = 1
+        arm_speed = 1
+        grabby_speed = 1
+    try:
+        rotation_arm_servo.move(position=rotation_pos, speed=rotation_speed, degrees=False)
 
-    # except Exception:
-    #     print("something went wrong with sending information")
+        if not joystick_right_a:
+            left_arm1.move(position=left_arm_pos, speed=arm_speed, degrees=False)
+            print("id: {}, pos: {}".format(7, left_arm_pos))
+
+            right_arm1.move(position=right_arm_pos, speed=arm_speed, degrees=False)
+            print("id: {}, pos: {}".format(3, right_arm_pos))
+
+        left_arm2.move(position=right_arm_pos, speed=arm_speed, degrees=False)
+        print("id: {}, pos: {}".format(10, right_arm_pos))
+
+        right_arm2.move(position=left_arm_pos, speed=arm_speed, degrees=False)
+        print("id: {}, pos: {}".format(4, left_arm_pos))
+
+        grabby.move(position=grabby_pos, speed=grabby_speed, degrees=False)
+
+    except Exception:
+        print("something went wrong with sending information")

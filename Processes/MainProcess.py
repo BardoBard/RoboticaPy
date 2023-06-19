@@ -1,5 +1,6 @@
 from pyax12.connection import Connection
 
+from Components.Internal.Loadcell import Loadcell
 from Wrapper.MessageQueue import MessageQueue
 from Information.QueueAgent import QueueAgent
 from Information.ImageData import ImageData
@@ -13,6 +14,8 @@ import numpy
 max_speed = 50  # TODO: move to class
 offset = 50
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
+loadcell = Loadcell(16, 20, 1)
+loadcell.calculate_reference_unit()
 
 try:
     # ax12.goto(254, 512, 20, degrees=False)
@@ -141,9 +144,6 @@ def control_tracks(controller_data: ControllerData):
 def manual_control(controller_data: ControllerData):
     # control_tracks(controller_data)
     manual_arms(controller_data)
-    # joystick2 = controller_data.get_joystick2()
-    # rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 1023)
-    # rotation_arm.set_speed(numpy.abs(joystick2[0]) * 100)
 
 
 def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor class, but for now this WORKS
@@ -210,7 +210,6 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         ax12.goto(15, rotation_pos, rotation_speed, degrees=False)
 
         if not joystick_right_a:
-
             ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
 
             ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
@@ -223,3 +222,5 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
     except Exception:
         print("something went wrong with sending information")
+    print(loadcell.get_weight())
+    print("")

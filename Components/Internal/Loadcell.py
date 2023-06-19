@@ -35,58 +35,31 @@ class Loadcell:
     def power_up(self):
         self.hx.power_up()
 
-def cleanAndExit():
-    print("Cleaning...")
-    GPIO.cleanup()
-    print("Bye!")
-    sys.exit()
+    def cleanAndExit():
+        print("Cleaning...")
+        GPIO.cleanup()
+        print("Bye!")
+        sys.exit()
 
-def calculate_reference_unit():
-    dout_pin = 16
-    pd_sck_pin = 20
+    def calculate_reference_unit(self):
+        self.hx.set_reference_unit(1)
 
-    # Create an instance of the HX711 class
-    hx = HX711(dout_pin, pd_sck_pin)
+        # Calibrate the loadcell
+        self.hx.reset()  # Reset the HX711
+        self.hx.tare()   # Tare the loadcell
 
-    # Set the reference unit to an initial value of 1
-    hx.set_reference_unit(1)
+        # Prompt the user to place a known weight on the loadcell
+        input("Place a known weight on the cell and press enter to continue...")
 
-    # Calibrate the loadcell
-    hx.reset()  # Reset the HX711
-    hx.tare()   # Tare the loadcell 
+        # Read the average value from the HX711 over multiple readings
+        average_value = self.hx.get_raw_data()
 
-    # Prompt the user to place a known weight on the loadcell
-    input("Place a known weight on the cell and press enter to continue...")
+        # Prompt the user to enter the weight of the known object
+        known_weight = float(input("Enter the weight of the known object (in your desired unit): "))
 
-    # Read the average value from the HX711 over multiple readings
-    average_value = hx.get_raw_data()
+        # Calculate the reference unit
+        reference_unit = average_value / known_weight
 
-    # Prompt the user to enter the weight of the known object
-    known_weight = float(input("Enter the weight of the known object (in your desired unit): "))
+        # Print the calculated reference unit
+        print("Reference Unit: {:.2f}".format(reference_unit))
 
-    # Calculate the reference unit
-    reference_unit = average_value / known_weight
-
-    # Print the calculated reference unit
-    print("Reference Unit: {:.2f}".format(reference_unit))
-
-    # Cleanup GPIO pins
-    GPIO.cleanup()
-
-if __name__ == "__main__":
-    # Prompt the user to calibrate the loadcell, or start measuring
-    calibrate = input("Calibrate loadcell? (y/n): ")
-
-    # If the user wants to calibrate the loadcell
-    if calibrate == "y":
-        calculate_reference_unit()
-    else:
-        # Create an instance of the Loadcell class
-        loadcell = Loadcell(16, 20, 1)
-
-        # Start measuring the weight
-        while True:
-            try:
-                print(loadcell.get_weight())
-            except (KeyboardInterrupt, SystemExit):
-                cleanAndExit()

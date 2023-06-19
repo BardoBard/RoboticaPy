@@ -1,5 +1,6 @@
 from pyax12.connection import Connection
 
+from Components.Internal.Motors.ArmMotor import ArmMotor
 from Wrapper.MessageQueue import MessageQueue
 from Information.QueueAgent import QueueAgent
 from Information.ImageData import ImageData
@@ -12,45 +13,19 @@ import numpy
 
 max_speed = 50  # TODO: move to class
 offset = 50
-ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 
-try:
-    # ax12.goto(254, 512, 20, degrees=False)
-    ax12.goto(15, 512, 50, degrees=False)
-
-    ax12.goto(7, 512, 50, degrees=False)
-
-    ax12.goto(3, 512, 50, degrees=False)
-
-    ax12.goto(10, 512 - offset, 50, degrees=False)
-
-    ax12.goto(4, 512 + offset, 50, degrees=False)
-
-    ax12.goto(5, 712, 50, degrees=False)
-
-except Exception:
-    print(traceback.format_exc())
-    print("setup")
-
-
-# rotation_arm_servo = ArmMotor(2)
-# left_arm1 = ArmMotor(7)
-# right_arm1 = ArmMotor(3)
-# left_arm2 = ArmMotor(10)
-# right_arm2 = ArmMotor(4)
+rotation_arm_servo = ArmMotor(15)
+left_arm1 = ArmMotor(7)
+right_arm1 = ArmMotor(3)
+left_arm2 = ArmMotor(10, initial_position=512 - offset)
+right_arm2 = ArmMotor(4, initial_position=512 + offset)
+grabby = ArmMotor(5)
 
 
 def main_process(queue: MessageQueue):
     latest_image_detection = ImageData(None, None, None, None, None, None, None, None, None, False, None)
     latest_controller_data = None
     mode = manual_control
-
-    # motors = rotation_arm = ArmMotor(2, speed=0),
-    # left_arm1 = ArmMotor(7, speed=0),
-    # right_arm1 = ArmMotor(3, speed=0),
-    # left_arm2 = ArmMotor(10, speed=0),
-    # right_arm2 = ArmMotor(4, speed=0),
-    # grabber_Arm = ArmMotor(5, speed=0)
 
     while True:
 
@@ -73,23 +48,6 @@ def main_process(queue: MessageQueue):
                 if shutdown_command(latest_controller_data):
                     print("shutting down main thread")
                     TrackMotor.move(0, 0)
-                    try:
-                        ax12.goto(15, position=512, speed=max_speed, degrees=False)
-
-                        ax12.goto(7, position=512, speed=max_speed, degrees=False)
-
-                        ax12.goto(3, position=512, speed=max_speed, degrees=False)
-
-                        ax12.goto(10, position=512, speed=max_speed, degrees=False)
-
-                        ax12.goto(4, position=512, speed=max_speed, degrees=False)
-
-                        ax12.goto(5, position=712, speed=max_speed, degrees=False)
-                    except:
-                        print(traceback.format_exc())
-                        print("error while closing down")
-
-                    ax12.close()
                     # ArmMotor.close_serial_connection()
                     return
                 if mode is manual_control:
@@ -170,60 +128,41 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
     print(joystick_right_a)
 
-    # print("pos2: " + str(left_arm_pos))
-    # print("right_arm_pos: " + str(right_arm_pos))
+    # if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
+    #     try:
+    #         ax12.goto(15, position=512, speed=1, degrees=False)
+    #
+    #         ax12.goto(7, position=512, speed=1, degrees=False)
+    #
+    #         ax12.goto(3, position=512 - offset, speed=1, degrees=False)
+    #
+    #         ax12.goto(10, position=512 + offset, speed=1, degrees=False)
+    #
+    #         ax12.goto(4, position=512, speed=1, degrees=False)
+    #
+    #         ax12.goto(5, position=grabby_pos, speed=grabby_speed, degrees=False)
+    #     except:
+    #         print("error while closing down")
+    #         print(traceback.format_exc())
+    #
+    #     return
+    # try:
+        # ax12.goto(15, rotation_pos, rotation_speed, degrees=False)
+        #
+        # if not joystick_right_a:
+        #     ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
+        #     print("id: {}, pos: {}".format(7, left_arm_pos))
+        #
+        #     ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
+        #     print("id: {}, pos: {}".format(3, right_arm_pos))
+        #
+        # ax12.goto(10, right_arm_pos, arm_speed, degrees=False)
+        # print("id: {}, pos: {}".format(10, right_arm_pos))
+        #
+        # ax12.goto(4, left_arm_pos, arm_speed, degrees=False)
+        # print("id: {}, pos: {}".format(4, left_arm_pos))
+        #
+        # ax12.goto(5, grabby_pos, grabby_speed, degrees=False)
 
-    if rotation_speed == 0:
-        print("rotation_speed 0")
-        rotation_speed = 1
-
-    if arm_speed == 0:
-        print("rotation_speed 0")
-        arm_speed = 1
-
-    if grabby_speed == 0:
-        grabby_speed = 1
-
-        # print(rotation_speed)
-        # print(arm_speed)
-        print("")
-
-    if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
-        try:
-            ax12.goto(15, position=512, speed=1, degrees=False)
-
-            ax12.goto(7, position=512, speed=1, degrees=False)
-
-            ax12.goto(3, position=512 - offset, speed=1, degrees=False)
-
-            ax12.goto(10, position=512 + offset, speed=1, degrees=False)
-
-            ax12.goto(4, position=512, speed=1, degrees=False)
-
-            ax12.goto(5, position=grabby_pos, speed=grabby_speed, degrees=False)
-        except:
-            print("error while closing down")
-            print(traceback.format_exc())
-
-        return
-    try:
-        ax12.goto(15, rotation_pos, rotation_speed, degrees=False)
-
-        if not joystick_right_a:
-
-            ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
-            print("id: {}, pos: {}".format(7, left_arm_pos))
-
-            ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
-            print("id: {}, pos: {}".format(3, right_arm_pos))
-
-        ax12.goto(10, right_arm_pos, arm_speed, degrees=False)
-        print("id: {}, pos: {}".format(10, right_arm_pos))
-
-        ax12.goto(4, left_arm_pos, arm_speed, degrees=False)
-        print("id: {}, pos: {}".format(4, left_arm_pos))
-
-        ax12.goto(5, grabby_pos, grabby_speed, degrees=False)
-
-    except Exception:
-        print("something went wrong with sending information")
+    # except Exception:
+    #     print("something went wrong with sending information")

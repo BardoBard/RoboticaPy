@@ -45,7 +45,11 @@ class ArmMotor:
             print("error setting speed, too low: " + str(speed))
 
         self.__speed = speed
-        self.ax12.set_speed(self.__servo_id, speed)
+
+        try:
+            self.ax12.set_speed(self.__servo_id, speed)
+        except Exception:
+            print("error setting speed")
 
     @staticmethod
     def close_serial_connection():

@@ -129,24 +129,18 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         arm_speed = 1
         grabby_speed = 1
     try:
-        rotation_servo.set_speed(rotation_speed)
-        rotation_servo.move(rotation_pos)
+        rotation_servo.move(rotation_pos, rotation_speed)
 
         if not joystick_right_a:
-            back_right_arm.set_speed(arm_speed)
-            back_right_arm.move(arm_pos)
+            back_right_arm.move(arm_pos, arm_speed)
 
-            back_left_arm.set_speed(arm_speed)
-            back_left_arm.move(arm_pos_inverse)
+            back_left_arm.move(arm_pos_inverse, arm_speed)
 
-        front_right_arm.set_speed(arm_speed)
-        front_right_arm.move(arm_pos_inverse)
+        front_right_arm.move(arm_pos_inverse, arm_speed)
 
-        front_left_arm.set_speed(arm_speed)
-        front_left_arm.move(arm_pos)
+        front_left_arm.move(arm_pos, arm_speed)
 
-        grabby_arm.set_speed(grabby_speed)
-        grabby_arm.move(grabby_pos)
+        grabby_arm.move(grabby_pos, grabby_speed)
 
     except Exception:
         print("something went wrong with sending information")

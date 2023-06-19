@@ -13,13 +13,14 @@ import numpy
 
 max_speed = 50  # TODO: move to class
 offset = 50
+ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
 
-rotation_arm_servo = ArmMotor(15)
-left_arm1 = ArmMotor(7)
-right_arm1 = ArmMotor(3)
-left_arm2 = ArmMotor(10, initial_position=512 - offset)
-right_arm2 = ArmMotor(4, initial_position=512 + offset)
-grabby = ArmMotor(5)
+rotation_arm_servo = ArmMotor(ax12, 15)
+left_arm1 = ArmMotor(ax12, 7)
+right_arm1 = ArmMotor(ax12, 3)
+left_arm2 = ArmMotor(ax12, 10, initial_position=512 - offset)
+right_arm2 = ArmMotor(ax12, 4, initial_position=512 + offset)
+grabby = ArmMotor(ax12, 5)
 
 
 def main_process(queue: MessageQueue):

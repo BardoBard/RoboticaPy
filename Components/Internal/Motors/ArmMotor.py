@@ -1,17 +1,12 @@
-from pyax12.connection import Connection
-
-
 class ArmMotor:
-    ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000, rpi_gpio=True)
-
-    def __init__(self, servo_id, initial_position=512, speed=50):
+    def __init__(self, ax12, servo_id, initial_position=512, speed=50):
         """
         ctor for arm motor
         @param servo_id: servo id, between [0-253] (254 means all servos)
         @param speed: servo speed [0-1023]
         """
         self.servo_id = servo_id
-
+        self.ax12 = ax12
         self.move(position=initial_position, speed=speed)
 
     # def __del__(self):
@@ -28,12 +23,11 @@ class ArmMotor:
             print("speed cannot be zero, setting speed to 1")
             speed = 1
         try:
-            ArmMotor.ax12.goto(self.servo_id, position=position, speed=speed, degrees=False)
+            self.ax12.goto(self.servo_id, position=position, speed=speed, degrees=False)
         except Exception:
             print("something went wrong while moving")
 
     # TODO: implement angle too
 
-    @staticmethod
-    def close_serial_connection():
-        ArmMotor.ax12.close()
+    def close_serial_connection(self):
+        self.ax12.close()

@@ -27,7 +27,10 @@ class ArmMotor:
         if speed <= 0:
             print("speed cannot be zero, setting speed to 1")
             speed = 1
-        ArmMotor.ax12.goto(self.servo_id, position=position, speed=speed, degrees=False)
+        try:
+            ArmMotor.ax12.goto(self.servo_id, position=position, speed=speed, degrees=False)
+        except Exception:
+            print("something went wrong while moving")
 
     # TODO: implement angle too
 

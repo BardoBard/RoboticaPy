@@ -9,7 +9,7 @@ class OpenCv:
         self.__cap = cv2.VideoCapture(0) #Get a new video feed
         self.__image_size = 1000 #Images get resized to this size
     
-    def get_image_date_from_feed(self) -> ImageData:
+    def get_image_data_from_feed(self) -> ImageData:
         """Tries to get an image from the video feed and detect if there's something there
 
         Raises:

@@ -10,7 +10,7 @@ def detection_process(queue: MessageQueue):
     run = True
     while run:
         #TODO spelling error on next line
-        image_data = opencv_.get_image_date_from_feed()
+        image_data = opencv_.get_image_data_from_feed()
         if image_data.found:
             image_data = scan_data_matrix(image_data)
             queue.send_message(QueueAgent.OPENCV, QueueAgent.CONTROLL, image_data)

@@ -1,6 +1,7 @@
 import sys
 import RPi.GPIO as GPIO
-from hx711 import HX711
+from Components.Internal.hx711 import HX711
+
 
 class Loadcell:
     def __init__(self, dout_pin, pd_sck_pin, reference_unit):
@@ -46,7 +47,7 @@ class Loadcell:
 
         # Calibrate the loadcell
         self.hx.reset()  # Reset the HX711
-        self.hx.tare()   # Tare the loadcell
+        self.hx.tare()  # Tare the loadcell
 
         # Prompt the user to place a known weight on the loadcell
         input("Place a known weight on the cell and press enter to continue...")
@@ -62,4 +63,3 @@ class Loadcell:
 
         # Print the calculated reference unit
         print("Reference Unit: {:.2f}".format(reference_unit))
-

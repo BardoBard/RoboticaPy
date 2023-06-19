@@ -8,7 +8,7 @@ from Information.TelemetryData import TelemetryData
 from Processes.BluetoothProcess import bluetooth_client_process
 from Processes.ImageDetectionProcess import detection_process
 from Processes.MainProcess import main_process
-from Components.Internal.Loadcell import Loadcell
+from Components.Internal.Loadcell import Loadcell, calibrate_script
 
 
 import traceback
@@ -20,7 +20,7 @@ class Controller:
         # Setup
         print("Hi everyone, I'm Walter!")
         loadcell = Loadcell(16, 20, 2213.39)
-        #loadcell.main()
+        #calibrate_script()
         while True: 
             print(loadcell.get_weight())
         

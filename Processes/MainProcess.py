@@ -39,13 +39,6 @@ def main_process(queue: MessageQueue):
     latest_controller_data = None
     mode = manual_control
 
-    # motors = rotation_arm = ArmMotor(2, speed=0),
-    # left_arm1 = ArmMotor(7, speed=0),
-    # right_arm1 = ArmMotor(3, speed=0),
-    # left_arm2 = ArmMotor(10, speed=0),
-    # right_arm2 = ArmMotor(4, speed=0),
-    # grabber_Arm = ArmMotor(5, speed=0)
-
     while True:
 
         # get and process messages to this process
@@ -88,8 +81,7 @@ def switch_mode(mode, button):
 def shutdown_command(controller_data: ControllerData) -> bool:
     return (controller_data.get_left_b_button()
             and controller_data.get_right_b_button()
-            # and controller_data.get_right_a_button()
-            )
+            and controller_data.get_right_a_button())
 
 
 def automatic_control(image_data: ImageData):
@@ -119,9 +111,6 @@ def control_tracks(controller_data: ControllerData):
 def manual_control(controller_data: ControllerData):
     # control_tracks(controller_data)
     manual_arms(controller_data)
-    # joystick2 = controller_data.get_joystick2()
-    # rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 1023)
-    # rotation_arm.set_speed(numpy.abs(joystick2[0]) * 100)
 
 
 def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor class, but for now this WORKS
@@ -130,46 +119,41 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     joystick_right_b = controller_data.get_right_b_button()
     joystick_right_a = controller_data.get_right_a_button()
 
+    # servo speed
     rotation_speed = int(numpy.abs(joystick2[0]) * max_speed)
     arm_speed = int(numpy.abs(joystick2[1]) * max_speed)
     grabby_speed = (joystick_left_b or joystick_right_b) * max_speed
 
+    # servo position set
     rotation_pos = (612 if numpy.sign(joystick2[0]) > 0 else 412)
     left_arm_pos = (812 if numpy.sign(joystick2[1]) > 0 else 212)
     right_arm_pos = (812 if not numpy.sign(joystick2[1]) > 0 else 212)
     grabby_pos = 512
 
-    if joystick_right_b:
+    if joystick_right_b:  # TODO: this is ugly, move to ternary operator
         grabby_pos = 312
         grabby_speed = max_speed * 2
     if joystick_left_b:
         grabby_pos = 712
         grabby_speed = max_speed * 2
 
-    print(joystick_right_a)
-
-    # print("pos2: " + str(left_arm_pos))
-    # print("right_arm_pos: " + str(right_arm_pos))
-
+    # if speed is 0 then it will give at max rate
     if rotation_speed == 0:
-        print("rotation_speed 0")
         rotation_speed = 1
 
     if arm_speed == 0:
-        print("rotation_speed 0")
         arm_speed = 1
 
     if grabby_speed == 0:
         grabby_speed = 1
 
-        # print(rotation_speed)
-        # print(arm_speed)
-        print("")
-
+    # deadzone
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
         rotation_speed = 1
         arm_speed = 1
         grabby_speed = 1
+
+    # move servos
     try:
         ax12.goto(15, rotation_pos, rotation_speed, degrees=False)
 

@@ -28,7 +28,7 @@ class ArmMotor:
             print("speed must be greater than zero, setting speed to 1")
             speed = 1
         try:
-            ArmMotor.ax12.goto(self.__servo_id, position, speed, degrees=False)
+            ArmMotor.ax12.goto(dynamixel_id=self.__servo_id, position=position, speed=speed, degrees=False)
         except Exception:
             print("error while moving")
 

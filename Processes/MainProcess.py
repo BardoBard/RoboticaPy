@@ -91,9 +91,9 @@ def automatic_control(image_data: ImageData):
     # positive movex is left
     # negative movex is right
     if image_data.movex > dead_zone:
-        pass
+        ax12.goto(15, position=712, speed=30, degrees=False)
     elif image_data.movex < -dead_zone:
-        pass
+        ax12.goto(15, position=312, speed=30, degrees=False)
 
 
 def control_tracks(controller_data: ControllerData):

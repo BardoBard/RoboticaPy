@@ -132,13 +132,13 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         rotation_servo.move(rotation_pos, rotation_speed)
 
         if not joystick_right_a:
-            back_right_arm.move(arm_pos, arm_speed)
+            back_right_arm.move(arm_pos_inverse, arm_speed)
 
-            back_left_arm.move(arm_pos_inverse, arm_speed)
+            back_left_arm.move(arm_pos, arm_speed)
 
-        front_right_arm.move(arm_pos_inverse, arm_speed)
+        front_right_arm.move(arm_pos, arm_speed)
 
-        front_left_arm.move(arm_pos, arm_speed)
+        front_left_arm.move(arm_pos_inverse, arm_speed)
 
         grabby_arm.move(grabby_pos, grabby_speed)
 

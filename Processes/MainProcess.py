@@ -132,19 +132,19 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         rotation_speed = 1
         arm_speed = 1
         grabby_speed = 1
-    rotation_arm_servo.move(position=rotation_pos, speed=rotation_speed, degrees=False)
+    rotation_arm_servo.move(position=rotation_pos, speed=rotation_speed)
 
     if not joystick_right_a:
-        left_arm1.move(position=left_arm_pos, speed=arm_speed, degrees=False)
+        left_arm1.move(position=left_arm_pos, speed=arm_speed)
         print("id: {}, pos: {}".format(7, left_arm_pos))
 
-        right_arm1.move(position=right_arm_pos, speed=arm_speed, degrees=False)
+        right_arm1.move(position=right_arm_pos, speed=arm_speed)
         print("id: {}, pos: {}".format(3, right_arm_pos))
 
-    left_arm2.move(position=right_arm_pos, speed=arm_speed, degrees=False)
+    left_arm2.move(position=right_arm_pos, speed=arm_speed)
     print("id: {}, pos: {}".format(10, right_arm_pos))
 
-    right_arm2.move(position=left_arm_pos, speed=arm_speed, degrees=False)
+    right_arm2.move(position=left_arm_pos, speed=arm_speed)
     print("id: {}, pos: {}".format(4, left_arm_pos))
 
-    grabby.move(position=grabby_pos, speed=grabby_speed, degrees=False)
+    grabby.move(position=grabby_pos, speed=grabby_speed)

@@ -1,5 +1,6 @@
 from pyax12.connection import Connection
 
+from Components.Internal.Motors.ArmMotor import ArmMotor
 from Wrapper.MessageQueue import MessageQueue
 from Information.QueueAgent import QueueAgent
 from Information.ImageData import ImageData
@@ -12,32 +13,12 @@ import numpy
 
 max_speed = 50  # TODO: move to class
 offset = 50
-ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
-
-try:
-    # ax12.goto(254, 512, 20, degrees=False)
-    ax12.goto(15, 512, 50, degrees=False)
-
-    ax12.goto(7, 512, 50, degrees=False)
-
-    ax12.goto(3, 512, 50, degrees=False)
-
-    ax12.goto(10, 512 - offset, 50, degrees=False)
-
-    ax12.goto(4, 512 + offset, 50, degrees=False)
-
-    ax12.goto(5, 712, 50, degrees=False)
-
-except Exception:
-    print(traceback.format_exc())
-    print("setup")
-
-
-# rotation_arm_servo = ArmMotor(2)
-# left_arm1 = ArmMotor(7)
-# right_arm1 = ArmMotor(3)
-# left_arm2 = ArmMotor(10)
-# right_arm2 = ArmMotor(4)
+rotation_servo = ArmMotor(15, 512, 50)
+back_right_arm = ArmMotor(7, 512, 50)
+back_left_arm = ArmMotor(3, 512, 50)
+front_right_arm = ArmMotor(10, 512 - offset, 50)
+front_left_arm = ArmMotor(4, 512 + offset, 50)
+grabby_arm = ArmMotor(5, 712, 50)
 
 
 def main_process(queue: MessageQueue):
@@ -45,15 +26,7 @@ def main_process(queue: MessageQueue):
     latest_controller_data = None
     mode = manual_control
 
-    # motors = rotation_arm = ArmMotor(2, speed=0),
-    # left_arm1 = ArmMotor(7, speed=0),
-    # right_arm1 = ArmMotor(3, speed=0),
-    # left_arm2 = ArmMotor(10, speed=0),
-    # right_arm2 = ArmMotor(4, speed=0),
-    # grabber_Arm = ArmMotor(5, speed=0)
-
     while True:
-
         # get and process messages to this process
         messages = queue.get_messages_for(QueueAgent.CONTROLL)
         if messages is None:
@@ -73,24 +46,7 @@ def main_process(queue: MessageQueue):
                 if shutdown_command(latest_controller_data):
                     print("shutting down main thread")
                     TrackMotor.move(0, 0)
-                    try:
-                        ax12.goto(15, position=512, speed=max_speed, degrees=False)
-
-                        ax12.goto(7, position=512, speed=max_speed, degrees=False)
-
-                        ax12.goto(3, position=512, speed=max_speed, degrees=False)
-
-                        ax12.goto(10, position=512, speed=max_speed, degrees=False)
-
-                        ax12.goto(4, position=512, speed=max_speed, degrees=False)
-
-                        ax12.goto(5, position=712, speed=max_speed, degrees=False)
-                    except:
-                        print(traceback.format_exc())
-                        print("error while closing down")
-
-                    ax12.close()
-                    # ArmMotor.close_serial_connection()
+                    ArmMotor.close_serial_connection()
                     return
                 if mode is manual_control:
                     manual_control(latest_controller_data)
@@ -157,8 +113,8 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     grabby_speed = (joystick_left_b or joystick_right_b) * max_speed
 
     rotation_pos = (612 if numpy.sign(joystick2[0]) > 0 else 412)
-    left_arm_pos = (812 if numpy.sign(joystick2[1]) > 0 else 212)
-    right_arm_pos = (812 if not numpy.sign(joystick2[1]) > 0 else 212)
+    right_arm_pos = (812 if numpy.sign(joystick2[1]) > 0 else 212)
+    left_arm_pos = (812 if not numpy.sign(joystick2[1]) > 0 else 212)
     grabby_pos = 512
 
     if joystick_right_b:
@@ -189,37 +145,28 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         print("")
 
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
-        try:
-            ax12.goto(15, position=512, speed=1, degrees=False)
-
-            ax12.goto(7, position=512, speed=1, degrees=False)
-
-            ax12.goto(3, position=512 - offset, speed=1, degrees=False)
-
-            ax12.goto(10, position=512 + offset, speed=1, degrees=False)
-
-            ax12.goto(4, position=512, speed=1, degrees=False)
-
-            ax12.goto(5, position=grabby_pos, speed=grabby_speed, degrees=False)
-        except:
-            print("error while closing down")
-            print(traceback.format_exc())
-
-        return
+        rotation_speed = 1
+        arm_speed = 1
+        grabby_speed = 1
     try:
-        ax12.goto(15, rotation_pos, rotation_speed, degrees=False)
+        rotation_servo.set_speed(rotation_speed)
+        rotation_servo.move(rotation_pos)
 
         if not joystick_right_a:
+            back_right_arm.set_speed(arm_speed)
+            back_right_arm.move(right_arm_pos)
 
-            ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
+            back_left_arm.set_speed(arm_speed)
+            back_left_arm.move(left_arm_pos)
 
-            ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
+        front_right_arm.set_speed(arm_speed)
+        front_right_arm.move(right_arm_pos)
 
-        ax12.goto(10, right_arm_pos, arm_speed, degrees=False)
+        front_left_arm.set_speed(arm_speed)
+        front_left_arm.move(left_arm_pos)
 
-        ax12.goto(4, left_arm_pos, arm_speed, degrees=False)
-
-        ax12.goto(5, grabby_pos, grabby_speed, degrees=False)
+        grabby_arm.set_speed(grabby_speed)
+        grabby_arm.move(grabby_pos)
 
     except Exception:
         print("something went wrong with sending information")

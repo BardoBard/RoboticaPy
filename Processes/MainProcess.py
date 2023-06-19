@@ -212,12 +212,16 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
         if not joystick_right_a:
 
             ax12.goto(7, left_arm_pos, arm_speed, degrees=False)
+            print("id: {}, pos: {}".format(7, left_arm_pos))
 
             ax12.goto(3, right_arm_pos, arm_speed, degrees=False)
+            print("id: {}, pos: {}".format(3, right_arm_pos))
 
         ax12.goto(10, right_arm_pos, arm_speed, degrees=False)
+        print("id: {}, pos: {}".format(10, right_arm_pos))
 
         ax12.goto(4, left_arm_pos, arm_speed, degrees=False)
+        print("id: {}, pos: {}".format(4, left_arm_pos))
 
         ax12.goto(5, grabby_pos, grabby_speed, degrees=False)
 

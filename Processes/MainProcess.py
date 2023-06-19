@@ -14,8 +14,8 @@ import numpy
 max_speed = 50  # TODO: move to class
 offset = 50
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
-loadcell = Loadcell(16, 20, 1)
-loadcell.calculate_reference_unit()
+loadcell = Loadcell(16, 20, 27)
+# loadcell.calculate_reference_unit()
 
 try:
     # ax12.goto(254, 512, 20, degrees=False)

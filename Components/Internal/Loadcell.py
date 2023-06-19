@@ -53,7 +53,7 @@ class Loadcell:
         input("Place a known weight on the cell and press enter to continue...")
 
         # Read the average value from the HX711 over multiple readings
-        average_value = self.hx.get_raw_data()
+        average_value = self.hx.readRawBytes()
 
         # Prompt the user to enter the weight of the known object
         known_weight = float(input("Enter the weight of the known object (in your desired unit): "))

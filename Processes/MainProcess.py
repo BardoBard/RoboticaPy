@@ -13,12 +13,12 @@ import numpy
 
 max_speed = 50  # TODO: move to class
 offset = 50
-rotation_servo = ArmMotor(15, 512, 50)
-back_right_arm = ArmMotor(7, 512, 50)
-back_left_arm = ArmMotor(3, 512, 50)
-front_right_arm = ArmMotor(10, 512 - offset, 50)
-front_left_arm = ArmMotor(4, 512 + offset, 50)
-grabby_arm = ArmMotor(5, 712, 50)
+rotation_servo = ArmMotor(15, speed=50, initial_position=512)
+back_right_arm = ArmMotor(7, speed=50, initial_position=512)
+back_left_arm = ArmMotor(3, speed=50, initial_position=512)
+front_right_arm = ArmMotor(10, speed=50, initial_position=512 - offset)
+front_left_arm = ArmMotor(4, speed=50, initial_position=512 + offset)
+grabby_arm = ArmMotor(5, speed=50, initial_position=712)
 
 
 def main_process(queue: MessageQueue):

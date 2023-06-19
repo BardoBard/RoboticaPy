@@ -2,13 +2,15 @@ import cv2
 from Information.ImageData import ImageData
 from multiprocessing import Process, Queue
 
+
 class OpenCv:
     """Contains our open CV box detection algorithms  
     """
+
     def __init__(self):
-        self.__cap = cv2.VideoCapture(0) #Get a new video feed
-        self.__image_size = 1000 #Images get resized to this size
-    
+        self.__cap = cv2.VideoCapture(0)  # Get a new video feed
+        self.__image_size = 1000  # Images get resized to this size
+
     def get_image_data_from_feed(self) -> ImageData:
         """Tries to get an image from the video feed and detect if there's something there
 
@@ -18,15 +20,13 @@ class OpenCv:
         Returns:
             ImageData: Class containing the best estimation of where the box is in the image
         """
-        print("video feed is open: {}".format(self.__cap.isOpened()))
         ret, img = self.__cap.read()
-        
+
         if not ret:
             raise Exception("No image found")
-        
+
         return self.__detect_object(img, self.__image_size)
-    
-    
+
     def __detect_object(self, img, size):
         """
         :param size: size of the image
@@ -55,18 +55,17 @@ class OpenCv:
             contour = contours[i]
 
             # -1 means contour has no parent
-            if not self.__loop_checks(contour, hierarchy[0][i][3] , -1, area_main):
+            if not self.__loop_checks(contour, hierarchy[0][i][3], -1, area_main):
                 continue
-
 
             max_child = 0
             # y index of the child contour
             for y in range(i + 1, len(hierarchy[0])):
                 contour_child = contours[y]
 
-                if not self.__loop_checks(contour_child,hierarchy[0][y][3] , i, area_child):
+                if not self.__loop_checks(contour_child, hierarchy[0][y][3], i, area_child):
                     continue
-                
+
                 max_child += 1
                 # contour with the most amount of children will be taken with\
                 if max_child < hierarchy_size:
@@ -77,7 +76,7 @@ class OpenCv:
                 break
 
         if main_box == -1:
-            return ImageData((0, 0), 0, 0, 0, 0, 0, 0, 0, img, False, None) # empty imagedata
+            return ImageData((0, 0), 0, 0, 0, 0, 0, 0, 0, img, False, None)  # empty imagedata
 
         rotated_rect = cv2.minAreaRect(contours[main_box])
         (x, y), (width, height), angle = rotated_rect
@@ -96,7 +95,7 @@ class OpenCv:
 
         imagedata_ = ImageData(center, angle, cv2.contourArea(contours[main_box]),
                                cv2.contourArea(contours[main_box]) * (100.0 / rotated_area), rotated_area,
-                               hierarchy_size, (size/2) - x, y - (size/2), crop_img, True, None)
+                               hierarchy_size, (size / 2) - x, y - (size / 2), crop_img, True, None)
         return imagedata_
 
     def __blur_difference(self, img, h1, s1, h2, s2):

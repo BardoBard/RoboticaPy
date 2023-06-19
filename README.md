@@ -6,6 +6,7 @@
 - PRi.GPIO v0.71
 - pyserial v3.5
 - *audio library*
+- hx711 v1.1.2.3
 
 ***
 

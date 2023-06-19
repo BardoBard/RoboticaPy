@@ -144,8 +144,9 @@ def control_tracks(controller_data: ControllerData):
 
 
 def manual_control(controller_data: ControllerData):
+    pass
     # control_tracks(controller_data)
-    manual_arms(controller_data)
+    # manual_arms(controller_data)
     # joystick2 = controller_data.get_joystick2()
     # rotation_arm.move(300 if numpy.sign(joystick2[0]) < 0 else 1023)
     # rotation_arm.set_speed(numpy.abs(joystick2[0]) * 100)

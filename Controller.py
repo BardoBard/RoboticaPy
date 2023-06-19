@@ -19,8 +19,10 @@ class Controller:
         # Setup
         print("Hi everyone, I'm Walter!")
         
-        loadcell = Loadcell(16, 20, 1) 
-        loadcell.main()
+        loadcell = Loadcell(16, 20, 6.75) 
+        while True: 
+            print(loadcell.get_weight())
+        
         
         #queue = MessageQueue()
         #image_process = Process(target=detection_process, args=(queue,))

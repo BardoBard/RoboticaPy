@@ -34,7 +34,7 @@ def main_process(queue: MessageQueue):
     
     #calibrate loadcell
     time.sleep(1)
-    loadcell = Loadcell(16, 20, 1)
+    loadcell = Loadcell(16, 20, 6.75)
     loadcell.main()
     
     try:

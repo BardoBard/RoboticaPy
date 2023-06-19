@@ -113,8 +113,8 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     grabby_speed = (joystick_left_b or joystick_right_b) * max_speed
 
     rotation_pos = (612 if numpy.sign(joystick2[0]) > 0 else 412)
-    right_arm_pos = (812 if numpy.sign(joystick2[1]) > 0 else 212)
-    left_arm_pos = (812 if not numpy.sign(joystick2[1]) > 0 else 212)
+    arm_pos = (812 if numpy.sign(joystick2[1]) > 0 else 212)
+    arm_pos_inverse = (812 if not numpy.sign(joystick2[1]) > 0 else 212)
     grabby_pos = 512
 
     if joystick_right_b:
@@ -123,26 +123,6 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     if joystick_left_b:
         grabby_pos = 712
         grabby_speed = max_speed * 2
-
-    print(joystick_right_a)
-
-    # print("pos2: " + str(left_arm_pos))
-    # print("right_arm_pos: " + str(right_arm_pos))
-
-    if rotation_speed == 0:
-        print("rotation_speed 0")
-        rotation_speed = 1
-
-    if arm_speed == 0:
-        print("rotation_speed 0")
-        arm_speed = 1
-
-    if grabby_speed == 0:
-        grabby_speed = 1
-
-        # print(rotation_speed)
-        # print(arm_speed)
-        print("")
 
     if numpy.abs(joystick2[0]) < 0.2 and numpy.abs(joystick2[1]) < 0.2:
         rotation_speed = 1
@@ -154,16 +134,16 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
 
         if not joystick_right_a:
             back_right_arm.set_speed(arm_speed)
-            back_right_arm.move(right_arm_pos)
+            back_right_arm.move(arm_pos)
 
             back_left_arm.set_speed(arm_speed)
-            back_left_arm.move(left_arm_pos)
+            back_left_arm.move(arm_pos_inverse)
 
         front_right_arm.set_speed(arm_speed)
-        front_right_arm.move(right_arm_pos)
+        front_right_arm.move(arm_pos_inverse)
 
         front_left_arm.set_speed(arm_speed)
-        front_left_arm.move(left_arm_pos)
+        front_left_arm.move(arm_pos)
 
         grabby_arm.set_speed(grabby_speed)
         grabby_arm.move(grabby_pos)

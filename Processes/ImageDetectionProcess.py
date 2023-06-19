@@ -6,7 +6,7 @@ from Information.QueueKillProcess import QueueKillProcess
 
 def detection_process(queue: MessageQueue):
     print("starting up the opencv process")
-    opencv_ = OpenCv()
+    opencv_ = OpenCv(2000)
     run = True
     while run:
         #TODO spelling error on next line

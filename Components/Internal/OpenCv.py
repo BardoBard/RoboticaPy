@@ -7,9 +7,9 @@ class OpenCv:
     """Contains our open CV box detection algorithms  
     """
 
-    def __init__(self):
+    def __init__(self, size=2000):
         self.__cap = cv2.VideoCapture(0)  # Get a new video feed
-        self.__image_size = 1000  # Images get resized to this size
+        self.__image_size = size  # Images get resized to this size
 
     def get_image_data_from_feed(self) -> ImageData:
         """Tries to get an image from the video feed and detect if there's something there

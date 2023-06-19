@@ -19,8 +19,8 @@ class Controller:
         
         # Setup
         print("Hi everyone, I'm Walter!")
-        loadcell = Loadcell(16, 20, 6.75)
-        loadcell.main()
+        loadcell = Loadcell(16, 20, 2213.39)
+        #loadcell.main()
         while True: 
             print(loadcell.get_weight())
         

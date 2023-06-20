@@ -109,7 +109,7 @@ def control_tracks(controller_data: ControllerData):
 
 
 def manual_control(controller_data: ControllerData):
-    # control_tracks(controller_data)
+    control_tracks(controller_data)
     manual_arms(controller_data)
 
 

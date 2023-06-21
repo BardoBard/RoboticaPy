@@ -11,16 +11,29 @@ class Dance:
         pass
 
     def do_dance(self):
+        #never going to give you up
         ax12.goto(3, position=612, speed=20, degrees=False)
         ax12.goto(7, position=412, speed=20, degrees=False)
 
         time.sleep(2)
 
+        #never going to let you down
         ax12.goto(3, position=412, speed=20, degrees=False)
         ax12.goto(7, position=612, speed=20, degrees=False)
 
-        # wait
+        time.sleep(2)
+
+        #Never gonna run around and desert you
         # turnaround
+
+        #Never gonna make you cry
+        #eyes?
+
+        #Never gonna say goodbye
+        # ax12.goto(15, position=412, speed=20, degrees=False)
+
+        #Never gonna tell a lie and hurt you
+        #ax12.goto(15, position=612, speed=20, degrees=False)
 
         # 15 rotatatie
         # 7 links 3 rechts bovenarm

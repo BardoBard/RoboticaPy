@@ -7,8 +7,8 @@ class Audio:
     AHHOOH = "./Components/sounds/AhhOoh.mp3"
     BWUA = "./Components/sounds/bwua.mp3"
     FREEBIRD = "./Components/sounds/freebird.mp3"
-    SCREAM = "./Components/Internal/Scream.mp3"
-    STATICNOISES = "./Components/Internal/static_robot_noises.mp3"
+    SCREAM = "./Components/sounds/Scream.mp3"
+    STATICNOISES = "./Components/sounds/static_robot_noises.mp3"
 
     # Constructor
     def __init__(self):

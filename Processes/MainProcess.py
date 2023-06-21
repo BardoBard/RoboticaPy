@@ -14,7 +14,6 @@ max_speed = 50  # TODO: move to class
 offset = 50
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 audio = Audio() 
-audio.set_volume(0.1)
 
 
 def move_all_servos(position):
@@ -107,7 +106,7 @@ def control_tracks(controller_data: ControllerData):
     mapped_values = Math.rotate_tuple_over_origin((joystick1[0], joystick1[1]), 45)
     if (numpy.abs(mapped_values[0]) > 0.5
         or numpy.abs(mapped_values[1]) > 0.5):
-        audio.play_sound(Audio.SCREAM)
+        audio.play_sound(Audio.STATICNOISES)
     print("left track: {}, right track: {}".format(mapped_values[0], mapped_values[1]))
 
     TrackMotor.move(mapped_values[0], mapped_values[1])

@@ -15,39 +15,31 @@ import time
                 
 class Controller:
     if __name__ == '__main__':
-
-        # play startup sound
-        audio = Audio()
-        audio.play_sound(Audio.FREEBIRD)
-        # wait for the sound to finish(2 seconds)
-        time.sleep(20)
-
-        
-    #    # Setup
-    #    print("Hi everyone, I'm Walter!")
-    #    
-    #    queue = MessageQueue()
-    #    image_process = Process(target=detection_process, args=(queue,))
-    #    bluetooth_process = Process(target=bluetooth_client_process, args=(queue, ))
-    #    
-    #    image_process.start()  # start the image detection program
-    #    print("started image detection process at {}".format(image_process.pid))
-    #    
-    #    bluetooth_process.start()
-    #    print("started bluetooth process at {}".format(bluetooth_process.pid))
-    #    
-    #    # Robot logic
-    #    try: 
-    #        main_process(queue)
-    #    except Exception as e:
-    #        print("FATAL ERROR!")
-    #        print(traceback.format_exc())
-    #    
-    #    
-    #    print("killing proccesses")
-    #    queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)
-    #    queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.OPENCV)
-    #    
-    #    bluetooth_process.join()
-    #    image_process.join()
-    #    print("All done!")
+       # Setup
+       print("Hi everyone, I'm Walter!")
+       
+       queue = MessageQueue()
+       image_process = Process(target=detection_process, args=(queue,))
+       bluetooth_process = Process(target=bluetooth_client_process, args=(queue, ))
+       
+       image_process.start()  # start the image detection program
+       print("started image detection process at {}".format(image_process.pid))
+       
+       bluetooth_process.start()
+       print("started bluetooth process at {}".format(bluetooth_process.pid))
+       
+       # Robot logic
+       try: 
+           main_process(queue)
+       except Exception as e:
+           print("FATAL ERROR!")
+           print(traceback.format_exc())
+       
+       
+       print("killing proccesses")
+       queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH)
+       queue.send_kill_message(QueueAgent.CONTROLL, QueueAgent.OPENCV)
+       
+       bluetooth_process.join()
+       image_process.join()
+       print("All done!")

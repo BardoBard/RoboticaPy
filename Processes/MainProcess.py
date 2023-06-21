@@ -6,12 +6,14 @@ from Information.ImageData import ImageData
 from Information.ControllerData import ControllerData
 from Components.Internal.Motors.TrackMotor import TrackMotor
 from Components.Math import Math
+from Components.Internal.Audio import Audio
 
 import numpy
 
 max_speed = 50  # TODO: move to class
 offset = 50
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
+audio = Audio() 
 
 
 def move_all_servos(position):
@@ -38,7 +40,7 @@ def main_process(queue: MessageQueue):
     latest_image_detection = ImageData(None, None, None, None, None, None, None, None, None, False, None)
     latest_controller_data = None
     mode = manual_control
-
+    audio.play_sound(audio.BWUA)
     while True:
 
         # get and process messages to this process

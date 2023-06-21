@@ -60,6 +60,8 @@ class Audio:
         :return: void
         """
         pygame.mixer.music.load(sound)
+        
+    
 
 if __name__ == '__main__':
     audio = Audio()

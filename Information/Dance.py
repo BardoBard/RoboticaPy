@@ -11,13 +11,13 @@ class Dance:
         pass
 
     def do_dance(self):
-        ax12.goto(7, position=612, speed=20, degrees=False)
-        ax12.goto(3, position=412, speed=20, degrees=False)
-
-        time.sleep(10)
-
-        ax12.goto(7, position=412, speed=20, degrees=False)
         ax12.goto(3, position=612, speed=20, degrees=False)
+        ax12.goto(7, position=412, speed=20, degrees=False)
+
+        time.sleep(2)
+
+        ax12.goto(3, position=412, speed=20, degrees=False)
+        ax12.goto(7, position=612, speed=20, degrees=False)
 
         # wait
         # turnaround

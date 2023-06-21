@@ -12,7 +12,7 @@ class Audio:
 
     # Constructor
     def __init__(self):
-        pygame.mixer.init()
+        pygame.mixer.init(buffer=1024)
         print(os.getcwd())
         print(__file__)
 

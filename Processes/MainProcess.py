@@ -105,7 +105,7 @@ def control_tracks(controller_data: ControllerData):
     # rotate
     mapped_values = Math.rotate_tuple_over_origin((joystick1[0], joystick1[1]), 45)
     if (numpy.abs(mapped_values[0]) > 0.5
-        or numpy.abs[1] > 0.5):
+        or numpy.abs(mapped_values[1]) > 0.5):
         Audio.play_sound(Audio.SCREAM)
     print("left track: {}, right track: {}".format(mapped_values[0], mapped_values[1]))
 

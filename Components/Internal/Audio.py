@@ -1,4 +1,5 @@
 import pygame
+import os
 
 class Audio:
 
@@ -12,6 +13,7 @@ class Audio:
     # Constructor
     def __init__(self):
         pygame.mixer.init()
+        print(os.getcwd())
 
     # Play sound
     def play_sound(self):

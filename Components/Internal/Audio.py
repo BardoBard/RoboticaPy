@@ -1,7 +1,7 @@
 import pygame
 
-# enum for the different sounds (6 sounds)
-class Sound:
+class Audio:
+
     BEEP =  "Components/Internal/sounds/beep.wav"
     AHHOOH = "Components/Internal/sounds/AhhOoh.mp3"
     BWUA = "Components/Internal/sounds/bwua.mp3"
@@ -9,7 +9,6 @@ class Sound:
     SCREAM = "Components/Internal/sounds/Scream.mp3"
     STATICNOISES = "Components/Internal/sounds/static_robot_noises.mp3"
 
-class Audio:
     # Constructor
     def __init__(self):
         pygame.mixer.init()

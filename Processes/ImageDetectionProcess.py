@@ -4,17 +4,26 @@ from Wrapper.MessageQueue import MessageQueue
 from Information.QueueAgent import QueueAgent
 from Information.QueueKillProcess import QueueKillProcess
 
+import traceback
+
 def detection_process(queue: MessageQueue):
     print("starting up the opencv process")
     opencv_ = OpenCv()
     run = True
     while run:
         #TODO spelling error on next line
-        image_data = opencv_.get_image_data_from_feed()
+        try:
+            image_data = opencv_.get_image_data_from_feed()
+        except:
+            print(traceback.format_exc())
+            return
+        
+        
         if image_data.found:
-            image_data = scan_data_matrix(image_data)
-            queue.send_message(QueueAgent.OPENCV, QueueAgent.CONTROLL, image_data)
-            
+                image_data = scan_data_matrix(image_data)
+                queue.send_message(QueueAgent.OPENCV, QueueAgent.CONTROLL, image_data)
+
+        
         messages = queue.get_messages_for(QueueAgent.OPENCV)
         if messages is None:
             continue

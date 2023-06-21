@@ -16,6 +16,7 @@ def detection_process(queue: MessageQueue):
             image_data = opencv_.get_image_data_from_feed()
         except:
             print(traceback.format_exc())
+            queue.exit_queue()
             return
         
         

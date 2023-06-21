@@ -28,8 +28,10 @@ class Audio:
         :string sound: location of sound file
         :return: void
         """
-        sound_obj = pygame.mixer.Sound(sound)
-        sound_obj.play()
+        playing = pygame.mixer.get_busy()
+        if not playing:
+            sound_obj = pygame.mixer.Sound(sound)
+            sound_obj.play()
 
     # Stop sound
     def stop_sound(self):

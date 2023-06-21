@@ -108,6 +108,8 @@ def control_tracks(controller_data: ControllerData):
         or numpy.abs(mapped_values[1]) > 0.5):
         audio.play_sound(Audio.STATICNOISES)
     print("left track: {}, right track: {}".format(mapped_values[0], mapped_values[1]))
+    
+    mapped_values = (numpy.clip(mapped_values[0], -1, 1), numpy.clip(mapped_values[1], -1, 1))
 
     TrackMotor.move(mapped_values[0], mapped_values[1])
 

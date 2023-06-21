@@ -137,6 +137,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     if joystick_right_b:  # TODO: this is ugly, move to ternary operator
         grabby_pos = 312
         grabby_speed = max_speed * 2
+        audio.play_sound(Audio.AHHOOH)
     if joystick_left_b:
         grabby_pos = 712
         grabby_speed = max_speed * 2

@@ -53,7 +53,6 @@ def main_process(queue: MessageQueue):
             data = message.get_object()
             if type(data) is ImageData:
                 latest_image_detection = data
-
                 if mode is automatic_control:
                     automatic_control(latest_image_detection)
             elif type(data) is ControllerData:
@@ -105,13 +104,16 @@ def control_tracks(controller_data: ControllerData):
 
     # rotate
     mapped_values = Math.rotate_tuple_over_origin((joystick1[0], joystick1[1]), 45)
+    if (numpy.abs(mapped_values[0]) > 0.5
+        or numpy.abs[1] > 0.5):
+        Audio.play_sound(Audio.SCREAM)
     print("left track: {}, right track: {}".format(mapped_values[0], mapped_values[1]))
 
     TrackMotor.move(mapped_values[0], mapped_values[1])
 
 
 def manual_control(controller_data: ControllerData):
-    # control_tracks(controller_data)
+    control_tracks(controller_data)
     manual_arms(controller_data)
 
 

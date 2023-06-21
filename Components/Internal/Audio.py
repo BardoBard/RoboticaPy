@@ -61,6 +61,8 @@ class Audio:
         """
         pygame.mixer.music.load(sound)
         
+    def __del__(self):
+        pygame.mixer.quit()
     
 
 if __name__ == '__main__':

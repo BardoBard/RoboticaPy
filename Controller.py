@@ -20,7 +20,7 @@ class Controller:
         audio = Audio()
         audio.play_sound(Audio.FREEBIRD)
         # wait for the sound to finish(2 seconds)
-        pygame.time.wait(2000)
+        time.sleep(20)
 
         
     #    # Setup

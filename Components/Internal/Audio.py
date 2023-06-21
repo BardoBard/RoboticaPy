@@ -5,7 +5,7 @@ class Audio:
     BEEP =  "Components/Internal/sounds/beep.wav"
     AHHOOH = "Components/Internal/sounds/AhhOoh.mp3"
     BWUA = "Components/Internal/sounds/bwua.mp3"
-    FREEBIRD = "Components/Internal/sounds/freebird.mp3"
+    FREEBIRD = "/Components/Internal/sounds/freebird.mp3"
     SCREAM = "Components/Internal/sounds/Scream.mp3"
     STATICNOISES = "Components/Internal/sounds/static_robot_noises.mp3"
 

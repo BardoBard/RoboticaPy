@@ -14,6 +14,7 @@ max_speed = 50  # TODO: move to class
 offset = 50
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
 audio = Audio() 
+audio.set_volume(0.1)
 
 
 def move_all_servos(position):

@@ -6,6 +6,7 @@ from Information.ImageData import ImageData
 from Information.ControllerData import ControllerData
 from Components.Internal.Motors.TrackMotor import TrackMotor
 from Components.Math import Math
+from Information.TelemetryData import TelemetryData
 
 import numpy
 
@@ -51,7 +52,10 @@ def main_process(queue: MessageQueue):
             data = message.get_object()
             if type(data) is ImageData:
                 latest_image_detection = data
-
+                image_data_string = "center: {}, matrix code:{}".format(latest_image_detection.center, latest_image_detection.matrix_code)
+                telementry_data = TelemetryData
+                telementry_data.set_image_data_code(image_data_string)
+                queue.send_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH, telementry_data)
                 if mode is automatic_control:
                     automatic_control(latest_image_detection)
             elif type(data) is ControllerData:

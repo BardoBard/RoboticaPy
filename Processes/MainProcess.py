@@ -53,7 +53,7 @@ def main_process(queue: MessageQueue):
             if type(data) is ImageData:
                 latest_image_detection = data
                 image_data_string = "center: {}, matrix code:{}".format(latest_image_detection.center, latest_image_detection.matrix_code)
-                telementry_data = TelemetryData
+                telementry_data = TelemetryData()
                 telementry_data.set_image_data_code(image_data_string)
                 queue.send_message(QueueAgent.CONTROLL, QueueAgent.BLUETOOTH, telementry_data)
                 if mode is automatic_control:

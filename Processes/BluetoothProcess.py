@@ -35,6 +35,8 @@ def bluetooth_client_process(queue: MessageQueue):
             
             #TODO figure out why this doesn't work right with a match statement
             if type(data) is TelemetryData:
+                info = data.to_json()
+                print(info)
                 app_socket.send(data.to_json())
             elif type(data) is QueueKillProcess:
                 app_socket.close()

@@ -109,8 +109,12 @@ def control_tracks(controller_data: ControllerData):
 
 
 def manual_control(controller_data: ControllerData):
-    # control_tracks(controller_data)
-    manual_arms(controller_data)
+    try:
+        control_tracks(controller_data)
+        manual_arms(controller_data)
+    except:
+        print("something went wrong with controlling")
+
 
 
 def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor class, but for now this WORKS

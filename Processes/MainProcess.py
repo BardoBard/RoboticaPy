@@ -6,12 +6,14 @@ from Information.ImageData import ImageData
 from Information.ControllerData import ControllerData
 from Components.Internal.Motors.TrackMotor import TrackMotor
 from Components.Math import Math
+from Components.Internal.Audio import Audio
 
 import numpy
 
 max_speed = 50  # TODO: move to class
 offset = 50
 ax12 = Connection(port="/dev/ttyS0", baudrate=1_000_000)
+audio = Audio() 
 
 
 def move_all_servos(position):
@@ -38,7 +40,7 @@ def main_process(queue: MessageQueue):
     latest_image_detection = ImageData(None, None, None, None, None, None, None, None, None, False, None)
     latest_controller_data = None
     mode = manual_control
-
+    audio.play_sound(audio.BWUA)
     while True:
 
         # get and process messages to this process
@@ -51,7 +53,6 @@ def main_process(queue: MessageQueue):
             data = message.get_object()
             if type(data) is ImageData:
                 latest_image_detection = data
-
                 if mode is automatic_control:
                     automatic_control(latest_image_detection)
             elif type(data) is ControllerData:
@@ -103,13 +104,18 @@ def control_tracks(controller_data: ControllerData):
 
     # rotate
     mapped_values = Math.rotate_tuple_over_origin((joystick1[0], joystick1[1]), 45)
+    if (numpy.abs(mapped_values[0]) > 0.5
+        or numpy.abs(mapped_values[1]) > 0.5):
+        audio.play_sound(Audio.STATICNOISES)
     print("left track: {}, right track: {}".format(mapped_values[0], mapped_values[1]))
+    
+    mapped_values = (numpy.clip(mapped_values[0], -1, 1), numpy.clip(mapped_values[1], -1, 1))
 
     TrackMotor.move(mapped_values[0], mapped_values[1])
 
 
 def manual_control(controller_data: ControllerData):
-    # control_tracks(controller_data)
+    control_tracks(controller_data)
     manual_arms(controller_data)
 
 
@@ -133,6 +139,7 @@ def manual_arms(controller_data: ControllerData):  # TODO: change it to ArmMotor
     if joystick_right_b:  # TODO: this is ugly, move to ternary operator
         grabby_pos = 312
         grabby_speed = max_speed * 2
+        audio.play_sound(Audio.AHHOOH)
     if joystick_left_b:
         grabby_pos = 712
         grabby_speed = max_speed * 2

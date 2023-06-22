@@ -1,10 +1,20 @@
 import pygame
+import os
 
 class Audio:
+
+    BEEP =  "./Components/sounds/beep.wav"
+    AHHOOH = "./Components/sounds/AhhOoh.mp3"
+    BWUA = "./Components/sounds/bwua.mp3"
+    FREEBIRD = "./Components/sounds/freebird.mp3"
+    SCREAM = "./Components/sounds/Scream.mp3"
+    STATICNOISES = "./Components/sounds/static_robot_noises.mp3"
+
     # Constructor
     def __init__(self):
-        pygame.mixer.init()
-        pygame.mixer.music.load("beep.wav")
+        pygame.mixer.init(buffer=1024)
+        print(os.getcwd())
+        print(__file__)
 
     # Play sound
     def play_sound(self):
@@ -18,8 +28,10 @@ class Audio:
         :string sound: location of sound file
         :return: void
         """
-        sound_obj = pygame.mixer.Sound(sound)
-        sound_obj.play()
+        playing = pygame.mixer.get_busy()
+        if not playing:
+            sound_obj = pygame.mixer.Sound(sound)
+            sound_obj.play()
 
     # Stop sound
     def stop_sound(self):
@@ -50,6 +62,10 @@ class Audio:
         :return: void
         """
         pygame.mixer.music.load(sound)
+        
+    def __del__(self):
+        pygame.mixer.quit()
+    
 
 if __name__ == '__main__':
     audio = Audio()
